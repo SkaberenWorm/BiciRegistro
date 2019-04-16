@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Marca;
 use App\Vehiculo;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class VehiculoController extends Controller
      */
     public function index()
     {
+        $marcas = Marca::get();
         $vehiculos = Vehiculo::paginate(10);
-        return view('vehiculos.index', compact('vehiculos'));
+        return view('vehiculos.index', compact('vehiculos','marca'));
     }
 
     /**
@@ -25,7 +27,7 @@ class VehiculoController extends Controller
      */
     public function create()
     {
-        //
+        return view('vehiculos.create');
     }
 
     /**
@@ -36,7 +38,9 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehiculo = Vehiculo::create($request->all());
+
+        return back()->with('info','Bicicleta guardada correctamente');
     }
 
     /**
@@ -47,7 +51,8 @@ class VehiculoController extends Controller
      */
     public function show(Vehiculo $vehiculo)
     {
-        //
+        //dd($vehiculo->id);
+        return view('vehiculos.show', compact('vehiculo'));
     }
 
     /**
@@ -58,7 +63,9 @@ class VehiculoController extends Controller
      */
     public function edit(Vehiculo $vehiculo)
     {
-        //
+        $marca = Marca::find($vehiculo->marca_id)->first();
+        //dd($marca->description);
+        return view('vehiculos.edit', compact('vehiculo','marca'));
     }
 
     /**
@@ -70,7 +77,10 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, Vehiculo $vehiculo)
     {
-        //
+        $vehiculo->update($request->all());
+
+        return redirect()->route('vehiculos.edit', $vehiculo->id)
+        ->with('info','Bicicleta actualizada correctamente');
     }
 
     /**
@@ -81,6 +91,7 @@ class VehiculoController extends Controller
      */
     public function destroy(Vehiculo $vehiculo)
     {
-        //
+        $vehiculo->delete();
+        return back()->with('info','Eliminado correctamente');
     }
 }

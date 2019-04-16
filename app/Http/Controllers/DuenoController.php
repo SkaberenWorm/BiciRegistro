@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Dueno;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class DuenoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create', compact('users'));
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Dueno $dueno)
     {
         //
     }
@@ -53,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dueno $dueno)
     {
         //
     }
@@ -65,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Dueno $dueno)
     {
         //
     }
@@ -76,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dueno $dueno)
     {
         //
     }

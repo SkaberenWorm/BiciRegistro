@@ -5,10 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Bicicletas
+            
+                <div class="card-header">
                     @can('vehiculos.create')
-                    <a class="btn btn-primary float-right btn-sm" href="route{'vehiulos.create'}" >Crear</a>
+                    <a class="btn btn-primary float-right btn-md" href="{{route('vehiculos.create')}}" >Crear</a>
                     @endcan
+                   
+                    <h3 style="margin-top: 5px; margin-bottom: 0px">Bicicletas</h3>   
                 </div>
 
                 <div class="card-body">
@@ -18,20 +21,21 @@
                         </div>
                     @endif
 
-                    <table class="table table-striped">
+                    <table class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col" style="width: 10px;">Imagen</th>
                             <th scope="col">Código</th>
+                            <th scope="col">Marca</th>
                             <th scope="col">Modelo</th>
                             <th scope="col">Color</th>
                             @can('vehiculos.show')
                             <th style="width:10px"></th>
                             @endcan
-                            @can('vehiculos.show')
+                            @can('vehiculos.edit')
                             <th style="width:10px"></th>
                             @endcan
-                            @can('vehiculos.show')
+                            @can('vehiculos.destroy')
                             <th style="width:10px"></th>
                             @endcan
                             </tr>
@@ -39,28 +43,29 @@
                         <tbody>
                             @foreach($vehiculos as $vehiculo)
                             <tr>
-                            <th scope="row">{{$vehiculo->id}}</th>
+                            <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
+                                <img src="{{$vehiculo->image}}" class="img-fluid rounded " style="max-height: 35px" alt="">
+                            </td>
                             <td>{{$vehiculo->codigo}}</td>
+                            <td>[MARCA]</td>
                             <td>{{$vehiculo->modelo}}</td>
                             <td>{{$vehiculo->color}}</td>
                             @can('vehiculos.show')
-                            <td style="padding: .3rem">
-                                <a class="btn btn-secondary btn-sm" href="{{route('vehiculos.show', $vehiculo->id)}}" >Ver</a>
+                            <td style="padding: .3rem; vertical-align: inherit;">
+                                <a class="btn btn-light btn-sm" href="{{route('vehiculos.show', $vehiculo->id)}}" >Ver</a>
                             </td>
                             @endcan
                             @can('vehiculos.edit')
-                            <td style="padding: .3rem">
-                                <a class="btn btn-secondary btn-sm" href="{{route('vehiculos.edit', $vehiculo->id)}}" >Editar</a>
+                            <td style="padding: .3rem; vertical-align: inherit;">
+                                <a class="btn btn-light btn-sm" href="{{route('vehiculos.edit', $vehiculo->id)}}" >Editar</a>
                             </td>
                             @endcan
                             @can('vehiculos.destroy')
-                            {{ Form::open([ 'method'  => 'delete', 'route' => [ 'vehiculos.destroy', $vehiculo->id ]]) }}
-                            <td style="padding: .3rem">
-                                <button class="btn btn-danger btn-sm" >
-                                    Eliminar
-                                </button>
-                            </td>
+                            <td style="padding: .3rem; vertical-align: inherit;">
+                            {{ Form::open([ 'method'  => 'delete', 'route' => [ 'vehiculos.destroy', $vehiculo]]) }}
+                                {{ Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger']) }}
                             {{ Form::close() }}
+                            </td>
                             @endcan
                             </tr>
                             @endforeach                           
