@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\RoleUser;
+use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,8 +16,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        $roles = User::select('roles.name as role_name','users.id as user_id')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->get();
         $users = User::paginate(10);
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users','roles'));
     }
 
     /**
@@ -38,7 +44,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return back()->with('info','Guardia guardado correctamente');
+        return back()->with('info','Rol guardado correctamente');
     }
 
     /**
@@ -49,7 +55,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $roles = User::select('roles.name')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where('role_user.user_id', '=', $user->id)
+            ->get();
+        return view('users.show', compact('user','roles'));
     }
 
     /**
@@ -60,7 +71,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::get();
+        $roleUsers = RoleUser::get();
+        return view('users.edit', compact('user','roles','roleUsers'));
     }
 
     /**
@@ -72,8 +85,23 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id
+            ]);
+            
+        // Update User
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
 
+        if(!empty($request->input('password')))
+        {
+            $user->password = bcrypt($request->input('password'));
+        }
+
+        $user->roles()->sync($request->get('roles'));
+
+        $user->update();
         return redirect()->route('users.edit', $user->id)
         ->with('info','Guardia actualizado correctamente');
     }
