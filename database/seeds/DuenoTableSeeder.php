@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class VehiculosTableSeeder extends Seeder
+class DuenoTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class VehiculosTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Vehiculo::class, 100)->create();
+        factory(App\Dueno::class, 30)->create();
     }
 }

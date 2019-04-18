@@ -7,7 +7,8 @@ $factory->define(App\Vehiculo::class, function (Faker $faker) {
         'codigo'    => $faker->isbn10,
         'modelo'    => $faker->domainWord,
         'color'     => $faker->colorName,
-        'marca_id'     => $faker->numberBetween($min = 1, $max = 30),
+        'marca_id'  => $faker->numberBetween($min = 1, $max = 30),
+        'dueno_id'  => $faker->numberBetween(1,6),
         'image'     => $faker->imageUrl($width = 640, $height = 480),
     ];
 });

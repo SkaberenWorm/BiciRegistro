@@ -15,6 +15,10 @@
                         <div class="col-md-8">
                             {{ Form::model($vehiculo, ['method'  => 'put', 'route' => [ 'vehiculos.update', $vehiculo, 'file'=>true]]) }}
                                 @include('vehiculos.partials.form')
+                                <div class="form-group float-right">
+                                    {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+                                </div>
+                                
                             {{ Form::close() }}
                         </div>
                     </div>

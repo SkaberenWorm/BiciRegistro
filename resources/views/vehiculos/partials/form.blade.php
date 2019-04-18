@@ -33,6 +33,4 @@
                             </div>
                         </div>
 
-                        <div class="form-group float-right">
-                            {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
-                        </div>
+                        

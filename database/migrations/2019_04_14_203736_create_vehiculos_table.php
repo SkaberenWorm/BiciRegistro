@@ -18,8 +18,10 @@ class CreateVehiculosTable extends Migration
             $table->string('codigo')->unique();;
             $table->string('modelo')->nullable();
             $table->string('color');
-            $table->integer('marca_id')->nullable()->unsigned()->index();
+            $table->integer('marca_id')->unsigned()->index();
             $table->foreign('marca_id')->references('id')->on('marcas');
+            $table->integer('dueno_id')->unsigned()->index();
+            $table->foreign('dueno_id')->references('id')->on('duenos');
             $table->string('image')->nullable();
             $table->timestamps();
         });

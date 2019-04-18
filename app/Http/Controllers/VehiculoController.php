@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Marca;
+use App\Dueno;
 use App\Vehiculo;
+use App\TipoDueno;
 use Illuminate\Http\Request;
 
 class VehiculoController extends Controller
@@ -16,8 +18,9 @@ class VehiculoController extends Controller
     public function index()
     {
         $marcas = Marca::get();
+        $duenos = Dueno::get();
         $vehiculos = Vehiculo::paginate(10);
-        return view('vehiculos.index', compact('vehiculos','marca'));
+        return view('vehiculos.index', compact('vehiculos','marcas','duenos'));
     }
 
     /**
@@ -51,8 +54,10 @@ class VehiculoController extends Controller
      */
     public function show(Vehiculo $vehiculo)
     {
-        //dd($vehiculo->id);
-        return view('vehiculos.show', compact('vehiculo'));
+        $marca = Marca::find($vehiculo->marca_id)->first();
+        $dueno = Dueno::find($vehiculo->dueno_id)->first();
+        $tipoDueno = TipoDueno::find($dueno->tipoDueno_id)->first();
+        return view('vehiculos.show', compact('vehiculo', 'marca','dueno','tipoDueno'));
     }
 
     /**
