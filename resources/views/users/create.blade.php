@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+            
             <div class="card" >
                 <div class="card-header"><h3 style="margin-bottom: 0px">Nuevo usuario </h3> </div>
                 

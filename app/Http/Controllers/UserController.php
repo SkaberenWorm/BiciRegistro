@@ -43,7 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            ]);
+            
+        
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
         // Update roles
         $user->roles()->sync($request->get('roles'));
         return back()->with('info','Usuario guardado correctamente');
