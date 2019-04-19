@@ -11,10 +11,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ asset('images/user.png') }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
+                            <img src="{{ Storage::url($user->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
                         </div>
                         <div class="col-md-8">
-                            {{ Form::model($user, ['method'  => 'put', 'route' => [ 'users.update', $user, 'file'=>true]]) }}
+                            {{ Form::model($user, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'users.update', $user, 'file'=>true]]) }}
                                 @include('users.partials.form')
                                 <div class="form-group float-right">
                                     <a href="{{route('users.index')}}" class="btn btn-light mr-2">Volver</a>

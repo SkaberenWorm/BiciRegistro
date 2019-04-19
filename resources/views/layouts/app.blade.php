@@ -34,23 +34,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto nav-tabs">
                         
                        
 
                         @can('vehiculos.index')
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('vehiculos.index') }}">Bicicletas</a>
+                            <a class="nav-link {{ (request()->path()=='vehiculos')? 'active': ''}}" href="{{ route('vehiculos.index') }}">Bicicletas</a>
                         </li>
                         @endcan
                         @can('users.index')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+                            <a class="nav-link {{ (request()->path()=='users')? 'active': ''}}" href="{{ route('users.index') }}">Usuarios</a>
                         </li>
                         @endcan
                         @can('roles.index')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                            <a class="nav-link {{ (request()->path()=='roles')? 'active': ''}}" href="{{ route('roles.index') }}">Roles</a>
                         </li>
                         @endcan
                     </ul>

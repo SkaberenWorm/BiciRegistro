@@ -97,13 +97,20 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'image' => 'image'
             ]);
             
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        if($request->hasFile('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $user->image = $request->file('image')->storeAs('public/users',$user->name.'.'.$extension);
+        }
+        
 
         if(!empty($request->input('password')))
         {

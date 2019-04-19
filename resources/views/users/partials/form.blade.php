@@ -24,6 +24,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-sm-2">
+                                {{ Form::label('image','Imagen') }}
+                            </div>
+                            <div class="col-sm-10">
+                                {{ Form::file('image', null, null) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                                     <div class="col-sm-2">
                                         {{ Form::label('role','Roles') }}
                                     </div>
