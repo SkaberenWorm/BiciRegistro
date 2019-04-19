@@ -38,7 +38,8 @@
                         </div>
                         
                     </div>
-                    <div class="form-group float-right">
+                    <div class="form-group float-right mt-2">
+                        <a href="{{route('vehiculos.index')}}" class="btn btn-light mr-2">Volver</a>
                         {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                     </div>
                 </div>

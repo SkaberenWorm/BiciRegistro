@@ -6,7 +6,8 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h3 style="margin-bottom: 0px">Detalle bicicleta: <span style="font-size: 1.3rem">{{$vehiculo->codigo}}</span> </h3> 
+                    <a href="{{route('vehiculos.index')}}" class="btn btn-light float-right">Volver</a>
+                    <h3 style="margin-bottom: 0px">Detalle bicicleta </h3> 
                 </div>
                 <div class="">
                     <!-- BICICLETA -->
