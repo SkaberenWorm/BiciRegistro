@@ -29,7 +29,7 @@ class VehiculoController extends Controller
      */
     public function create()
     {
-        $marcas = Marca::get();
+        $marcas = Marca::orderBy('description')->get();
         return view('vehiculos.create', compact('marcas'));
     }
 
@@ -68,7 +68,8 @@ class VehiculoController extends Controller
      */
     public function edit(Vehiculo $vehiculo)
     {
-        return view('vehiculos.edit', compact('vehiculo'));
+        $marcas = Marca::orderBy('description')->get();
+        return view('vehiculos.edit', compact('vehiculo','marcas'));
     }
 
     /**

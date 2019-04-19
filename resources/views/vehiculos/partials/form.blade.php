@@ -12,7 +12,7 @@
                                 {{ Form::label('marca_id','Marca') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::select('marca_id', $vehiculo->marca->pluck('description','id'), null, ['class' => 'form-control']) }}
+                            {{ Form::select('marca_id', $marcas->pluck('description','id'), null, ['class' => 'form-control']) }}
                             
                             </div>
                         </div>
