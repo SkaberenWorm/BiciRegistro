@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create', compact('users'));
+        $roles = Role::get();
+        return view('users.create', compact('users','roles'));
     }
 
     /**
@@ -43,7 +44,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create($request->all());
-
+        // Update roles
+        $user->roles()->sync($request->get('roles'));
         return back()->with('info','Usuario guardado correctamente');
     }
 
@@ -72,8 +74,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::get();
-        $roleUsers = RoleUser::get();
-        return view('users.edit', compact('user','roles','roleUsers'));
+        return view('users.edit', compact('user','roles'));
     }
 
     /**
@@ -90,7 +91,6 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id
             ]);
             
-        // Update User
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
@@ -98,10 +98,12 @@ class UserController extends Controller
         {
             $user->password = bcrypt($request->input('password'));
         }
-
+        // Update user
+        $user->update();
+        // Update roles
         $user->roles()->sync($request->get('roles'));
 
-        $user->update();
+        
         return redirect()->route('users.edit', $user->id)
         ->with('info','Usuario actualizado correctamente');
     }

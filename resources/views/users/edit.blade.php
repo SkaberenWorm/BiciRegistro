@@ -24,41 +24,9 @@
                         <div class="col-md-8">
                             {{ Form::model($user, ['method'  => 'put', 'route' => [ 'users.update', $user, 'file'=>true]]) }}
                                 @include('users.partials.form')
-                                <div class="form-group row">
-                                    <div class="col-sm-2">
-                                        {{ Form::label('role','Roles') }}
-                                    </div>
-                                    <div class="col-sm-10">
-                                       <ul class="list-unstyled">
-                                       
-                                       @foreach($roles as $role)
-                                            @php($cantidadRoles = 0)
-                                            @foreach($roleUsers as $roleUser)
-                                                @if($roleUser->role_id === $role->id && $roleUser->user_id === $user->id)
-                                                    @php ($cantidadRoles++)
-                                                @endif
-                                            @endforeach
-                                            <li>
-                                                <label>
-                                            @if($cantidadRoles<=0)
-                                                {{ Form::checkbox('roles[]', $role->id, null ) }}
-                                            @else
-                                                {{ Form::checkbox('roles[]', $role->id, $role) }}
-                                            @endif
-                                                    {{ $role->name}} <em> ({{$role->description? : 'sin descripción'}}) </em>
-                                                </label>
-                                            </li>
-                                        @endforeach
-
-                                       
-                                       </ul>
-                                    </div>
-                                </div>
-                                
-
                                 <div class="form-group float-right">
                                     <a href="{{route('users.index')}}" class="btn btn-light mr-2">Volver</a>
-                                    {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+                                    {{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
                                 </div>
                                 
                             {{ Form::close() }}
