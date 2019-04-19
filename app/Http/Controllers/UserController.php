@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return back()->with('info','Rol guardado correctamente');
+        return back()->with('info','Usuario guardado correctamente');
     }
 
     /**
@@ -103,7 +103,7 @@ class UserController extends Controller
 
         $user->update();
         return redirect()->route('users.edit', $user->id)
-        ->with('info','Guardia actualizado correctamente');
+        ->with('info','Usuario actualizado correctamente');
     }
 
     /**

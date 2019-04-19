@@ -24,13 +24,13 @@
                     <table class="table table-hover table-responsive-md">
                         <thead>
                             <tr>
-                            <th scope="col">N°</th>
-                            <th scope="col" style="width: 10px;">Imagen</th>
-                            <th scope="col">Código</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Color</th>
-                            <th scope="col">Dueño</th>
+                            <th>N°</th>
+                            <th style="width: 10px;">Imagen</th>
+                            <th>Código</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Color</th>
+                            <th>Dueño</th>
                             @can('vehiculos.show')
                             <th style="width:10px"></th>
                             @endcan

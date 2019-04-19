@@ -24,10 +24,10 @@
                     <table class="table table-hover table-responsive-md">
                         <thead>
                             <tr>
-                            <th scope="col">N°</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Rol</th>
+                            <th >N°</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
                             @can('users.show')
                             <th style="width:10px"></th>
                             @endcan
