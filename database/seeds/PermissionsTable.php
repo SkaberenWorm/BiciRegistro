@@ -85,7 +85,7 @@ class PermissionsTable extends Seeder
         Permission::create ([
             'name'          => 'Eliminar vehiculos',
             'slug'          => 'vehiculos.destroy',
-            'description'   => 'Elimina cualquier rol',
+            'description'   => 'Elimina cualquier vehiculo',
         ]);
         Permission::create ([
             'name'          => 'Crear vehiculo',
