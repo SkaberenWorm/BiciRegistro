@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$marca->description}} {{$vehiculo->modelo}}</h5>
+                                    <h5 class="card-title">{{$vehiculo->marca->description}} {{$vehiculo->modelo}}</h5>
                                     <p class="card-text">
                                         Código: {{$vehiculo->codigo}} <br> 
                                         Color:  {{$vehiculo->color}} <br>
@@ -32,15 +32,15 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ Storage::url($dueno->image) }}" class="card-img " alt="">
+                                <img src="{{ Storage::url($vehiculo->dueno->image) }}" class="card-img " alt="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $dueno->nombre }}</h5>
+                                    <h5 class="card-title">{{$vehiculo->dueno->nombre}}</h5>
                                     <p class="card-text">
-                                        Área:  {{ $tipoDueno->description }}<br> 
-                                        Correo:  {{ $dueno->correo }}<br>
-                                        Celular: {{ $dueno->celular }} <br>
+                                        Área:  {{$tipoDueno->description}}<br> 
+                                        Correo:  {{ $vehiculo->dueno->correo }}<br>
+                                        Celular: {{ $vehiculo->dueno->celular }} <br>
                                     </p>
                                 </div>
                             </div>

@@ -18,10 +18,8 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $marcas = Marca::get();
-        $duenos = Dueno::get();
         $vehiculos = Vehiculo::paginate(10);
-        return view('vehiculos.index', compact('vehiculos','marcas','duenos'));
+        return view('vehiculos.index', compact('vehiculos'));
     }
 
     /**
@@ -31,7 +29,8 @@ class VehiculoController extends Controller
      */
     public function create()
     {
-        return view('vehiculos.create');
+        $marcas = Marca::get();
+        return view('vehiculos.create', compact('marcas'));
     }
 
     /**
@@ -42,7 +41,7 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //$request->file('imagen')->store('public');
+        
         $vehiculo = Vehiculo::create($request->all());
 
         
@@ -57,10 +56,8 @@ class VehiculoController extends Controller
      */
     public function show(Vehiculo $vehiculo)
     {
-        $marca = Marca::find($vehiculo->marca_id)->first();
-        $dueno = Dueno::find($vehiculo->dueno_id)->first();
-        $tipoDueno = TipoDueno::find($dueno->tipoDueno_id)->first();
-        return view('vehiculos.show', compact('vehiculo', 'marca','dueno','tipoDueno'));
+        $tipoDueno = TipoDueno::find($vehiculo->dueno->tipoDueno_id)->first();
+        return view('vehiculos.show', compact('vehiculo','tipoDueno'));
     }
 
     /**

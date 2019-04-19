@@ -6,6 +6,16 @@
                             {{ Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                {{ Form::label('marca_id','Marca') }}
+                            </div>
+                            <div class="col-sm-10">
+                                {{ Form::text('marca_id', null, ['class' => 'form-control']) }}
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('modelo','Modelo') }}
@@ -23,6 +33,7 @@
                                 {{ Form::text('color', null, ['class' => 'form-control']) }}
                             </div>
                         </div>
+
 
                         <div class="form-group row">
                             <div class="col-sm-2">

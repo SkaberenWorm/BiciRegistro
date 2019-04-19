@@ -51,20 +51,12 @@
                                 <td>{{$vehiculo->codigo}}</td>
                                 </td>
                                 <td>
-                                @foreach($marcas as $marca)
-                                @if($marca->id === $vehiculo->marca_id)
-                                        {{$marca->description}}
-                                    @endif()
-                                @endforeach
+                                {{ $vehiculo->marca->description }}
                                 </td>
                                 <td>{{$vehiculo->modelo}}</td>
                                 <td>{{$vehiculo->color}}</td>
                                 <td>
-                                @foreach($duenos as $dueno)
-                                @if($dueno->id === $vehiculo->dueno_id)
-                                        {{$dueno->nombre}}
-                                    @endif()
-                                @endforeach
+                                {{ $vehiculo->dueno->nombre }}
                                 </td>
                                 @can('vehiculos.show')
                                 <td style="padding: .3rem; vertical-align: inherit;">
