@@ -21,7 +21,7 @@ class CreateDuenosTable extends Migration
             $table->integer('celular')->nullable();   
             $table->integer('tipoDueno_id')->unsigned()->index(); 
             $table->foreign('tipoDueno_id')->references('id')->on('tipo_duenos');  
-            $table->string('image')->nullable();        
+            $table->string('image')->nullable()->default('duenos/default_duenos.png');        
             $table->timestamps();
         });
     }

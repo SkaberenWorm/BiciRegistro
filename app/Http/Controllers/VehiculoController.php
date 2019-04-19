@@ -7,6 +7,7 @@ use App\Dueno;
 use App\Vehiculo;
 use App\TipoDueno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facedes\Storage;
 
 class VehiculoController extends Controller
 {
@@ -41,9 +42,16 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
+        //$request->file('imagen')->store('public');
         $vehiculo = Vehiculo::create($request->all());
 
-        return back()->with('info','Bicicleta guardada correctamente');
+        // IMAGE
+        if($request()->file('imagen')){
+            $path=Storage::disk('public')->put('image', $request->file('imagen'));
+            $vehiculo->fill(['imagen'=>asset($path)])->save();
+        }
+
+     //   return back()->with('info','Bicicleta guardada correctamente');
     }
 
     /**

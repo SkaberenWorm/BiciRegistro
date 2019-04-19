@@ -14,7 +14,11 @@ class RoleUserTableSeeder extends Seeder
     {
         RoleUser::create ([
             'role_id'          => 1,
-            'user_id'          => 11,
+            'user_id'          => 4,
+        ]);
+        RoleUser::create ([
+            'role_id'          => 1,
+            'user_id'          => 5,
         ]);
     }
 }
