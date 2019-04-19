@@ -68,9 +68,7 @@ class VehiculoController extends Controller
      */
     public function edit(Vehiculo $vehiculo)
     {
-        $marca = Marca::find($vehiculo->marca_id)->first();
-        //dd($marca->description);
-        return view('vehiculos.edit', compact('vehiculo','marca'));
+        return view('vehiculos.edit', compact('vehiculo'));
     }
 
     /**
@@ -83,6 +81,7 @@ class VehiculoController extends Controller
     public function update(Request $request, Vehiculo $vehiculo)
     {
         $this->validate($request, [
+            'marca_id' => 'required',
             'color' => 'required|string|max:255',
             'image' => 'image'
             ]);
@@ -93,6 +92,7 @@ class VehiculoController extends Controller
         }
         
         $vehiculo->update([
+            'marca_id' => $request->input('marca_id'),
             'modelo' => $request->input('modelo'),
             'color' => $request->input('color'),
             'image' => $vehiculo->image,
