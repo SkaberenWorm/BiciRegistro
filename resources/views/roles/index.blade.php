@@ -45,7 +45,7 @@
                                 <td>{{$role->id}}</td>
                                 <td>{{$role->name}}</td>
                                 <td>{{$role->slug}}</td>
-                                <td>{{$role->description}}</td>
+                                <td>{{$role->description? : "Sin descripción"}}</td>
                                 @can('roles.show')
                                 <td style="padding: .3rem; vertical-align: inherit;">
                                     <a class="btn btn-light btn-sm" href="{{route('roles.show', $role->id)}}" >Ver</a>

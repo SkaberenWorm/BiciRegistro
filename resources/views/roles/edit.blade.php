@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        <div class="col-md-6">
+                        <div class="col-md-10">
                             {{ Form::model($role, ['method'  => 'put', 'route' => [ 'roles.update', $role, 'file'=>true]]) }}
                                 @include('roles.partials.form')
                                 <div class="form-group float-right">

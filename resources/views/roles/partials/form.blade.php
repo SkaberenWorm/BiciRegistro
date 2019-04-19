@@ -1,36 +1,52 @@
                         <div class="form-group row">
                             <div class="col-sm-2">
-                            {{ Form::label('codigo','Código') }}
+                            {{ Form::label('name','Nombre') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
+                            {{ Form::text('name', null , ['class' => 'form-control']) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                {{ Form::label('modelo','Modelo') }}
+                                {{ Form::label('slug','URL') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('modelo', null, ['class' => 'form-control']) }}
+                                {{ Form::text('slug', null, ['class' => 'form-control']) }}
                             </div>
                         </div>
                        
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                {{ Form::label('color','Color') }}
+                                {{ Form::label('description','Descripción') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('color', null, ['class' => 'form-control']) }}
+                                {{ Form::text('description', null, ['class' => 'form-control']) }} 
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                {{ Form::label('imagen','Imagen') }}
+                                {{ Form::label('special','Permiso especial') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::file('imagen', null, null) }}
+                                {{ Form::radio('special', 'all-access') }} Acceso total  <br>
+                                {{ Form::radio('special', 'no-access') }} Ningún acceso
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                {{ Form::label('permission','Permisos') }}
+                            </div>
+                            <div class="col-sm-10">
+                                <ul class="list-unstyled">
+                                    @foreach($permissions as $permission)
+                                        <li>
+                                            <label>
+                                            {{ Form::checkbox('permissions[]', $permission->id, null ) }}
+                                            {{ $permission->name}}
+                                            </label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                         

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -25,7 +26,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create', compact('roles'));
+        $permissions = Permission::get();
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -37,8 +39,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $role = Role::create($request->all());
-
-        return back()->with('info','Guardia guardado correctamente');
+        $role->permissions()->sync($request->get('permissions'));
+        return back()->with('info','Rol guardado correctamente');
     }
 
     /**
@@ -60,7 +62,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('roles.edit', compact('role'));
+        $permissions = Permission::get();
+        return view('roles.edit', compact('role','permissions'));
     }
 
     /**
@@ -72,10 +75,12 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        // Actualizamos el rol
         $role->update($request->all());
-
+        // Actualizamos los permisos
+        $role->permissions()->sync($request->get('permissions'));
         return redirect()->route('roles.edit', $role->id)
-        ->with('info','Guardia actualizado correctamente');
+        ->with('info','Rol actualizado correctamente');
     }
 
     /**
