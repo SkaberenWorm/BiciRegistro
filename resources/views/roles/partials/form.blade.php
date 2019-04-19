@@ -3,7 +3,12 @@
                             {{ Form::label('name','Nombre') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('name', null , ['class' => 'form-control']) }}
+                            {{ Form::text('name', null , ['class' => 'form-control','placeholder'=>'Administrador']) }}
+                            @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -11,7 +16,12 @@
                                 {{ Form::label('slug','URL') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('slug', null, ['class' => 'form-control']) }}
+                                {{ Form::text('slug', null, ['class' => 'form-control','placeholder'=>'admin_user']) }}
+                                @if ($errors->has('slug'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('slug') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                        
@@ -20,7 +30,12 @@
                                 {{ Form::label('description','Descripción') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('description', null, ['class' => 'form-control']) }} 
+                                {{ Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios']) }} 
+                                @if ($errors->has('description'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">

@@ -62,9 +62,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Ingresar</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Registrar</a>
-                            </li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -101,21 +98,7 @@
                 </div>
             </div>
             @endif
-            @if ($errors->any())
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-10 ">
-                            <div class="alert alert-danger pb-0">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            
 
             @yield('content')
         </main>

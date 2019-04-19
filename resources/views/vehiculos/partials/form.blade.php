@@ -4,6 +4,11 @@
                             </div>
                             <div class="col-sm-10">
                             {{ Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
+                                @if ($errors->has('codigo'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('codigo') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
@@ -13,7 +18,11 @@
                             </div>
                             <div class="col-sm-10">
                             {{ Form::select('marca_id', $marcas->pluck('description','id'), null, ['class' => 'form-control']) }}
-                            
+                                @if ($errors->has('marca_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('marca_id') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
 
@@ -23,6 +32,11 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::text('modelo', null, ['class' => 'form-control']) }}
+                                @if ($errors->has('modelo'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('modelo') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                        
@@ -32,7 +46,13 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::text('color', null, ['class' => 'form-control']) }}
+                                @if ($errors->has('color'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('color') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
+                                 
                         </div>
 
 
@@ -41,7 +61,12 @@
                                 {{ Form::label('image','Imagen') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::file('image', null, null) }}
+                                {{ Form::file('image', null, null) }} <br>
+                                @if ($errors->has('image'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('image') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
 

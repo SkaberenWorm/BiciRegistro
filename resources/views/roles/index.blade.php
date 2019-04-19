@@ -26,7 +26,7 @@
                             <tr>
                             <th>N°</th>
                             <th>Nombre</th>
-                            <th>Slug</th>
+                            <th>URL (slug)</th>
                             <th>Descipción</th>
                             @can('roles.show')
                             <th style="width:10px"></th>

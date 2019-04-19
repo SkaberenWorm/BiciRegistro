@@ -38,6 +38,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'slug' => 'required|unique:roles,slug',
+            ]);
+
         $role = Role::create($request->all());
         $role->permissions()->sync($request->get('permissions'));
         return back()->with('info','Rol guardado correctamente');
@@ -75,6 +80,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'slug' => 'required|unique:roles,slug,'.$role->id,
+            ]);
+
         // Actualizamos el rol
         $role->update($request->all());
         // Actualizamos los permisos

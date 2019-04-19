@@ -4,6 +4,11 @@
                             </div>
                             <div class="col-sm-10">
                             {{ Form::text('name', null , ['class' => 'form-control']) }}
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -12,6 +17,11 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::text('email', null, ['class' => 'form-control']) }}
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                        
@@ -21,6 +31,11 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::password('password', ['class' => 'form-control']) }}
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -28,7 +43,12 @@
                                 {{ Form::label('image','Imagen') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::file('image', null, null) }}
+                                {{ Form::file('image', null, null) }} <br>
+                                @if ($errors->has('image'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('image') }}</strong>
+                                    </span>
+                                 @endif
                             </div>
                         </div>
 
