@@ -18,6 +18,7 @@ class VehiculoController extends Controller
      */
     public function index()
     {
+        
         $vehiculos = Vehiculo::paginate(10);
         return view('vehiculos.index', compact('vehiculos'));
     }
@@ -41,11 +42,67 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $vehiculo = Vehiculo::create($request->all());
+        $this->validate($request, [
+            'codigo' => 'required|unique:vehiculos',
+            'marca_id' => 'required',
+            'color' => 'required|string|max:255',
+            'image' => 'required|image',
+            'run_dueno' => 'required',
+            'nombre_dueno' => 'required',
+            'image_dueno' => 'required|image',
+            'celular_dueno' => 'digits_between:0,8',
+            ]);
 
+        $vehiculo = new Vehiculo();
+        $dueno = new Dueno();
+
+        if($request->hasFile('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$vehiculo->codigo.'.'.$extension);
+        }
+        if($request->hasFile('image_dueno')){
+            $extension = $request->file('image_dueno')->getClientOriginalExtension();
+            $dueno->image = $request->file('image_dueno')->storeAs('public/duenos',$vehiculo->codigo.'.'.$extension);
+        }
+
+        // Verificamos la existencia del dueño
+        $duenos = Dueno::get();
+        $dueno_id = null;
+        $existeDueno = false;
+        foreach($duenos as $duenoActual){
+            if($duenoActual->rut === $request->input('run_dueno')){
+                $existeDueno = true;
+                $dueno_id = $duenoActual->id;
+                break;
+            }
+        }
         
-        return back()->with('info','Bicicleta guardada correctamente');
+        if(!$existeDueno){
+            // Creamos el dueño
+            $dueno = Dueno::create([
+                'rut' => $request->input('run_dueno'),
+                'nombre' => $request->input('nombre_dueno'),
+                'correo' => $request->input('correo_dueno'),
+                'celular' => $request->input('celular_dueno'),
+                'tipoDueno_id' => 4,
+                'image' => $dueno->image,
+            ]);
+        }
+        
+        $vehiculo = Vehiculo::create([
+            'codigo' => $request->input('codigo'),
+            'marca_id' => $request->input('marca_id'),
+            'modelo' => $request->input('modelo'),
+            'color' => $request->input('color'),
+            'dueno_id' => $dueno_id,
+            'image' => $vehiculo->image,
+        ]);
+
+        if(!$existeDueno){
+            return back()->with('info','Bicicleta guardada correctamente');
+        }else{
+            return back()->with('info','Bicicleta guardada correctamente <br> El Dueño ya estaba registrado');
+        }
     }
 
     /**

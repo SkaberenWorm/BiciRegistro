@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card" >
                 <div class="card-header"><h3 style="margin-bottom: 0px">Registrar bicicleta </h3> </div>
-                {{ Form::open(['route' => 'vehiculos.store', 'file'=>true]) }}
+                {{ Form::open(['enctype' => 'multipart/form-data','route' => 'vehiculos.store', 'file'=>true]) }}
                 <div class="card-body" style="padding: 0.5rem;">
                     <div class="row">
                         <div class="col-md-6">
