@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                        <img src="{{ asset('images/user.png') }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
+                        <img src="{{ Storage::url($user->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
                         </div>
                         <div class="col-md-9">
                             <div class="row">

@@ -26,10 +26,10 @@
 
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                {{ Form::label('imagen','Imagen') }}
+                                {{ Form::label('image','Imagen') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::file('imagen', null, null) }}
+                                {{ Form::file('image', null, null) }}
                             </div>
                         </div>
 

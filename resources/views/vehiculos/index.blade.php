@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{{$vehiculo->id}}</td>
                                 <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
-                                    <img src="{{$vehiculo->image}}" class="img-fluid rounded " style="max-height: 35px" alt="">
+                                    <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded " style="max-height: 35px" alt="">
                                 <td>{{$vehiculo->codigo}}</td>
                                 </td>
                                 <td>

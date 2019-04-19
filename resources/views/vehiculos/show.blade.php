@@ -14,7 +14,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{$vehiculo->image}}" class="card-img" alt="">
+                                <img src="{{ Storage::url($vehiculo->image) }}" class="card-img" alt="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -32,7 +32,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{$dueno->image}}" class="card-img" alt="">
+                                <img src="{{ Storage::url($dueno->image) }}" class="card-img " alt="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

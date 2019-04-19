@@ -45,13 +45,8 @@ class VehiculoController extends Controller
         //$request->file('imagen')->store('public');
         $vehiculo = Vehiculo::create($request->all());
 
-        // IMAGE
-        if($request()->file('imagen')){
-            $path=Storage::disk('public')->put('image', $request->file('imagen'));
-            $vehiculo->fill(['imagen'=>asset($path)])->save();
-        }
-
-     //   return back()->with('info','Bicicleta guardada correctamente');
+        
+        return back()->with('info','Bicicleta guardada correctamente');
     }
 
     /**
@@ -90,7 +85,21 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, Vehiculo $vehiculo)
     {
-        $vehiculo->update($request->all());
+        $this->validate($request, [
+            'color' => 'required|string|max:255',
+            'image' => 'image'
+            ]);
+        
+        if($request->hasFile('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$vehiculo->codigo.'.'.$extension);
+        }
+        
+        $vehiculo->update([
+            'modelo' => $request->input('modelo'),
+            'color' => $request->input('color'),
+            'image' => $vehiculo->image,
+        ]);
 
         return redirect()->route('vehiculos.edit', $vehiculo->id)
         ->with('info','Bicicleta actualizada correctamente');

@@ -38,10 +38,10 @@
 
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                {{ Form::label('imagen_dueno','Imagen') }}
+                                {{ Form::label('image_dueno','Imagen') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::file('imagen_dueno', null, null) }}
+                                {{ Form::file('image_dueno', null, null) }}
                             </div>
                         </div>
 
