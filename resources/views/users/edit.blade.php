@@ -17,7 +17,7 @@
                             {{ Form::model($user, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'users.update', $user, 'file'=>true]]) }}
                                 @include('users.partials.form')
                                 <div class="form-group float-right">
-                                    <a href="{{ URL::previous() }}" class="btn btn-light mr-2">Volver</a>
+                                    <a href="{{route('users.index')}}" class="btn btn-light mr-2">Volver</a>
                                     {{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
                                 </div>
 

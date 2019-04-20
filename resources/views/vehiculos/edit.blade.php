@@ -16,7 +16,7 @@
                             {{ Form::model($vehiculo, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'vehiculos.update', $vehiculo, 'file'=>true]]) }}
                                 @include('vehiculos.partials.form')
                                 <div class="form-group float-right mt-2">
-                                <a href="{{ URL::previous() }}" class="btn btn-light mr-2">Volver</a>
+                                <a href="{{route('vehiculos.index')}}" class="btn btn-light mr-2">Volver</a>
                                     {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                                 </div>
 
