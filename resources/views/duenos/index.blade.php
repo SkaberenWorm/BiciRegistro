@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                             <th >N°</th>
-                            <th>Imágen</th>
+                            <th>Imagen</th>
                             <th>Run</th>
                             <th>Nombre</th>
                             <th>Correo</th>

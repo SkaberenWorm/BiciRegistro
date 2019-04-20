@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                             <th>N°</th>
-                            <th style="width: 10px;">Imágen</th>
+                            <th style="width: 10px;">Imagen</th>
                             <th>Código</th>
                             <th>Marca</th>
                             <th>Modelo</th>
