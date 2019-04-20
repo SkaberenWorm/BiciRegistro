@@ -54,6 +54,20 @@ Route::middleware(['auth'])->group(function(){
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
             ->middleware('permission:roles.edit');
 
+   // DUEÑOS
+            
+    Route::get('duenos', 'DuenoController@index')->name('duenos.index')
+            ->middleware('permission:duenos.index');
+
+    Route::put('duenos/{dueno}', 'DuenoController@update')->name('duenos.update')
+            ->middleware('permission:duenos.edit');
+
+    Route::get('duenos/{dueno}', 'DuenoController@show')->name('duenos.show')
+            ->middleware('permission:duenos.show');
+
+    Route::get('duenos/{dueno}/edit', 'DuenoController@edit')->name('duenos.edit')
+            ->middleware('permission:duenos.edit');
+
     // VEHICULOS
     Route::post('vehiculos/store', 'VehiculoController@store')->name('vehiculos.store')
             ->middleware('permission:vehiculos.create');

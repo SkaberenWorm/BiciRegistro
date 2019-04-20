@@ -43,6 +43,12 @@
                             <a class="nav-link {{ (request()->path()=='vehiculos')? 'active': ''}}" href="{{ route('vehiculos.index') }}">Bicicletas</a>
                         </li>
                         @endcan
+                        @can('duenos.index')
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path()=='duenos')? 'active': ''}}" href="{{ route('duenos.index') }}">Dueños</a>
+                        </li>
+                        @endcan
+
                         @can('users.index')
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->path()=='users')? 'active': ''}}" href="{{ route('users.index') }}">Usuarios</a>

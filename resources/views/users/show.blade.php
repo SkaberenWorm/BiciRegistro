@@ -15,20 +15,35 @@
                         <img src="{{ Storage::url($user->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
                         </div>
                         <div class="col-md-9">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    Nombre: <br>
-                                    Correo: <br>
-                                    Roles: <br>
-                                </div>
-                                <div class="col-md-10">
-                                    {{ $user->name }} <br>
-                                    {{ $user->email }} <br>
-                                    @foreach($user->roles as $role)
-                                          {{ $role->name }}  <em>({{ $role->description? : "sin descripción" }})</em><br>
-                                    @endforeach
-                                </div>
-                            </div>
+                          <table class="table responsive-md">
+                            <tbody>
+                              <tr>
+                                <th scope="row">Nombre</th>
+                                <td>{{ $user->name }}</td>
+                              </tr>
+
+                              <tr>
+                                <th scope="row">Correo</th>
+                                <td>{{ $user->email }}</td>
+                              </tr>
+                              <tr>
+                                @if($user->roles->count() > 1)
+                                <th >Roles</th>
+                                @else
+                                <th >Rol</th>
+                                @endif
+
+                                <td>
+                                  @foreach($user->roles as $role)
+                                    <a class="" href="{{route('roles.show', $role->id)}}" >
+                                    {{$role->name}}  <em>({{ $role->description? : "sin descripción" }})</em>
+                                  </a><br>
+                                  @endforeach
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
                         </div>
                     </div>
                 </div>
