@@ -39,6 +39,23 @@ class PermissionsTable extends Seeder
             'description'   => 'Crear un usuario',
         ]);
 
+        // DUEÑOS
+        Permission::create ([
+            'name'          => 'Listar dueños',
+            'slug'          => 'duenos.index',
+            'description'   => 'Lista todos los dueños',
+        ]);
+        Permission::create ([
+            'name'          => 'Ver dueño',
+            'slug'          => 'duenos.show',
+            'description'   => 'Ver detalle de un dueño',
+        ]);
+        Permission::create ([
+            'name'          => 'Editar usuario',
+            'slug'          => 'duenos.edit',
+            'description'   => 'Editar un usuario',
+        ]);
+
         // ROLES
         Permission::create ([
             'name'          => 'Listar roles',
