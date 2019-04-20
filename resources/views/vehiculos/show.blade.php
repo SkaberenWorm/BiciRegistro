@@ -18,13 +18,29 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$vehiculo->marca->description}} {{$vehiculo->modelo}}</h5>
-                                    <p class="card-text">
-                                        Marca: {{$vehiculo->marca->description }} <br>
-                                        Modelo:  {{$vehiculo->modelo }} <br>
-                                        Código: {{$vehiculo->codigo }} <br>
-                                        Color:  {{$vehiculo->color }} <br>
-                                    </p>
+
+                                    <table class="table responsive-md table-sm">
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">Código</th>
+                                          <td>{{ $vehiculo->codigo }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">Marca</th>
+                                          <td>{{ $vehiculo->marca->description }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">Modelo</th>
+                                          <td>{{ $vehiculo->modelo }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">Color</th>
+                                          <td>{{ $vehiculo->color }}</td>
+                                        </tr>
+
+                                      </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                         </div>
@@ -38,13 +54,32 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$vehiculo->dueno->nombre}}</h5>
-                                    <p class="card-text">
-                                        Run:    {{ $vehiculo->dueno->rut }} <br>
-                                        Área:   {{ $vehiculo->dueno->tipoDueno->description}}<br>
-                                        Correo: {{ $vehiculo->dueno->correo }}<br>
-                                        Celular:{{ $vehiculo->dueno->celular }} <br>
-                                    </p>
+                                  <table class="table responsive-md table-sm">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Run</th>
+                                        <td>{{ $vehiculo->dueno->rut }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Nombre</th>
+                                        <td>{{ $vehiculo->dueno->nombre }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Área</th>
+                                        <td>{{ $vehiculo->dueno->tipoDueno->description }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Correo</th>
+                                        <td>{{ $vehiculo->dueno->correo }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Celular</th>
+                                        <td>+569 {{ $vehiculo->dueno->celular }}</td>
+                                      </tr>
+
+                                    </tbody>
+                                  </table>
+
                                 </div>
                             </div>
                         </div>

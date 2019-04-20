@@ -51,9 +51,9 @@ class PermissionsTable extends Seeder
             'description'   => 'Ver detalle de un dueño',
         ]);
         Permission::create ([
-            'name'          => 'Editar usuario',
+            'name'          => 'Editar dueño',
             'slug'          => 'duenos.edit',
-            'description'   => 'Editar un usuario',
+            'description'   => 'Editar un dueño',
         ]);
 
         // ROLES
