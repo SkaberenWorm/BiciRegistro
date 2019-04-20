@@ -41,6 +41,7 @@
                         </thead>
                         <tbody>
                             @foreach($users as $user)
+                            
                                 @php ($cantidadRoles = 0)
                                 @foreach($roles as $role)
                                     @if($role->user_id === $user->id && !empty($role->role_name))

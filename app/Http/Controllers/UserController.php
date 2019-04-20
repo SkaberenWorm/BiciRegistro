@@ -32,7 +32,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        return view('users.create', compact('users','roles'));
+        return view('users.create', compact('roles'));
     }
 
     /**
