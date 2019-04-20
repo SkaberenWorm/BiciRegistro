@@ -58,11 +58,11 @@ class VehiculoController extends Controller
 
         if($request->hasFile('image')){
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$vehiculo->codigo.'.'.$extension);
+            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$request->input('codigo').'.'.$extension);
         }
         if($request->hasFile('image_dueno')){
             $extension = $request->file('image_dueno')->getClientOriginalExtension();
-            $dueno->image = $request->file('image_dueno')->storeAs('public/duenos',$vehiculo->codigo.'.'.$extension);
+            $dueno->image = $request->file('image_dueno')->storeAs('public/duenos',$request->input('run_dueno').'.'.$extension);
         }
 
         $dueno_id = null;
