@@ -20,8 +20,10 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$vehiculo->marca->description}} {{$vehiculo->modelo}}</h5>
                                     <p class="card-text">
-                                        Código: {{$vehiculo->codigo}} <br> 
-                                        Color:  {{$vehiculo->color}} <br>
+                                        Marca: {{$vehiculo->marca->description }} <br> 
+                                        Modelo:  {{$vehiculo->modelo }} <br> 
+                                        Código: {{$vehiculo->codigo }} <br> 
+                                        Color:  {{$vehiculo->color }} <br>
                                     </p>
                                 </div>
                             </div>
@@ -38,9 +40,10 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$vehiculo->dueno->nombre}}</h5>
                                     <p class="card-text">
-                                        Área:  {{$tipoDueno->description}}<br> 
-                                        Correo:  {{ $vehiculo->dueno->correo }}<br>
-                                        Celular: {{ $vehiculo->dueno->celular }} <br>
+                                        Run:    {{ $vehiculo->dueno->rut }} <br>
+                                        Área:   {{ $vehiculo->dueno->tipoDueno->description}}<br> 
+                                        Correo: {{ $vehiculo->dueno->correo }}<br>
+                                        Celular:{{ $vehiculo->dueno->celular }} <br>
                                     </p>
                                 </div>
                             </div>

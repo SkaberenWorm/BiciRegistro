@@ -17,7 +17,7 @@
                                 {{ Form::label('marca_id','Marca') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::select('marca_id', $marcas->pluck('description','id'), null, ['class' => 'form-control']) }}
+                            {{ Form::select('marca_id', $marcas->pluck('description','id'), null, ['class' => 'form-control', 'placeholder' =>'Seleccione una opción']) }}
                                 @if ($errors->has('marca_id'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('marca_id') }}</strong>
@@ -25,6 +25,7 @@
                                  @endif
                             </div>
                         </div>
+                        
 
                         <div class="form-group row">
                             <div class="col-sm-2">

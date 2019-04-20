@@ -10,7 +10,7 @@ class Dueno extends Model
         'rut','nombre', 'correo', 'celular','tipoDueno_id','image', 
     ];
     public function tipoDueno(){
-        return $this->belongsTo(TipoDueno::class);
+        return $this->belongsTo(TipoDueno::class,'tipoDueno_id');
     }
     
     public function vehiculos(){

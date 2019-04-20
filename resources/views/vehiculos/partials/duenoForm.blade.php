@@ -6,7 +6,7 @@
                             {{ Form::text('run_dueno', null , ['class' => 'form-control', isset($dueno)?'disabled':'']) }}
                                 @if ($errors->has('run_dueno'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('run_cueno') }}</strong>
+                                        <strong>{{ $errors->first('run_dueno') }}</strong>
                                     </span>
                                  @endif
                             </div>
@@ -34,6 +34,20 @@
                                 @if ($errors->has('corro_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('correo_dueno') }}</strong>
+                                    </span>
+                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                {{ Form::label('tipoDueno','Área') }}
+                            </div>
+                            <div class="col-sm-10">
+                            {{ Form::select('tipoDueno', $tipoDuenos->pluck('description','id'), null, ['class' => 'form-control', 'placeholder' =>'Seleccione una opción']) }}
+                                @if ($errors->has('marca_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('tipoDueno') }}</strong>
                                     </span>
                                  @endif
                             </div>

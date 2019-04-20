@@ -18,7 +18,6 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        
         $vehiculos = Vehiculo::paginate(10);
         return view('vehiculos.index', compact('vehiculos'));
     }
@@ -31,7 +30,8 @@ class VehiculoController extends Controller
     public function create()
     {
         $marcas = Marca::orderBy('description')->get();
-        return view('vehiculos.create', compact('marcas'));
+        $tipoDuenos = TipoDueno::orderBy('description')->get();
+        return view('vehiculos.create', compact('marcas','tipoDuenos'));
     }
 
     /**
@@ -51,6 +51,7 @@ class VehiculoController extends Controller
             'nombre_dueno' => 'required',
             'image_dueno' => 'required|image',
             'celular_dueno' => 'digits_between:0,8',
+            'tipoDueno' => 'required',
             ]);
 
         $vehiculo = new Vehiculo();
@@ -64,14 +65,13 @@ class VehiculoController extends Controller
             $extension = $request->file('image_dueno')->getClientOriginalExtension();
             $dueno->image = $request->file('image_dueno')->storeAs('public/duenos',$request->input('run_dueno').'.'.$extension);
         }
-
         $dueno_id = null;
 
         // Verificamos la existencia del dueño
         $duenos = Dueno::get();
         $existeDueno = false;
         foreach($duenos as $duenoActual){
-            if($duenoActual->rut === $request->input('run_dueno')){
+            if($duenoActual->rut == $request->input('run_dueno')){
                 $existeDueno = true;
                 $dueno_id = $duenoActual->id;
                 break;
@@ -86,19 +86,19 @@ class VehiculoController extends Controller
                 'nombre' => $request->input('nombre_dueno'),
                 'correo' => $request->input('correo_dueno'),
                 'celular' => $request->input('celular_dueno'),
-                'tipoDueno_id' => 4,
+                'tipoDueno_id' => $request->input('tipoDueno'),
                 'image' => $dueno->image,
             ]);
             // Buscamos su id
+            $duenos = Dueno::get();
             foreach($duenos as $duenoActual){
-                if($duenoActual->rut === $dueno->rut){
+                if($duenoActual->rut == $request->input('run_dueno')){
                     // Lo asignamos
                     $dueno_id = $duenoActual->id;
                     break;
                 }
             }
         }
-        
         $vehiculo = Vehiculo::create([
             'codigo' => $request->input('codigo'),
             'marca_id' => $request->input('marca_id'),
@@ -123,8 +123,7 @@ class VehiculoController extends Controller
      */
     public function show(Vehiculo $vehiculo)
     {
-        $tipoDueno = TipoDueno::find($vehiculo->dueno->tipoDueno_id)->first();
-        return view('vehiculos.show', compact('vehiculo','tipoDueno'));
+        return view('vehiculos.show', compact('vehiculo'));
     }
 
     /**
