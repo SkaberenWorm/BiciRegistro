@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-            
+
                 <div class="card-header">
                     @can('vehiculos.create')
                     <a class="btn btn-primary float-right btn-md" href="{{route('vehiculos.create')}}" >Crear</a>
                     @endcan
-                   
-                    <h3 style="margin-top: 5px; margin-bottom: 0px">Bicicletas</h3>   
+
+                    <h3 style="margin-top: 5px; margin-bottom: 0px">Bicicletas</h3>
                 </div>
 
                 <div class="card-body">
@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                             <th>N°</th>
-                            <th style="width: 10px;">Imagen</th>
+                            <th style="width: 10px;">Imágen</th>
                             <th>Código</th>
                             <th>Marca</th>
                             <th>Modelo</th>
@@ -48,8 +48,8 @@
                                 <td>{{$vehiculo->id}}</td>
                                 <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
                                     <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded " style="max-height: 35px" alt="">
-                                <td>{{$vehiculo->codigo}}</td>
                                 </td>
+                                <td>{{$vehiculo->codigo}}</td>
                                 <td>
                                 {{ $vehiculo->marca->description }}
                                 </td>
@@ -76,7 +76,7 @@
                                 </td>
                                 @endcan
                             </tr>
-                            @endforeach                           
+                            @endforeach
                         </tbody>
                     </table>
                     {{ $vehiculos->render() }}

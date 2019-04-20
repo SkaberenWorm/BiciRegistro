@@ -6,8 +6,8 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                <a href="{{route('roles.index')}}" class="btn btn-light float-right">Volver</a>
-                    <h3 style="margin-bottom: 0px">Detalle Rol </h3> 
+                <a href="{{ URL::previous() }}" class="btn btn-light float-right">Volver</a>
+                    <h3 style="margin-bottom: 0px">Detalle Rol </h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group row justify-content-center">
@@ -26,13 +26,13 @@
                                 {{ $role->slug }}
                             </div>
                         </div>
-                       
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 Descripción
                             </div>
                             <div class="col-sm-10">
-                                {{ $role->description? : 'Sin descripción' }} 
+                                {{ $role->description? : 'Sin descripción' }}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -49,12 +49,12 @@
                             </div>
                             <div class="col-sm-10">
                                 <ul class="list-unstyled">
-                                    
+
                                     @php ($cantidadPermisos = 0)
                                     @foreach($role->permissions as $permission)
                                         <li>
                                             @php ($cantidadPermisos++)
-                                            {{ $permission->name}} 
+                                            {{ $permission->name}}
                                             <em>
                                             ({{ $permission->description}})
                                             </em>
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     <div>
-                </div>         
+                </div>
             </div>
         </div>
     </div>

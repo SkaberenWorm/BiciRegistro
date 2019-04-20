@@ -18,7 +18,7 @@
                                             @include('vehiculos.partials.form')
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -32,14 +32,14 @@
                                             @include('vehiculos.partials.duenoForm')
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-group float-right mt-2">
-                        <a href="{{route('vehiculos.index')}}" class="btn btn-light mr-2">Volver</a>
+                        <a href="{{ URL::previous() }}" class="btn btn-light mr-2">Volver</a>
                         {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                     </div>
                 </div>

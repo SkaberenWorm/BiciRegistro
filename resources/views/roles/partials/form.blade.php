@@ -44,7 +44,8 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::radio('special', 'all-access') }} Acceso total  <br>
-                                {{ Form::radio('special', 'no-access') }} Ningún acceso
+                                {{ Form::radio('special', 'no-access') }} Ningún acceso <br>
+                                {{ Form::radio('special', 'ninguno') }} Sin permisos especiales
                             </div>
                         </div>
                         <div class="form-group row">

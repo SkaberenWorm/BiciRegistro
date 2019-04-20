@@ -6,8 +6,8 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{route('vehiculos.index')}}" class="btn btn-light float-right">Volver</a>
-                    <h3 style="margin-bottom: 0px">Detalle bicicleta </h3> 
+                    <a href="{{ URL::previous() }}" class="btn btn-light float-right">Volver</a>
+                    <h3 style="margin-bottom: 0px">Detalle bicicleta </h3>
                 </div>
                 <div class="">
                     <!-- BICICLETA -->
@@ -20,9 +20,9 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$vehiculo->marca->description}} {{$vehiculo->modelo}}</h5>
                                     <p class="card-text">
-                                        Marca: {{$vehiculo->marca->description }} <br> 
-                                        Modelo:  {{$vehiculo->modelo }} <br> 
-                                        Código: {{$vehiculo->codigo }} <br> 
+                                        Marca: {{$vehiculo->marca->description }} <br>
+                                        Modelo:  {{$vehiculo->modelo }} <br>
+                                        Código: {{$vehiculo->codigo }} <br>
                                         Color:  {{$vehiculo->color }} <br>
                                     </p>
                                 </div>
@@ -41,7 +41,7 @@
                                     <h5 class="card-title">{{$vehiculo->dueno->nombre}}</h5>
                                     <p class="card-text">
                                         Run:    {{ $vehiculo->dueno->rut }} <br>
-                                        Área:   {{ $vehiculo->dueno->tipoDueno->description}}<br> 
+                                        Área:   {{ $vehiculo->dueno->tipoDueno->description}}<br>
                                         Correo: {{ $vehiculo->dueno->correo }}<br>
                                         Celular:{{ $vehiculo->dueno->celular }} <br>
                                     </p>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <!-- END DUEÑO -->
-                </div>         
+                </div>
             </div>
         </div>
     </div>

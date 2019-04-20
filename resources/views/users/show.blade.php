@@ -6,8 +6,8 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{route('users.index')}}" class="btn btn-light float-right">Volver</a>
-                    <h3 style="margin-bottom: 0px">Detalle usuario</h3> 
+                    <a href="{{ URL::previous() }}" class="btn btn-light float-right">Volver</a>
+                    <h3 style="margin-bottom: 0px">Detalle usuario</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                </div>         
+                </div>
             </div>
         </div>
     </div>
