@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BiciRegistro\Http\Controllers;
 
-use App\TipoDueno;
+use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
 
 class TipoDuenoController extends Controller
@@ -41,7 +41,7 @@ class TipoDuenoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TipoDueno  $tipoDueno
+     * @param  \BiciRegistro\TipoDueno  $tipoDueno
      * @return \Illuminate\Http\Response
      */
     public function show(TipoDueno $tipoDueno)
@@ -52,7 +52,7 @@ class TipoDuenoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TipoDueno  $tipoDueno
+     * @param  \BiciRegistro\TipoDueno  $tipoDueno
      * @return \Illuminate\Http\Response
      */
     public function edit(TipoDueno $tipoDueno)
@@ -64,7 +64,7 @@ class TipoDuenoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TipoDueno  $tipoDueno
+     * @param  \BiciRegistro\TipoDueno  $tipoDueno
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TipoDueno $tipoDueno)
@@ -75,7 +75,7 @@ class TipoDuenoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TipoDueno  $tipoDueno
+     * @param  \BiciRegistro\TipoDueno  $tipoDueno
      * @return \Illuminate\Http\Response
      */
     public function destroy(TipoDueno $tipoDueno)

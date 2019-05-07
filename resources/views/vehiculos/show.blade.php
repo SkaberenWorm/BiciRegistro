@@ -22,7 +22,7 @@
                                     <table class="table responsive-md table-sm">
                                       <tbody>
                                         <tr>
-                                          <th scope="row">Código</th>
+                                          <th scope="row" style="width:30%;">Código</th>
                                           <td>{{ $vehiculo->codigo }}</td>
                                         </tr>
                                         <tr>
@@ -57,7 +57,7 @@
                                   <table class="table responsive-md table-sm">
                                     <tbody>
                                       <tr>
-                                        <th scope="row">Run</th>
+                                        <th scope="row" style="width:30%;">Run</th>
                                         <td>{{ $vehiculo->dueno->rut }}</td>
                                       </tr>
                                       <tr>

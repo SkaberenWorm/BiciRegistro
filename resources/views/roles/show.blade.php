@@ -25,7 +25,7 @@
                       </tr>
                       <tr>
                         <th scope="row">Permiso especial</th>
-                        <td>{{ $role->special? : 'Sin permisos especiales' }}</td>
+                        <td>{{ $role->special? $role->special==='ninguno'?'Sin permisos especiales':'' : 'Sin permisos especiales' }}</td>
                       </tr>
                       <tr>
                         <th >Permisos</th>
@@ -33,7 +33,7 @@
                         <td>
                           @foreach($role->permissions as $permission)
                             {{$permission->name}}
-                            <em>({{ $permission->description}})</em> <br>
+                            <em class="text-secondary">({{ $permission->description?:'Sin descripción'}})</em> <br>
                           @endforeach
                           @if($role->permissions->count() <= 0)
                               Sin permisos

@@ -9,7 +9,7 @@
                 {{ Form::open(['enctype' => 'multipart/form-data','route' => 'vehiculos.store', 'file'=>true]) }}
                 <div class="card-body" style="padding: 0.5rem;">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <div class="card">
                                 <div class="card-header"><h5 style="margin-bottom: 0px">Bicicleta </h5> </div>
                                 <div class="card-body">

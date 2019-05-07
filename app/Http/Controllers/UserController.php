@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BiciRegistro\Http\Controllers;
 
-use App\User;
-use App\RoleUser;
+use BiciRegistro\User;
+use BiciRegistro\RoleUser;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 
@@ -48,8 +48,8 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             ]);
-            
-        
+
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -63,7 +63,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \BiciRegistro\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -79,7 +79,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \BiciRegistro\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -92,25 +92,25 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \BiciRegistro\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
-        
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
             'image' => 'image'
             ]);
-            
+
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         if($request->hasFile('image')){
             $extension = $request->file('image')->getClientOriginalExtension();
             $user->image = $request->file('image')->storeAs('public/users',$user->name.'.'.$extension);
         }
-        
+
 
         if(!empty($request->input('password')))
         {
@@ -121,7 +121,7 @@ class UserController extends Controller
         // Update roles
         $user->roles()->sync($request->get('roles'));
 
-        
+
         return redirect()->route('users.edit', $user->id)
         ->with('info','Usuario actualizado correctamente');
     }
@@ -129,12 +129,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \BiciRegistro\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return back()->with('info','Eliminado correctamente');
+        //$user->delete();
+        return back()->with('info','Deshabilitado correctamente (Terminar este método)');
     }
 }

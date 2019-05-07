@@ -154,11 +154,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        BiciRegistro\Providers\AppServiceProvider::class,
+        BiciRegistro\Providers\AuthServiceProvider::class,
+        // BiciRegistro\Providers\BroadcastServiceProvider::class,
+        BiciRegistro\Providers\EventServiceProvider::class,
+        BiciRegistro\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         Caffeinated\Shinobi\ShinobiServiceProvider::class,

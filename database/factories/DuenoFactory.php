@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Dueno::class, function (Faker $faker) {
+$factory->define(BiciRegistro\Dueno::class, function (Faker $faker) {
     return [
        
         'rut' => $faker->unique()->numberBetween(1111111,99999999),

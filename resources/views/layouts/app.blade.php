@@ -25,38 +25,51 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Biciregistro
-                </a>
+              <a class="navbar-brand" href="#">
+                <!--img src="{{ asset('images/favicon.ico') }}" width="30" height="30" class="d-inline-block align-top" alt=""-->
+                Biciregistro
+              </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto nav-tabs">
+                    <ul class="navbar-nav mr-auto ">
+                      <li class="nav-item dropdown">
+                      @if (\Shinobi::can('vehiculos.index') || \Shinobi::can('duenos.index') || \Shinobi::can('roles.index') || \Shinobi::can('users.index'))
+                         <a class="nav-link dropdown-toggle {{ strpos(request()->path(),'ehiculos') || strpos(request()->path(),'uenos')|| strpos(request()->path(),'sers')|| strpos(request()->path(),'oles')? 'active': ''}}"
+                         href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Administración
+                         </a>
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           @can('vehiculos.index')
+                           <a class="dropdown-item {{ strpos(request()->path(),'ehiculos')? 'active': ''}}" href="{{ route('vehiculos.index') }}">Bicicletas</a>
+                           @endcan
+                           @can('duenos.index')
+                           <a class="dropdown-item {{ strpos(request()->path(),'uenos')? 'active': ''}}" href="{{ route('duenos.index') }}">Dueños</a>
+                           @endcan
+                           @can('users.index')
+                           <a class="dropdown-item {{ strpos(request()->path(),'sers')? 'active': ''}}" href="{{ route('users.index') }}">Usuarios</a>
+                           @endcan
+                           @can('roles.index')
+                           <a class="dropdown-item {{ strpos(request()->path(),'oles')? 'active': ''}}" href="{{ route('roles.index') }}">Roles</a>
+                           @endcan
+                         </div>
+                         @endif
+                       </li>
+                        <!--@can('vehiculos.index')-->
+                        <li class="nav-item">
+                            <a class="nav-link {{ strpos(request()->path(),'[url-1]')? 'active': ''}}" href="#">Registrar entrada y salida</a>
+                        </li>
+                        <!--@endcan
+                        @can('duenos.index')-->
+                        <li class="nav-item">
+                            <a class="nav-link {{ strpos(request()->path(),'[url-1]')? 'active': ''}}" href="#">Retiro por terceros</a>
+                        </li>
+                        <!--@endcan-->
 
-                        @can('vehiculos.index')
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'ehiculos')? 'active': ''}}" href="{{ route('vehiculos.index') }}">Bicicletas</a>
-                        </li>
-                        @endcan
-                        @can('duenos.index')
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'uenos')? 'active': ''}}" href="{{ route('duenos.index') }}">Dueños</a>
-                        </li>
-                        @endcan
 
-                        @can('users.index')
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'sers')? 'active': ''}}" href="{{ route('users.index') }}">Usuarios</a>
-                        </li>
-                        @endcan
-                        @can('roles.index')
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'oles')? 'active': ''}}" href="{{ route('roles.index') }}">Roles</a>
-                        </li>
-                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

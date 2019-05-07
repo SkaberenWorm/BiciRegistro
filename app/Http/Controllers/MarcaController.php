@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BiciRegistro\Http\Controllers;
 
-use App\Marca;
+use BiciRegistro\Marca;
 use Illuminate\Http\Request;
 
 class MarcaController extends Controller
@@ -41,7 +41,7 @@ class MarcaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Marca  $marca
+     * @param  \BiciRegistro\Marca  $marca
      * @return \Illuminate\Http\Response
      */
     public function show(Marca $marca)
@@ -52,7 +52,7 @@ class MarcaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Marca  $marca
+     * @param  \BiciRegistro\Marca  $marca
      * @return \Illuminate\Http\Response
      */
     public function edit(Marca $marca)
@@ -64,7 +64,7 @@ class MarcaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Marca  $marca
+     * @param  \BiciRegistro\Marca  $marca
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Marca $marca)
@@ -75,7 +75,7 @@ class MarcaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Marca  $marca
+     * @param  \BiciRegistro\Marca  $marca
      * @return \Illuminate\Http\Response
      */
     public function destroy(Marca $marca)

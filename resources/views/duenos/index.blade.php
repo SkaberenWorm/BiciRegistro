@@ -42,7 +42,11 @@
                         </thead>
                         <tbody>
                             @foreach($duenos as $dueno)
-                            <tr>
+                            @if($dueno->vehiculos->count()==0)
+                                <tr style="color:red">
+                            @else
+                                <tr>
+                            @endif
                                 <td>{{$dueno->id}}</td>
                                 <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
                                     <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded " style="max-height: 35px" alt="">
@@ -50,7 +54,7 @@
                                 <td>{{$dueno->rut}}</td>
                                 <td>{{$dueno->nombre}}</td>
                                 <td>{{$dueno->correo}}</td>
-                                <td>{{$dueno->celular}}</td>
+                                <td>+569&nbsp{{$dueno->celular}}</td>
                                 <td  class="text-center">{{$dueno->vehiculos->count()}}</td>
 
                                 @can('duenos.show')

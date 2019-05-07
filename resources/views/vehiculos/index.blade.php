@@ -70,8 +70,8 @@
                                 @endcan
                                 @can('vehiculos.destroy')
                                 <td style="padding: .3rem; vertical-align: inherit;">
-                                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'vehiculos.destroy', $vehiculo]]) }}
-                                    {{ Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger']) }}
+                                {{ Form::open([ 'method'  => 'put', 'route' => [ 'vehiculos.destroy', $vehiculo]]) }}
+                                    {{ Form::submit('Deshabilitar', ['class' => 'btn btn-sm btn-danger']) }}
                                 {{ Form::close() }}
                                 </td>
                                 @endcan

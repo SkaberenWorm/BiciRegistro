@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-            
+
                 <div class="card-header">
                     @can('users.create')
                     <a class="btn btn-primary float-right btn-md" href="{{route('users.create')}}" >Crear</a>
                     @endcan
-                   
-                    <h3 style="margin-top: 5px; margin-bottom: 0px">Usuarios</h3>   
+
+                    <h3 style="margin-top: 5px; margin-bottom: 0px">Usuarios</h3>
                 </div>
 
                 <div class="card-body">
@@ -41,14 +41,10 @@
                         </thead>
                         <tbody>
                             @foreach($users as $user)
-                            
+
                                 @php ($cantidadRoles = 0)
-                                @foreach($roles as $role)
-                                    @if($role->user_id === $user->id && !empty($role->role_name))
-                                        @php ($cantidadRoles++)
-                                    @endif
-                                @endforeach
-                                @if($cantidadRoles==0)
+                                
+                                @if($user->roles->count()==0)
                                     <tr style="color:red">
                                 @else
                                     <tr>
@@ -75,13 +71,13 @@
                                 @endcan
                                 @can('users.destroy')
                                 <td style="padding: .3rem; vertical-align: inherit;">
-                                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'users.destroy', $user]]) }}
-                                    {{ Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger']) }}
+                                {{ Form::open([ 'method'  => 'put', 'route' => [ 'users.destroy', $user]]) }}
+                                    {{ Form::submit('Deshabilitar', ['class' => 'btn btn-sm btn-danger']) }}
                                 {{ Form::close() }}
                                 </td>
                                 @endcan
                             </tr>
-                            @endforeach                           
+                            @endforeach
                         </tbody>
                     </table>
                     {{ $users->render() }}

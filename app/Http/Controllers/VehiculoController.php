@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BiciRegistro\Http\Controllers;
 
-use App\Marca;
-use App\Dueno;
-use App\Vehiculo;
-use App\TipoDueno;
+use BiciRegistro\Marca;
+use BiciRegistro\Dueno;
+use BiciRegistro\Vehiculo;
+use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facedes\Storage;
 
@@ -77,7 +77,7 @@ class VehiculoController extends Controller
                 break;
             }
         }
-        
+
         // No existe
         if(!$existeDueno){
             // Creamos el dueño
@@ -118,7 +118,7 @@ class VehiculoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  \BiciRegistro\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
     public function show(Vehiculo $vehiculo)
@@ -129,7 +129,7 @@ class VehiculoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  \BiciRegistro\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
     public function edit(Vehiculo $vehiculo)
@@ -142,7 +142,7 @@ class VehiculoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  \BiciRegistro\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Vehiculo $vehiculo)
@@ -152,12 +152,12 @@ class VehiculoController extends Controller
             'color' => 'required|string|max:255',
             'image' => 'image'
             ]);
-        
+
         if($request->hasFile('image')){
             $extension = $request->file('image')->getClientOriginalExtension();
             $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$vehiculo->codigo.'.'.$extension);
         }
-        
+
         $vehiculo->update([
             'marca_id' => $request->input('marca_id'),
             'modelo' => $request->input('modelo'),
@@ -172,12 +172,12 @@ class VehiculoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  \BiciRegistro\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
     public function destroy(Vehiculo $vehiculo)
     {
-        $vehiculo->delete();
-        return back()->with('info','Eliminado correctamente');
+        //$vehiculo->delete();
+        return back()->with('info','Deshabilitado correctamente (Terminar este método)');
     }
 }

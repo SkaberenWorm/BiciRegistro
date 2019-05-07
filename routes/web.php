@@ -21,21 +21,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // ROUTES
 
-// Envolvemos todas las rutas ya que se requiere utenticación 
+// Envolvemos todas las rutas ya que se requiere utenticación
 Route::middleware(['auth'])->group(function(){
-    
+
     /*
     ->middleware('permission:roles.create');
-        permission hace referencia a /app/Http/Kernel.php 
-        $routeMiddleware = [ 
+        permission hace referencia a /app/Http/Kernel.php
+        $routeMiddleware = [
         'permission' =>\Caffeinated\Shinobi\Middleware\UserHasPermission::class
         ]
     */
-        
+
     // ROLES
     Route::post('roles/store', 'RoleController@store')->name('roles.store')
             ->middleware('permission:roles.create');
-            
+
     Route::get('roles', 'RoleController@index')->name('roles.index')
             ->middleware('permission:roles.index');
 
@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function(){
             ->middleware('permission:roles.edit');
 
    // DUEÑOS
-            
+
     Route::get('duenos', 'DuenoController@index')->name('duenos.index')
             ->middleware('permission:duenos.index');
 
@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function(){
     // VEHICULOS
     Route::post('vehiculos/store', 'VehiculoController@store')->name('vehiculos.store')
             ->middleware('permission:vehiculos.create');
-            
+
     Route::get('vehiculos', 'VehiculoController@index')->name('vehiculos.index')
             ->middleware('permission:vehiculos.index');
 
@@ -84,7 +84,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('vehiculos/{vehiculo}', 'VehiculoController@show')->name('vehiculos.show')
             ->middleware('permission:vehiculos.show');
 
-    Route::delete('vehiculos/{vehiculo}', 'VehiculoController@destroy')->name('vehiculos.destroy')
+    Route::put('vehiculos/{vehiculo}/disabled', 'VehiculoController@destroy')->name('vehiculos.destroy')
             ->middleware('permission:vehiculos.destroy');
 
     Route::get('vehiculos/{vehiculo}/edit', 'VehiculoController@edit')->name('vehiculos.edit')
@@ -93,7 +93,7 @@ Route::middleware(['auth'])->group(function(){
     // USUARIOS
     Route::post('users/store', 'UserController@store')->name('users.store')
             ->middleware('permission:users.create');
-            
+
     Route::get('users', 'UserController@index')->name('users.index')
             ->middleware('permission:users.index');
 
@@ -106,10 +106,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('users/{user}', 'UserController@show')->name('users.show')
             ->middleware('permission:users.show');
 
-    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy')
+    Route::put('users/{user}/disabled', 'UserController@destroy')->name('users.destroy')
             ->middleware('permission:users.destroy');
 
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
             ->middleware('permission:users.edit');
-            
+
 });

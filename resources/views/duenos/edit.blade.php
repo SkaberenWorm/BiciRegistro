@@ -17,7 +17,7 @@
                             {{ Form::model($dueno, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'duenos.update', $dueno, 'file'=>true]]) }}
                                 @include('duenos.partials.form')
                                 <div class="form-group float-right">
-                                    <a href="{{ URL::previous() }}" class="btn btn-light mr-2">Volver</a>
+                                    <a href="{{route('duenos.index')}}" class="btn btn-light mr-2">Volver</a>
                                     {{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
                                 </div>
 

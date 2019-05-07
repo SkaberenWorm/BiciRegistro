@@ -24,7 +24,7 @@
                                  @endif
                             </div>
                         </div>
-                       
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('correo_dueno','Correo') }}
@@ -57,10 +57,10 @@
                             <div class="col-sm-2">
                                 {{ Form::label('celular_dueno','Celular') }}
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-4 col-sm-3">
                                 {{ Form::number('cel_dueno', "569", ['class' => 'form-control','disabled']) }}
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-8 col-sm-7">
                                 {{ Form::number('celular_dueno', null, ['class' => 'form-control']) }}
                                 @if ($errors->has('celular_dueno'))
                                     <span class="invalid-feedback" role="alert">
@@ -83,5 +83,3 @@
                                  @endif
                             </div>
                         </div>
-
-                        

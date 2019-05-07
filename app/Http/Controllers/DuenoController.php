@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BiciRegistro\Http\Controllers;
 
-use App\Dueno;
-use App\TipoDueno;
+use BiciRegistro\Dueno;
+use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
 
 class DuenoController extends Controller
@@ -43,7 +43,7 @@ class DuenoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dueno  $dueno
+     * @param  \BiciRegistro\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
     public function show(Dueno $dueno)
@@ -54,7 +54,7 @@ class DuenoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Dueno  $dueno
+     * @param  \BiciRegistro\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
     public function edit(Dueno $dueno)
@@ -67,7 +67,7 @@ class DuenoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dueno  $dueno
+     * @param  \BiciRegistro\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Dueno $dueno)
@@ -98,7 +98,7 @@ class DuenoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Dueno  $dueno
+     * @param  \BiciRegistro\Dueno  $dueno
      * @return \Illuminate\Http\Response
      */
     public function destroy(Dueno $dueno)

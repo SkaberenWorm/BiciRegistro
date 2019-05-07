@@ -15,7 +15,7 @@
                         {{ Form::open(['route' => 'users.store', 'file'=>true]) }}
                         @include('users.partials.form')
                         <div class="form-group float-right">
-                            <a href="{{ URL::previous() }}" class="btn btn-light mr-2">Volver</a>
+                            <a href="{{route('duenos.index')}}" class="btn btn-light mr-2">Volver</a>
                             {{ Form::submit('Crear', ['class' => 'btn btn-primary']) }}
                         </div>
                         {{ Form::close() }}

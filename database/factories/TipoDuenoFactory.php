@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\TipoDueno::class, function (Faker $faker) {
+$factory->define(BiciRegistro\TipoDueno::class, function (Faker $faker) {
     return [
         
     ];

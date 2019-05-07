@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Marca::class, function (Faker $faker) {
+$factory->define(BiciRegistro\Marca::class, function (Faker $faker) {
     return [
         'description' => $faker->unique()->domainWord,
     ];

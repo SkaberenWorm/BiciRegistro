@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-            
+
                 <div class="card-header">
                     @can('roles.create')
                     <a class="btn btn-primary float-right btn-md" href="{{route('roles.create')}}" >Crear</a>
                     @endcan
-                   
-                    <h3 style="margin-top: 5px; margin-bottom: 0px">Roles</h3>   
+
+                    <h3 style="margin-top: 5px; margin-bottom: 0px">Roles</h3>
                 </div>
 
                 <div class="card-body">
@@ -28,6 +28,7 @@
                             <th>Nombre</th>
                             <th>URL (slug)</th>
                             <th>Descipción</th>
+                            <th>Usuarios</th>
                             @can('roles.show')
                             <th style="width:10px"></th>
                             @endcan
@@ -41,11 +42,16 @@
                         </thead>
                         <tbody>
                             @foreach($roles as $role)
-                            <tr>
+                            @if($role->users->count()==0)
+                                <tr style="color:red">
+                            @else
+                                <tr>
+                            @endif
                                 <td>{{$role->id}}</td>
                                 <td>{{$role->name}}</td>
                                 <td>{{$role->slug}}</td>
                                 <td>{{$role->description? : "Sin descripción"}}</td>
+                                <td class="text-center" style="width:10%;">{{$role->users->count()}}</td>
                                 @can('roles.show')
                                 <td style="padding: .3rem; vertical-align: inherit;">
                                     <a class="btn btn-light btn-sm" href="{{route('roles.show', $role->id)}}" >Ver</a>
@@ -64,7 +70,7 @@
                                 </td>
                                 @endcan
                             </tr>
-                            @endforeach                           
+                            @endforeach
                         </tbody>
                     </table>
                     {{ $roles->render() }}

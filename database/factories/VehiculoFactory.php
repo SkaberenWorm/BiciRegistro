@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Vehiculo::class, function (Faker $faker) {
+$factory->define(BiciRegistro\Vehiculo::class, function (Faker $faker) {
     return [
         'codigo'    => $faker->isbn10,
         'modelo'    => $faker->domainWord,
