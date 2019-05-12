@@ -112,4 +112,15 @@ Route::middleware(['auth'])->group(function(){
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
             ->middleware('permission:users.edit');
 
+
+    // REGISTRAR
+    Route::post('registrar/store', 'RegistrarController@store')->name('registrar.store')
+            ->middleware('permission:registrar.create');
+
+    Route::get('registrar', 'RegistrarController@index')->name('registrar.index')
+            ->middleware('permission:registrar.index');
+
+    Route::post('registrar/buscar', 'RegistrarController@find')->name('registrar.find')
+            ->middleware('permission:registrar.find');
+
 });

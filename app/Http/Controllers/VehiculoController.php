@@ -7,6 +7,7 @@ use BiciRegistro\Dueno;
 use BiciRegistro\Vehiculo;
 use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
+use Image;
 use Illuminate\Support\Facedes\Storage;
 
 class VehiculoController extends Controller
@@ -46,10 +47,10 @@ class VehiculoController extends Controller
             'codigo' => 'required|unique:vehiculos',
             'marca_id' => 'required',
             'color' => 'required|string|max:255',
-            'image' => 'required|image',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'run_dueno' => 'required',
             'nombre_dueno' => 'required',
-            'image_dueno' => 'required|image',
+            'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
             'celular_dueno' => 'digits_between:0,8',
             'tipoDueno' => 'required',
             ]);
@@ -58,13 +59,39 @@ class VehiculoController extends Controller
         $dueno = new Dueno();
 
         if($request->hasFile('image')){
+
+          $tamaño = getimagesize($request->file('image'));
+          $width = intval($tamaño[0]);
+          $height = intval($tamaño[1]);
+          if($width > 500){
+              $widthResize = $width * (500 / $width);
+              $heightResize = $height * (500 / $width);
+          }else{
+            $widthResize = $width;
+            $heightResize = $height;
+          }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$request->input('codigo').'.'.$extension);
+            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.'.'.$extension));
         }
+
         if($request->hasFile('image_dueno')){
+
+          $tamaño = getimagesize($request->file('image_dueno'));
+          $width = intval($tamaño[0]);
+          $height = intval($tamaño[1]);
+          if($width > 500){
+              $widthResize = $width * (500 / $width);
+              $heightResize = $height * (500 / $width);
+          }else{
+            $widthResize = $width;
+            $heightResize = $height;
+          }
             $extension = $request->file('image_dueno')->getClientOriginalExtension();
-            $dueno->image = $request->file('image_dueno')->storeAs('public/duenos',$request->input('run_dueno').'.'.$extension);
+            $dueno->image = 'duenos/'.$request->input('run_dueno').'.'.$extension;
+            Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').'.'.$extension));
         }
+
         $dueno_id = null;
 
         // Verificamos la existencia del dueño
@@ -78,6 +105,7 @@ class VehiculoController extends Controller
             }
         }
 
+        // En algunos servidores no retorna el id
         // No existe
         if(!$existeDueno){
             // Creamos el dueño
@@ -150,12 +178,24 @@ class VehiculoController extends Controller
         $this->validate($request, [
             'marca_id' => 'required',
             'color' => 'required|string|max:255',
-            'image' => 'image'
+            'image' => 'image|mimes:jpeg,png,jpg|max:20480'
             ]);
 
         if($request->hasFile('image')){
+
+          $tamaño = getimagesize($request->file('image'));
+          $width = intval($tamaño[0]);
+          $height = intval($tamaño[1]);
+          if($width > 500){
+              $widthResize = $width * (500 / $width);
+              $heightResize = $height * (500 / $width);
+          }else{
+            $widthResize = $width;
+            $heightResize = $height;
+          }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = $request->file('image')->storeAs('public/bicicletas',$vehiculo->codigo.'.'.$extension);
+            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.'.'.$extension));
         }
 
         $vehiculo->update([

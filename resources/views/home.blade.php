@@ -5,16 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">
+                  <h4 class="mb-0">Corregir</h4>
+                </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <h5>Eliminar de la lista una vez corregidos</h5>
+                    <strike>
+                    1. Fecha y hora (Esta dos horas adelantada) <br>
+                    </strike>
+                    2. Estilo (Menú, tablas, botones, paneles, etc) <br>
+                    3. Deshabilitar en vez de eliminar (En el caso del usuario, a este se le agregara el rol de Bloqueado / any-access)<br>
+                    4. Optimizar imagen al subir al sistema (Afecta en la carga de la página) <a href="https://artisansweb.net/resize-image-laravel-using-intervention-image-library/"> PASOS</a> <br>
+                    5. Ordenar el listado de permisos al editar o crear un rol<br>
+                    6. Agregar vista de errores (403, 404, 500, etc) <br>
+                    <strike>
+                    7. Validar la extención de las imagenes <br>
+                    </strike>
+                    8.
                 </div>
             </div>
         </div>

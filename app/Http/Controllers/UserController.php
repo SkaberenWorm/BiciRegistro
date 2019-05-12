@@ -6,6 +6,7 @@ use BiciRegistro\User;
 use BiciRegistro\RoleUser;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
+use Image;
 
 class UserController extends Controller
 {
@@ -101,14 +102,27 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'image' => 'image'
+            'image' => 'image|mimes:jpeg,png,jpg'
             ]);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+
         if($request->hasFile('image')){
+
+          $tamaño = getimagesize($request->file('image'));
+          $width = intval($tamaño[0]);
+          $height = intval($tamaño[1]);
+          if($width > 500){
+              $widthResize = $width * (500 / $width);
+              $heightResize = $height * (500 / $width);
+          }else{
+            $widthResize = $width;
+            $heightResize = $height;
+          }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $user->image = $request->file('image')->storeAs('public/users',$user->name.'.'.$extension);
+            $user->image = 'users/'.$user->name.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.'.'.$extension));
         }
 
 

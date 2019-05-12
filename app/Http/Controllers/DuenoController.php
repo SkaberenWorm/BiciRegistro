@@ -5,6 +5,7 @@ namespace BiciRegistro\Http\Controllers;
 use BiciRegistro\Dueno;
 use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
+use Image;
 
 class DuenoController extends Controller
 {
@@ -76,7 +77,7 @@ class DuenoController extends Controller
           'nombre' => 'required|string|max:255',
           'correo' => 'required|email|unique:duenos,correo,'.$dueno->id,
           'tipoDueno_id' => 'required',
-          'image' => 'image'
+          'image' => 'image|mimes:jpeg,png,jpg'
           ]);
 
       $dueno->nombre = $request->input('nombre');
@@ -84,10 +85,21 @@ class DuenoController extends Controller
       $dueno->celular = $request->input('celular');
       $dueno->tipoDueno_id = $request->input('tipoDueno_id');
       if($request->hasFile('image')){
-          $extension = $request->file('image')->getClientOriginalExtension();
-          $dueno->image = $request->file('image')->storeAs('public/duenos',$dueno->name.'.'.$extension);
-      }
 
+        $tamaño = getimagesize($request->file('image'));
+        $width = intval($tamaño[0]);
+        $height = intval($tamaño[1]);
+        if($width > 500){
+            $widthResize = $width * (500 / $width);
+            $heightResize = $height * (500 / $width);
+        }else{
+          $widthResize = $width;
+          $heightResize = $height;
+        }
+          $extension = $request->file('image')->getClientOriginalExtension();
+          $dueno->image = 'duenos/'.$dueno->nombre.'.'.$extension;
+          Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$dueno->nombre.'.'.$extension));
+      }
 
       $dueno->update();
 

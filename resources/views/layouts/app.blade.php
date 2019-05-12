@@ -60,7 +60,7 @@
                        </li>
                         <!--@can('vehiculos.index')-->
                         <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'[url-1]')? 'active': ''}}" href="#">Registrar entrada y salida</a>
+                            <a class="nav-link {{ strpos(request()->path(),'egistrar')? 'active': ''}}" href="{{ route('registrar.index') }}">Registrar entrada y salida</a>
                         </li>
                         <!--@endcan
                         @can('duenos.index')-->
