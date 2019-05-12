@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\TipoDueno;
+use BiciRegistro\TipoDueno;
 
 class TipoDuenoTableSeeder extends Seeder
 {
@@ -17,18 +17,18 @@ class TipoDuenoTableSeeder extends Seeder
         ]);
         TipoDueno::create ([
             'description'   => 'Profesor',
-        ]); 
+        ]);
         TipoDueno::create ([
             'description'   => 'Visitante',
-        ]); 
+        ]);
         TipoDueno::create ([
             'description'   => 'Alumno',
-        ]); 
+        ]);
         TipoDueno::create ([
             'description'   => 'Guardia',
-        ]); 
+        ]);
         TipoDueno::create ([
             'description'   => 'Otro',
-        ]); 
+        ]);
     }
 }

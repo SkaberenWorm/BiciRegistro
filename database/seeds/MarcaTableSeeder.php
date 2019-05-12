@@ -11,6 +11,6 @@ class MarcaTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Marca::class, 30)->create();
+        factory(BiciRegistro\Marca::class, 30)->create();
     }
 }

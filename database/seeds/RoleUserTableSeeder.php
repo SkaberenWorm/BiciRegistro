@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\RoleUser;
+use BiciRegistro\RoleUser;
 
 class RoleUserTableSeeder extends Seeder
 {

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Caffeinated\Shinobi\Models\Role;
-use App\User;
+use BiciRegistro\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 3)->create();
+        factory(BiciRegistro\User::class, 3)->create();
         User::create([
             'name'      => 'Ismael Cuevas',
             'email'     => 'ismael.c.26a@gmail.com',
