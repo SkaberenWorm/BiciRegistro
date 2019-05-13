@@ -15,6 +15,12 @@ class CreateRegistrosTable extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('vehiculo_id')->unsigned()->index();
+            $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
+            $table->integer('usuario_id')->unsigned()->index();
+            $table->foreign('usuario_id')->references('id')->on('users');
+            $table->integer('codigo_tercero')->nullable();
+            $table->string('accion');
             $table->timestamps();
         });
     }

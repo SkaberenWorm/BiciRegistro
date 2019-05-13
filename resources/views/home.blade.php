@@ -24,7 +24,9 @@
                     <strike>
                     7. Validar la extención de las imagenes <br>
                     </strike>
-                    8. Aplicar formato y validar el Run (11111111-1)
+                    8. Aplicar formato y validar el Run (11111111-1) <br>
+                    9. Una vez terminada las vistas de registro de ingreso y salida, registrar permisos en la BD ->middleware('permission:registro.acción') <br>
+                    10. Corregir autofocus (Reistro entrada y salida)
                 </div>
             </div>
         </div>

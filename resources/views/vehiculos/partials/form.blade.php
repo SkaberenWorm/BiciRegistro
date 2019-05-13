@@ -3,7 +3,7 @@
                             {{ Form::label('codigo','Código') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
+                            {{ Form::text('codigo', null , [class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
                                 @if ($errors->has('codigo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('codigo') }}</strong>
@@ -25,7 +25,7 @@
                                  @endif
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group row">
                             <div class="col-sm-2">
@@ -40,7 +40,7 @@
                                  @endif
                             </div>
                         </div>
-                       
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('color','Color') }}
@@ -53,7 +53,7 @@
                                     </span>
                                  @endif
                             </div>
-                                 
+
                         </div>
 
 
@@ -70,5 +70,3 @@
                                  @endif
                             </div>
                         </div>
-
-                        

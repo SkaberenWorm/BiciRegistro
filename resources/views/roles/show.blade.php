@@ -25,7 +25,7 @@
                       </tr>
                       <tr>
                         <th scope="row">Permiso especial</th>
-                        <td>{{ $role->special? $role->special==='ninguno'?'Sin permisos especiales':'' : 'Sin permisos especiales' }}</td>
+                        <td>{{ $role->special? $role->special==='ninguno'?'Sin permisos especiales':$role->special : 'Sin permisos especiales' }}</td>
                       </tr>
                       <tr>
                         <th >Permisos</th>

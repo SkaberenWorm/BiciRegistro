@@ -114,13 +114,15 @@ Route::middleware(['auth'])->group(function(){
 
 
     // REGISTRAR
-    Route::post('registrar/store', 'RegistrarController@store')->name('registrar.store')
-            ->middleware('permission:registrar.create');
+    Route::post('registro/store', 'RegistroController@store')->name('registro.store')
+            ->middleware('permission:registro.create');
 
-    Route::get('registrar', 'RegistrarController@index')->name('registrar.index')
-            ->middleware('permission:registrar.index');
+    Route::get('registro', 'RegistroController@index')->name('registro.index')
+            ->middleware('permission:registro.index');
 
-    Route::post('registrar/buscar', 'RegistrarController@find')->name('registrar.find')
-            ->middleware('permission:registrar.find');
+    Route::post('registro/buscar', 'RegistroController@find')->name('registro.find')
+            ->middleware('permission:registro.find');
 
+    Route::post('registro/validar', 'RegistroController@validarTercero')->name('registro.validarTercero')
+            ->middleware('permission:registro.validarTercero');
 });
