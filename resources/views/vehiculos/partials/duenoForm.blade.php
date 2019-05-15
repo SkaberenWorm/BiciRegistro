@@ -3,7 +3,7 @@
                             {{ Form::label('run_dueno','Run') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('run_dueno', null , ['class' => 'form-control', isset($dueno)?'disabled':'']) }}
+                            {{ Form::text('run_dueno', null , ['placeholder' => '11111111-1','class' => 'form-control', isset($dueno)?'disabled':'']) }}
                                 @if ($errors->has('run_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('run_dueno') }}</strong>

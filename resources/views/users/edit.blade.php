@@ -6,7 +6,7 @@
         <div class="col-md-10">
 
             <div class="card">
-                <div class="card-header"><h3 style="margin-bottom: 0px">Editar Guardia </h3> </div>
+                <div class="card-header"><h3 style="margin-bottom: 0px">Editar usuario </h3> </div>
 
                 <div class="card-body">
                     <div class="row">
@@ -18,7 +18,7 @@
                                 @include('users.partials.form')
                                 <div class="form-group float-right">
                                     <a href="{{route('users.index')}}" class="btn btn-light mr-2">Volver</a>
-                                    {{ Form::submit('Editar', ['class' => 'btn btn-primary']) }}
+                                    {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                                 </div>
 
                             {{ Form::close() }}

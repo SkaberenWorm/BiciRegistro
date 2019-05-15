@@ -16,7 +16,7 @@
                         @include('users.partials.form')
                         <div class="form-group float-right">
                             <a href="{{route('duenos.index')}}" class="btn btn-light mr-2">Volver</a>
-                            {{ Form::submit('Crear', ['class' => 'btn btn-primary']) }}
+                            {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                         </div>
                         {{ Form::close() }}
                         </div>

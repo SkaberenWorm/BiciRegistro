@@ -13,13 +13,13 @@
                     <!-- BICICLETA -->
                     <div class="card m-3">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 pb-0 mb-0">
                                 <img src="{{ Storage::url($vehiculo->image) }}"class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
 
-                                    <table class="table responsive-md table-sm">
+                                    <table class="table responsive-md pb-0 mb-0 table-sm">
                                       <tbody>
                                         <tr>
                                           <th scope="row" style="width:30%;">Código</th>
@@ -55,6 +55,13 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                   <table class="table responsive-md table-sm">
+                                    <thead>
+                                      <tr>
+                                        <th colspan="2">
+                                          <h4 class="mt-1 mb-0"><b>{{ $vehiculo->dueno->nombre }}</b></h4>
+                                        </th>
+                                      </tr>
+                                    </thead>
                                     <tbody>
                                       <tr>
                                         <th scope="row" style="width:30%;">Run</th>
