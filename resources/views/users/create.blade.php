@@ -11,7 +11,7 @@
                   <div class="card-body" style="padding: 0.5rem;">
                     <div class="row justify-content-center">
                         <div class="col-md-10 mt-3">
-                        {{ Form::open(['route' => 'users.store', 'file'=>true]) }}
+                        {{ Form::open(['enctype' => 'multipart/form-data','route' => 'users.store', 'file'=>true]) }}
                         @include('users.partials.form')
                         <div class="form-group float-right">
                             <a href="{{route('users.index')}}" class="btn btn-light mr-2">Volver</a>

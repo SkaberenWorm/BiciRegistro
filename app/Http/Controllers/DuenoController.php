@@ -86,7 +86,7 @@ class DuenoController extends Controller
       $dueno->celular = $request->input('celular');
       $dueno->tipoDueno_id = $request->input('tipoDueno_id');
       if($request->hasFile('image')){
-
+        $fechaHora=date("d-m-Y_g:i:s");
         $tamaño = getimagesize($request->file('image'));
         $width = intval($tamaño[0]);
         $height = intval($tamaño[1]);
@@ -98,8 +98,8 @@ class DuenoController extends Controller
           $heightResize = $height;
         }
           $extension = $request->file('image')->getClientOriginalExtension();
-          $dueno->image = 'duenos/'.$dueno->nombre.date("d-m-Y g:i:s").'.'.$extension;
-          Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$dueno->nombre.date("d-m-Y g:i:s").'.'.$extension));
+          $dueno->image = 'duenos/'.$dueno->nombre.'_'.$fechaHora.'.'.$extension;
+          Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$dueno->nombre.'_'.$fechaHora.'.'.$extension));
       }
 
       $dueno->update();

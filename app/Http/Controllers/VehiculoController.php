@@ -57,6 +57,7 @@ class VehiculoController extends Controller
 
         $vehiculo = new Vehiculo();
         $dueno = new Dueno();
+        $fechaHora=date("d-m-Y_g:i:s");
 
         if($request->hasFile('image')){
 
@@ -71,8 +72,8 @@ class VehiculoController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.date("d-m-Y g:i:s").'.'.$extension;
-            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.date("d-m-Y g:i:s").'.'.$extension));
+            $vehiculo->image = 'bicicletas/'.$request->input('codigo').'_'.$fechaHora.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$request->input('codigo').'_'.$fechaHora.'.'.$extension));
         }
 
         if($request->hasFile('image_dueno')){
@@ -88,8 +89,8 @@ class VehiculoController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image_dueno')->getClientOriginalExtension();
-            $dueno->image = 'duenos/'.$request->input('run_dueno').date("d-m-Y g:i:s").'.'.$extension;
-            Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').date("d-m-Y g:i:s").'.'.$extension));
+            $dueno->image = 'duenos/'.$request->input('run_dueno').'_'.$fechaHora.'.'.$extension;
+            Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').'_'.$fechaHora.'.'.$extension));
         }
 
         $dueno_id = null;
@@ -181,8 +182,9 @@ class VehiculoController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg|max:20480'
             ]);
 
-        if($request->hasFile('image')){
 
+        if($request->hasFile('image')){
+          $fechaHora=date("d-m-Y_g:i:s");
           $tamaño = getimagesize($request->file('image'));
           $width = intval($tamaño[0]);
           $height = intval($tamaño[1]);
@@ -194,8 +196,8 @@ class VehiculoController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.'.'.$extension;
-            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.'.'.$extension));
+            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.'_'.$fechaHora.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.'_'.$fechaHora.'.'.$extension));
         }
 
         $vehiculo->update([

@@ -47,17 +47,37 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'image' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required',
             ]);
 
+            $user = new User();
 
-        $user = User::create([
+          if($request->hasFile('image')){
+              $fechaHora=date("d-m-Y_g:i:s");
+              $tamaño = getimagesize($request->file('image'));
+              $width = intval($tamaño[0]);
+              $height = intval($tamaño[1]);
+              if($width > 500){
+                  $widthResize = $width * (500 / $width);
+                  $heightResize = $height * (500 / $width);
+              }else{
+                $widthResize = $width;
+                $heightResize = $height;
+              }
+                $extension = $request->file('image')->getClientOriginalExtension();
+                $user->image = 'users/'.$request->input('name').'_'.$fechaHora.'.'.$extension;
+                Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$request->input('name').'_'.$fechaHora.'.'.$extension));
+            }
+
+        $user2 = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'image' => $user->image,
             'password' => bcrypt($request->input('password')),
         ]);
         // Update roles
-        $user->roles()->sync($request->get('roles'));
+        $user2->roles()->sync($request->get('roles'));
         return back()->with('info','Usuario guardado correctamente');
     }
 
@@ -109,7 +129,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
 
         if($request->hasFile('image')){
-
+          $fechaHora=date("d-m-Y_g:i:s");
           $tamaño = getimagesize($request->file('image'));
           $width = intval($tamaño[0]);
           $height = intval($tamaño[1]);
@@ -121,8 +141,8 @@ class UserController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $user->image = 'users/'.$user->name.date("d-m-Y g:i:s").'.'.$extension;
-            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.date("d-m-Y g:i:s").'.'.$extension));
+            $user->image = 'users/'.$user->name.'_'.$fechaHora.'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.'_'.$fechaHora.'.'.$extension));
         }
 
 
