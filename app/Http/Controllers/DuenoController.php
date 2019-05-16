@@ -5,6 +5,7 @@ namespace BiciRegistro\Http\Controllers;
 use BiciRegistro\Dueno;
 use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Image;
 
 class DuenoController extends Controller
@@ -97,8 +98,8 @@ class DuenoController extends Controller
           $heightResize = $height;
         }
           $extension = $request->file('image')->getClientOriginalExtension();
-          $dueno->image = 'duenos/'.$dueno->nombre.'.'.$extension;
-          Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$dueno->nombre.'.'.$extension));
+          $dueno->image = 'duenos/'.$dueno->nombre.date("d-m-Y g:i:s").'.'.$extension;
+          Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$dueno->nombre.date("d-m-Y g:i:s").'.'.$extension));
       }
 
       $dueno->update();

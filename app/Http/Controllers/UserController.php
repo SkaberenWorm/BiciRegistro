@@ -121,8 +121,8 @@ class UserController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $user->image = 'users/'.$user->name.'.'.$extension;
-            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.'.'.$extension));
+            $user->image = 'users/'.$user->name.date("d-m-Y g:i:s").'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.date("d-m-Y g:i:s").'.'.$extension));
         }
 
 

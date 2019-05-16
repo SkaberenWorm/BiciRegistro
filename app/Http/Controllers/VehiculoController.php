@@ -71,8 +71,8 @@ class VehiculoController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image')->getClientOriginalExtension();
-            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.'.'.$extension;
-            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.'.'.$extension));
+            $vehiculo->image = 'bicicletas/'.$vehiculo->codigo.date("d-m-Y g:i:s").'.'.$extension;
+            Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$vehiculo->codigo.date("d-m-Y g:i:s").'.'.$extension));
         }
 
         if($request->hasFile('image_dueno')){
@@ -88,8 +88,8 @@ class VehiculoController extends Controller
             $heightResize = $height;
           }
             $extension = $request->file('image_dueno')->getClientOriginalExtension();
-            $dueno->image = 'duenos/'.$request->input('run_dueno').'.'.$extension;
-            Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').'.'.$extension));
+            $dueno->image = 'duenos/'.$request->input('run_dueno').date("d-m-Y g:i:s").'.'.$extension;
+            Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').date("d-m-Y g:i:s").'.'.$extension));
         }
 
         $dueno_id = null;

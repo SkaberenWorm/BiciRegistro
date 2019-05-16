@@ -5,7 +5,7 @@ namespace BiciRegistro\Http\Controllers;
 use BiciRegistro\Registro;
 use BiciRegistro\Vehiculo;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class RegistroController extends Controller
