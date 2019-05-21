@@ -165,6 +165,8 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
 
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
     ],
 
     /*
@@ -218,6 +220,8 @@ return [
         'Html'=>Collective\Html\HtmlFacade::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

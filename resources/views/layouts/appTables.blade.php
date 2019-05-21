@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/vnd.microsoft.icon">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/vnd.microsoft.icon">
 
-    <title>Biciregistro</title>
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+  <title>Biciregistro</title>
 
+  <script src="{{ asset('js/app.js') }}"></script>
 
-    <!-- Fonts -->
-    <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
-    <link href="{{ asset('css/font.css') }}" defer rel="stylesheet">
+  <!-- Styles -->
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" defer rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" defer rel="stylesheet">
+  <link defer href="{{ asset('css/style.css') }}" rel="stylesheet">
+	<link defer rel="stylesheet" type="text/css" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
+  <link  defer href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <!-- Fonts -->
+  <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
+  <link href="{{ asset('css/font.css') }}" defer rel="stylesheet">
 
 
 </head>
@@ -125,6 +125,10 @@
         </main>
     </div>
 
+    <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+  	<script type="text/javascript" language="javascript"  src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+  	<script type="text/javascript" language="javascript" defer src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+  
 </body>
 
 </html>

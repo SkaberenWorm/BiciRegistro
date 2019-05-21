@@ -1,9 +1,9 @@
-@extends('layouts.appTables')
+@extends('layouts.app')
 
 @section('content')
-<div class="container ">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-12">
+        <div class="col-md-10">
             <div class="card">
 
                 <div class="card-header">
@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <table id="tablasAdministracion" class="table table-hover table-responsive-md" width="100%">
+                    <table id="example" class="table table-hover table-responsive-md">
                         <thead>
                             <tr>
                             <th>N°</th>
@@ -79,56 +79,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $vehiculos->render() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" class="init">
-$(document).ready(function() {
-  $('#tablasAdministracion').DataTable({
-    "columnDefs": [{
-        "orderable": false,
-        "targets": [1,7,8,-1,-2]
-    }],
-    "scrollY": "480px",
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      }
-  }
-  });
-  $('.dataTables_length').addClass('bs-select');
-} );
-</script>
-
-<!--script type="text/javascript" class="init">
-
-$(document).ready(function() {
-  $('#example').DataTable({
-    "serverSide": true,
-    "ajax": "{{url('api/vehiculos')}}",
-    "columns": [
-      {data:'id'},
-      {data:'image'},
-      {data:'codigo'},
-      {data:'modelo'},
-      {data:'modelo'},
-      {data:'color'},
-      {data:'dueno_id'},
-    ]
-  });
-} );
-
-</script-->
 
 @endsection
