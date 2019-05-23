@@ -12,3 +12,18 @@
 .close{
   color: #fff !important;
 }
+
+.circulo {
+     width: 25px;
+     height: 25px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+}
+
+.cuadrado {
+     width: 25px;
+     height: 25px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border: 1px solid #555;

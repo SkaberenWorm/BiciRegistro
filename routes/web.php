@@ -84,7 +84,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('vehiculos/{vehiculo}', 'VehiculoController@show')->name('vehiculos.show')
             ->middleware('permission:vehiculos.show');
 
-    Route::put('vehiculos/{vehiculo}/disabled', 'VehiculoController@destroy')->name('vehiculos.destroy')
+    Route::post('vehiculos/disable', 'VehiculoController@disable')->name('vehiculos.disable')
+            ->middleware('permission:vehiculos.destroy');
+    Route::post('vehiculos/enable', 'VehiculoController@enable')->name('vehiculos.enable')
             ->middleware('permission:vehiculos.destroy');
 
     Route::get('vehiculos/{vehiculo}/edit', 'VehiculoController@edit')->name('vehiculos.edit')
@@ -115,14 +117,20 @@ Route::middleware(['auth'])->group(function(){
 
     // REGISTRAR
     Route::post('registro/store', 'RegistroController@store')->name('registro.store')
-            ->middleware('permission:registro.create');
+            ->middleware('permission:registros.index');
 
     Route::get('registro', 'RegistroController@index')->name('registro.index')
-            ->middleware('permission:registro.index');
+            ->middleware('permission:registros.index');
 
     Route::post('registro/buscar', 'RegistroController@find')->name('registro.find')
-            ->middleware('permission:registro.find');
+            ->middleware('permission:registros.index');
 
     Route::post('registro/validar', 'RegistroController@validarTercero')->name('registro.validarTercero')
-            ->middleware('permission:registro.validarTercero');
+            ->middleware('permission:registros.tercero');
+
+    Route::get('terceros', 'RegistroController@crearCodigoTercero')->name('registro.crearCodigoTercero')
+            ->middleware('permission:registros.tercero');
+
+    Route::post('terceros', 'RegistroController@findDueno')->name('registro.findDueno')
+            ->middleware('permission:registros.tercero');
 });

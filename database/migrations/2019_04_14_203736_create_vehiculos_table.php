@@ -23,6 +23,7 @@ class CreateVehiculosTable extends Migration
             $table->integer('dueno_id')->unsigned()->index();
             $table->foreign('dueno_id')->references('id')->on('duenos');
             $table->string('image')->nullable()->default('bicicletas/default_bicicleta.png');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

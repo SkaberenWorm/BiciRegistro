@@ -4,6 +4,7 @@ namespace BiciRegistro\Http\Controllers;
 
 use BiciRegistro\Registro;
 use BiciRegistro\Vehiculo;
+use BiciRegistro\Dueno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,10 @@ class RegistroController extends Controller
         if(!isset($vehiculo)){
           $registrarNuevaBicicleta=true;
           return view('registrar.index', compact('registrarNuevaBicicleta','retiroPorTercero'));
+        }else{
+          if(!$vehiculo->activo){
+            return view('registrar.index',['warning'=>'Bicicleta DESHABILITADA!! Si desea activarla contacte al administrador o registre la bicicleta con un nuevo código']);
+          }
         }
 
         $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
@@ -58,6 +63,24 @@ class RegistroController extends Controller
 
     }
 
+
+    public function findDueno(Request $request)
+    {
+        $dueno = Dueno::where('rut', $request->input('run'))->first();
+        if(!isset($dueno)){
+          $registrarDueno=true;
+          return view('registrar.createCode', compact('registrarDueno'));
+        }else{
+          if($dueno->vehiculos->where('activo',true)->count() > 1){
+            return view('registrar.createCode', compact('dueno'));
+          }else{
+            return view('registrar.createCode',['warning'=>'El usuario no tiene bicicletas registradas']);
+          }
+
+        }
+
+    }
+
     /**
      * Buscar la bicicleta para mostrar los datos en pantalla
      *
@@ -65,8 +88,11 @@ class RegistroController extends Controller
      */
     public function validarTercero(Request $request)
     {
-        echo "Esta opción esta temporalmente deshabilitada";
+        return "Validar codigo tercro";
+    }
 
+    public function crearCodigoTercero(){
+      return view('registrar.createCode');
     }
 
 
@@ -81,7 +107,6 @@ class RegistroController extends Controller
     {
       $user = Auth::user();
       setlocale(LC_ALL, 'es_CL');
-      $fecha = "2019-05-12 06:00:00";
       $vehiculo = Vehiculo::find($request->input('vehiculo_id'));
 
       $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
@@ -102,6 +127,7 @@ class RegistroController extends Controller
           'usuario_id' => $user->id,
           'accion' => $accion,
       ]);
+      return view('registrar.index',['info' => 'Registro guardado']);
     }
 
     /**

@@ -18,10 +18,11 @@ class CreateDuenosTable extends Migration
             $table->string('rut',10)->unique();
             $table->string('nombre');
             $table->string('correo');
-            $table->integer('celular')->nullable();   
-            $table->integer('tipoDueno_id')->unsigned()->index(); 
-            $table->foreign('tipoDueno_id')->references('id')->on('tipo_duenos');  
-            $table->string('image')->nullable()->default('duenos/default_duenos.png');        
+            $table->integer('celular')->nullable();
+            $table->integer('tipoDueno_id')->unsigned()->index();
+            $table->foreign('tipoDueno_id')->references('id')->on('tipo_duenos');
+            $table->string('image')->nullable()->default('duenos/default_duenos.png');
+            $table->boolean('activo')->default(true);      
             $table->timestamps();
         });
     }

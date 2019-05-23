@@ -1,13 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ URL::previous() }}" class="btn btn-light float-right">Volver</a>
+                    <a href="<?php echo e(URL::previous()); ?>" class="btn btn-light float-right">Volver</a>
                     <h3 style="margin-bottom: 0px">Detalle bicicleta </h3>
                 </div>
                 <div class="">
@@ -15,7 +13,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4 pb-0 mb-0">
-                                <img src="{{ Storage::url($vehiculo->image) }}"class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
+                                <img src="<?php echo e(Storage::url($vehiculo->image)); ?>"class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -24,22 +22,22 @@
                                       <tbody>
                                         <tr>
                                           <th scope="row" style="width:30%;">Código</th>
-                                          <td>{{ $vehiculo->codigo }}</td>
+                                          <td><?php echo e($vehiculo->codigo); ?></td>
                                         </tr>
                                         <tr>
                                           <th scope="row">Marca</th>
-                                          <td>{{ $vehiculo->marca->description }}</td>
+                                          <td><?php echo e($vehiculo->marca->description); ?></td>
                                         </tr>
                                         <tr>
                                           <th scope="row">Modelo</th>
-                                          <td>{{ $vehiculo->modelo }}</td>
+                                          <td><?php echo e($vehiculo->modelo); ?></td>
                                         </tr>
                                         <tr>
                                           <th scope="row">Color</th>
                                           <td>
                                             <div class="cuadrado"  style="width: 50px;
                                             height: 25px; border-radius: 3px; border: 1px solid #555;
-                                            background-color: {{$vehiculo->color}}">
+                                            background-color: <?php echo e($vehiculo->color); ?>">
                                             </div>
                                         </td>
                                         </tr>
@@ -56,7 +54,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ Storage::url($vehiculo->dueno->image) }}" class="img-fluid rounded img-thumbnail" alt="">
+                                <img src="<?php echo e(Storage::url($vehiculo->dueno->image)); ?>" class="img-fluid rounded img-thumbnail" alt="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -64,30 +62,30 @@
                                     <thead>
                                       <tr>
                                         <th colspan="2">
-                                          <h4 class="mt-1 mb-0"><b>{{ $vehiculo->dueno->nombre }}</b></h4>
+                                          <h4 class="mt-1 mb-0"><b><?php echo e($vehiculo->dueno->nombre); ?></b></h4>
                                         </th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
                                         <th scope="row" style="width:30%;">Run</th>
-                                        <td>{{ $vehiculo->dueno->rut }}</td>
+                                        <td><?php echo e($vehiculo->dueno->rut); ?></td>
                                       </tr>
                                       <tr>
                                         <th scope="row">Nombre</th>
-                                        <td>{{ $vehiculo->dueno->nombre }}</td>
+                                        <td><?php echo e($vehiculo->dueno->nombre); ?></td>
                                       </tr>
                                       <tr>
                                         <th scope="row">Área</th>
-                                        <td>{{ $vehiculo->dueno->tipoDueno->description }}</td>
+                                        <td><?php echo e($vehiculo->dueno->tipoDueno->description); ?></td>
                                       </tr>
                                       <tr>
                                         <th scope="row">Correo</th>
-                                        <td>{{ $vehiculo->dueno->correo }}</td>
+                                        <td><?php echo e($vehiculo->dueno->correo); ?></td>
                                       </tr>
                                       <tr>
                                         <th scope="row">Celular</th>
-                                        <td>+569 {{ $vehiculo->dueno->celular }}</td>
+                                        <td>+569 <?php echo e($vehiculo->dueno->celular); ?></td>
                                       </tr>
 
                                     </tbody>
@@ -103,4 +101,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

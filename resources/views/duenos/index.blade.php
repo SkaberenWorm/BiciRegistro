@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <table id="tablasAdministracion" class="table table-hover table-responsive-md">
+                    <table id="tablasAdministracion" class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                             <th >N°</th>
@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                             @foreach($duenos as $dueno)
-                            @if($dueno->vehiculos->count()==0)
+                            @if($dueno->vehiculos->where('activo',true)->count()==0)
                                 <tr style="color:red">
                             @else
                                 <tr>
@@ -55,7 +55,7 @@
                                 <td>{{$dueno->nombre}}</td>
                                 <td>{{$dueno->correo}}</td>
                                 <td>+569&nbsp{{$dueno->celular}}</td>
-                                <td  class="text-center">{{$dueno->vehiculos->count()}}</td>
+                                <td  class="text-center">{{$dueno->vehiculos->where('activo',true)->count()}}</td>
 
                                 @can('duenos.show')
                                 <td style="padding: .3rem; vertical-align: inherit;">
@@ -85,6 +85,8 @@ $(document).ready(function() {
         "orderable": false,
         "targets": [1,7,8,-1,-2]
     }],
+    //"scrollY": "500px",
+    "scrollCollapse": true,
     "language": {
      "sLengthMenu": "Ver _MENU_ registros",
       "search": "Buscar",

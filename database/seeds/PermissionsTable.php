@@ -29,9 +29,9 @@ class PermissionsTable extends Seeder
             'description'   => 'Editar un usuario',
         ]);
         Permission::create ([
-            'name'          => 'Eliminar usuarios',
+            'name'          => 'Deshabilitar usuarios',
             'slug'          => 'users.destroy',
-            'description'   => 'Elimina cualquier usuario',
+            'description'   => 'Deshabilita cualquier usuario',
         ]);
         Permission::create ([
             'name'          => 'Crear usuario',
@@ -100,14 +100,26 @@ class PermissionsTable extends Seeder
             'description'   => 'Editar un vehiculo',
         ]);
         Permission::create ([
-            'name'          => 'Eliminar vehiculos',
+            'name'          => 'Deshabilitar vehiculos',
             'slug'          => 'vehiculos.destroy',
-            'description'   => 'Elimina cualquier vehiculo',
+            'description'   => 'Deshabilita cualquier vehiculo',
         ]);
         Permission::create ([
-            'name'          => 'Crear vehiculo',
+            'name'          => 'Crear vehiculo y dueño',
             'slug'          => 'vehiculos.create',
-            'description'   => 'Crear un vehiculo',
+            'description'   => 'Crear un vehiculo junto a su dueño',
+        ]);
+
+        // Registros
+        Permission::create ([
+            'name'          => 'Registrar entradas y salidas',
+            'slug'          => 'registros.index',
+            'description'   => 'Puede ver la pantalla de búsqueda de bicicletas y registrar entradas/salidas de bicicletas',
+        ]);
+        Permission::create ([
+            'name'          => 'Crear códigos para retiro por terceros',
+            'slug'          => 'registros.tercero',
+            'description'   => 'Puede crear y validar códigos de bicicletas para retiro por terceros',
         ]);
     }
 }

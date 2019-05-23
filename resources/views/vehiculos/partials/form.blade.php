@@ -12,6 +12,7 @@
                             </div>
                         </div>
 
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('marca_id','Marca') }}
@@ -46,7 +47,7 @@
                                 {{ Form::label('color','Color') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('color', null, ['class' => 'form-control']) }}
+                                {{ Form::color('color', null, ['class' => 'form-control px-1 py-0', 'style'=>'height:37px;']) }}
                                 @if ($errors->has('color'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('color') }}</strong>

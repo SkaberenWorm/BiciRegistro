@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<style media="screen">
+.cuadrado {
+     width: 25px;
+     height: 25px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border: 1px solid #555;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">

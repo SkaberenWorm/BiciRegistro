@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <table class="table table-hover table-responsive-md">
+                    <table class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                             <th>N°</th>
@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                             @foreach($roles as $role)
-                            @if($role->users->count()==0)
+                            @if($role->users->where('activo',true)->count()==0)
                                 <tr style="color:red">
                             @else
                                 <tr>
@@ -51,7 +51,7 @@
                                 <td>{{$role->name}}</td>
                                 <td>{{$role->slug}}</td>
                                 <td>{{$role->description? : "Sin descripción"}}</td>
-                                <td class="text-center" style="width:10%;">{{$role->users->count()}}</td>
+                                <td class="text-center" style="width:10%;">{{$role->users->where('activo',true)->count()}}</td>
                                 @can('roles.show')
                                 <td style="padding: .3rem; vertical-align: inherit;">
                                     <a class="btn btn-light btn-sm" href="{{route('roles.show', $role->id)}}" >Ver</a>

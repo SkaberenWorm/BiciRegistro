@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +12,9 @@
   <title>Biciregistro</title>
 
   <script src="{{ asset('js/app.js') }}"></script>
+  <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+  <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+  <script type="text/javascript" language="javascript" defer src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 
   <!-- Styles -->
 
@@ -62,16 +64,16 @@
                          </div>
                          @endif
                        </li>
-                        <!--@can('vehiculos.index')-->
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'egistro')? 'active': ''}}" href="{{ route('registro.index') }}">Registrar entrada y salida</a>
-                        </li>
-                        <!--@endcan
-                        @can('duenos.index')-->
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(request()->path(),'[url-1]')? 'active': ''}}" href="#">Retiro por terceros</a>
-                        </li>
-                        <!--@endcan-->
+                       @can('registros.index')
+                       <li class="nav-item">
+                           <a class="nav-link {{ strpos(request()->path(),'egistro')? 'active': ''}}" href="{{ route('registro.index') }}">Registrar entrada y salida</a>
+                       </li>
+                       @endcan
+                       @can('registros.tercero')
+                       <li class="nav-item">
+                           <a class="nav-link {{ strpos(request()->path(),'erceros')? 'active': ''}}" href="{{route('registro.crearCodigoTercero')}}">Retiro por terceros</a>
+                       </li>
+                       @endcan
 
 
                     </ul>
@@ -108,27 +110,61 @@
         </nav>
 
         <main class="py-4">
-            @if(session('info'))
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-10">
-                        <div class="alert alert-info" role="alert">
-                        {{session('info')}}
-                        </div>
-                    </div>
-                </div>
+          @if(session('info'))
+            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  {{session('info')}}</b>
             </div>
-            @endif
+          @endif
+          @if(isset($info))
+            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  {{$info}}</b>
+            </div>
+          @endif
+          @if(isset($warning))
+            <div class="message px-3 py-2" role="alert" style="background-color:#F00 !important">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4"> {{$warning}}</b>
+            </div>
+          @endif
 
 
             @yield('content')
         </main>
     </div>
+    <style media="screen">
+      .message{
+        position: absolute;
+        z-index: 999;
+        border-radius: 3px;
 
-    <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-  	<script type="text/javascript" language="javascript"  src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
-  	<script type="text/javascript" language="javascript" defer src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
-  
+        color: #FFF !important;
+        top:55px;
+        right: 0px;
+        max-width: 550px;
+        min-width: 300px;
+    }
+      }
+    </style>
+    <script type="text/javascript">
+      $('.message').animate({'opacity' : '0',},9000);
+      $('.message').click(function(){
+        $('.message').stop();
+      });
+      $(".closeInfo").click(function(){
+        $('.message').hide();
+      });
+
+    </script>
+
+
 </body>
 
 </html>

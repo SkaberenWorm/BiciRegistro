@@ -43,20 +43,34 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'codigo' => 'required|unique:vehiculos',
-            'marca_id' => 'required',
-            'color' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
-            'run_dueno' => 'required',
-            'nombre_dueno' => 'required',
-            'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
-            'celular_dueno' => 'digits_between:0,8',
-            'tipoDueno' => 'required',
-            ]);
+      $existeDueno=false;
+      $dueno = Dueno::where('rut','=',$request->input('run_dueno'))
+                    ->get()->first();
+        if(isset($dueno)){
+          $existeDueno=true;
+          $this->validate($request, [
+              'codigo' => 'required|unique:vehiculos',
+              'marca_id' => 'required',
+              'color' => 'required|string|max:255',
+              'image' => 'required|image|mimes:jpeg,png,jpg',
+              'run_dueno' => 'required',
+              ]);
+        }else{
+          $this->validate($request, [
+              'codigo' => 'required|unique:vehiculos',
+              'marca_id' => 'required',
+              'color' => 'required|string|max:255',
+              'image' => 'required|image|mimes:jpeg,png,jpg',
+              'run_dueno' => 'required',
+              'nombre_dueno' => 'required',
+              'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
+              'celular_dueno' => 'digits_between:0,8',
+              'tipoDueno' => 'required',
+              ]);
+              $dueno = new Dueno();
+        }
 
         $vehiculo = new Vehiculo();
-        $dueno = new Dueno();
         $fechaHora=date("d-m-Y_g:i:s");
 
         if($request->hasFile('image')){
@@ -76,7 +90,7 @@ class VehiculoController extends Controller
             Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$request->input('codigo').'_'.$fechaHora.'.'.$extension));
         }
 
-        if($request->hasFile('image_dueno')){
+        if($request->hasFile('image_dueno')&& $existeDueno){
 
           $tamaño = getimagesize($request->file('image_dueno'));
           $width = intval($tamaño[0]);
@@ -93,21 +107,8 @@ class VehiculoController extends Controller
             Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').'_'.$fechaHora.'.'.$extension));
         }
 
-        $dueno_id = null;
 
-        // Verificamos la existencia del dueño
-        $duenos = Dueno::get();
-        $existeDueno = false;
-        foreach($duenos as $duenoActual){
-            if($duenoActual->rut == $request->input('run_dueno')){
-                $existeDueno = true;
-                $dueno_id = $duenoActual->id;
-                break;
-            }
-        }
-
-        // En algunos servidores no retorna el id
-        // No existe
+        // No existe el dueño
         if(!$existeDueno){
             // Creamos el dueño
             $dueno = Dueno::create([
@@ -118,22 +119,14 @@ class VehiculoController extends Controller
                 'tipoDueno_id' => $request->input('tipoDueno'),
                 'image' => $dueno->image,
             ]);
-            // Buscamos su id
-            $duenos = Dueno::get();
-            foreach($duenos as $duenoActual){
-                if($duenoActual->rut == $request->input('run_dueno')){
-                    // Lo asignamos
-                    $dueno_id = $duenoActual->id;
-                    break;
-                }
-            }
+
         }
         $vehiculo = Vehiculo::create([
             'codigo' => $request->input('codigo'),
             'marca_id' => $request->input('marca_id'),
             'modelo' => $request->input('modelo'),
             'color' => $request->input('color'),
-            'dueno_id' => $dueno_id,
+            'dueno_id' => $dueno->id,
             'image' => $vehiculo->image,
         ]);
 
@@ -212,14 +205,30 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Desactiva la bicicleta
      *
-     * @param  \BiciRegistro\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehiculo $vehiculo)
+    public function disable(Request $request)
     {
+      $vehiculo = Vehiculo::find($request->input('vehiculo_idModalDisable'));
+      $vehiculo->activo = false;
+      $vehiculo->update();
         //$vehiculo->delete();
-        return back()->with('info','Deshabilitado correctamente (Terminar este método)');
+        return back()->with('info','Deshabilitado correctamente');
+    }
+
+    /**
+     * Desactiva la bicicleta
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function enable(Request $request)
+    {
+      $vehiculo = Vehiculo::find($request->input('vehiculo_idModalEnable'));
+      $vehiculo->activo = true;
+      $vehiculo->update();
+        //$vehiculo->delete();
+        return back()->with('info','Habilitado correctamente');
     }
 }

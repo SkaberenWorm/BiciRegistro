@@ -13,7 +13,7 @@ class Registro extends Model
    * @var array
    */
   protected $fillable = [
-      'accion','vehiculo_id', 'usuario_id', 'codigo_tercero',
+      'accion','vehiculo_id', 'usuario_id',
   ];
 
   public function dueno(){

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-11">
+        <div class="col-md-10">
             <div class="card">
 
                 <div class="card-header">
@@ -15,13 +15,8 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    <table id="tablasAdministracion" class="table table-hover table-responsive-md">
+                    <table id="tablasAdministracion" class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                             <th >N°</th>
@@ -93,6 +88,8 @@ $(document).ready(function() {
         "orderable": false,
         "targets": [4,5,-1,-2]
     }],
+    //"scrollY": "500px",
+    "scrollCollapse": true,
     "language": {
      "sLengthMenu": "Ver _MENU_ registros",
       "search": "Buscar",
