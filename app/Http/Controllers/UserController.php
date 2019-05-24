@@ -161,7 +161,7 @@ class UserController extends Controller
     }
 
     /**
-     * Desactiva la bicicleta
+     * Desactiva el usuario y agregamos el permiso especial no-access
      *
      * @return \Illuminate\Http\Response
      */
@@ -170,12 +170,23 @@ class UserController extends Controller
       $user = User::find($request->input('user_idModalDisable'));
       $user->activo = false;
       $user->update();
-        //$user->delete();
+
+      // Agregamos los roles en una variables para actualizarlos (sync)
+      // junto con el rol especial "Acceso denegado"
+      $rolesUpdate = array();
+      foreach ($user->roles as $role) {
+          array_push($rolesUpdate,$role->id);
+      }
+      // Agregamos ROl Aceeso denegado
+      array_push($rolesUpdate,4);
+
+      $user->roles()->sync($rolesUpdate);
         return back()->with('info','Deshabilitado correctamente');
+
     }
 
     /**
-     * Desactiva la bicicleta
+     * Activa el Usuario y le quitamos el permiso especial "no-access"
      *
      * @return \Illuminate\Http\Response
      */
@@ -184,7 +195,19 @@ class UserController extends Controller
       $user = User::find($request->input('user_idModalEnable'));
       $user->activo = true;
       $user->update();
-        //$user->delete();
-        return back()->with('info','Habilitado correctamente');
+
+      // Agragamos los roles en una variables para actualizarlos (sync)
+      // Y quitarle el rol especial "Acceso denegado"
+      $rolesUpdate = array();
+      foreach ($user->roles as $role) {
+        // 4 => Acceso denegado
+        if($role->id != 4){
+          array_push($rolesUpdate,$role->id);
+        }
+      }
+
+      $user->roles()->sync($rolesUpdate);
+
+      return back()->with('info','Habilitado correctamente');
     }
 }

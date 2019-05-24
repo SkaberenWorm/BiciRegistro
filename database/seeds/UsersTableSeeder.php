@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         Role::create ([
             'name'      => 'Acceso denegado',
             'slug'      => 'any_access',
-            'special'   => 'any-access',
+            'special'   => 'no-access',
             'description' => 'Sin acceso a los módulos',
         ]);
 
