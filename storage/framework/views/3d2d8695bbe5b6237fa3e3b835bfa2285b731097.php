@@ -13,10 +13,7 @@
                         <th scope="row" style="width:30%;">Nombre</th>
                         <td><?php echo e($role->name); ?></td>
                       </tr>
-                      <tr>
-                        <th scope="row">URL</th>
-                        <td><?php echo e($role->slug); ?></td>
-                      </tr>
+                      
                       <tr>
                         <th scope="row">Descripción</th>
                         <td><?php echo e($role->description? : 'Sin descripción'); ?></td>

@@ -35,7 +35,7 @@ class RegistroController extends Controller
           return view('registrar.index', compact('registrarNuevaBicicleta','retiroPorTercero'));
         }else{
           if(!$vehiculo->activo){
-            return view('registrar.index',['warning'=>'Bicicleta DESHABILITADA!! Si desea activarla contacte al administrador o registre la bicicleta con un nuevo código']);
+            return view('registrar.index',['warning'=>'Bicicleta DESHABILITADA!!']);
           }
         }
 
@@ -67,11 +67,13 @@ class RegistroController extends Controller
     public function findDueno(Request $request)
     {
         $dueno = Dueno::where('rut', $request->input('run'))->first();
+
         if(!isset($dueno)){
           $registrarDueno=true;
           return view('registrar.createCode', compact('registrarDueno'));
         }else{
-          if($dueno->vehiculos->where('activo',true)->count() > 1){
+          if($dueno->vehiculos->where('activo',true)->count() >= 1){
+
             return view('registrar.createCode', compact('dueno'));
           }else{
             return view('registrar.createCode',['warning'=>'El usuario no tiene bicicletas registradas']);
@@ -147,48 +149,5 @@ class RegistroController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \BiciRegistro\Registro  $registro
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Registro $registro)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \BiciRegistro\Registro  $registro
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Registro $registro)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \BiciRegistro\Registro  $registro
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Registro $registro)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \BiciRegistro\Registro  $registro
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Registro $registro)
-    {
-        //
-    }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-11 col-sm-12">
+        <div class="col-md-10 col-sm-10">
             <div class="card">
                 <div class="card-header">
 
@@ -37,46 +37,46 @@
 
 
                   @if(isset($dueno))
-                    <div class="row card-body">
-                      <div class="row col-md-6 my-3">
-                        <div class="col-sm-5">
-                          <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:150px;">
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="card m-3">
+                          <div class="card-body">
+                            <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
+                            <table class="table responsive-md table-sm mb-0 pb-0">
+                              <tbody>
+                                <tr>
+                                  <th scope="row" style="width:30%;">Run</th>
+                                  <td>{{ $dueno->rut }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Nombre</th>
+                                  <td>{{ $dueno->nombre }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Área</th>
+                                  <td>{{ $dueno->tipoDueno->description }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Correo</th>
+                                  <td>{{ $dueno->correo }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Celular</th>
+                                  <td>+569 {{ $dueno->celular }}</td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                        <div class="col-sm-7">
-                          <table class="table responsive-md table-sm mb-0 pb-0">
-                            <tbody>
-                              <tr>
-                                <th scope="row" style="width:30%;">Run</th>
-                                <td>{{ $dueno->rut }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Nombre</th>
-                                <td>{{ $dueno->nombre }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Área</th>
-                                <td>{{ $dueno->tipoDueno->description }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Correo</th>
-                                <td>{{ $dueno->correo }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Celular</th>
-                                <td>+569 {{ $dueno->celular }}</td>
-                              </tr>
-
-                            </tbody>
-                          </table>
-                        </div>
-
-
                       </div>
+
                       @if($dueno->vehiculos->where('activo',true)->count()>1)
-                      <div class="col-md-6 mt-3">
+                      <div class="col-sm-6 my-3">
                         @foreach($dueno->vehiculos->where('activo',true) as $vehiculo)
-                          <div id="accordion">
-                          <div class="card">
+                        <div id="accordion">
+                          <div class="card mt-1 mr-3">
                             <div class="card-header py-0" id="heading{{$vehiculo->id}}">
                               <div class="row justify-content-center" data-toggle="collapse" data-target="#collapseOne{{$vehiculo->id}}" aria-expanded="true" aria-controls="collapseOne{{$vehiculo->id}}">
                                 <div class="col-sm-3 mt-1">
@@ -135,50 +135,46 @@
                             </div>
                           </div>
                         @endforeach
+                        </div>
                       </div>
-
-
                       @else
-                      <div class="col-md-6">
-                        <div class="row">
-                          <div class="row card-body">
-                            <div class="col-sm-5">
-                              <img src="{{ Storage::url($dueno->vehiculos[0]->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;" alt="">
 
-                            </div>
-                            <div class="col-sm-7">
-                              <table class="table responsive-md table-sm mb-4">
-                                <tbody>
-                                  <tr>
-                                    <th scope="row" style="width:30%;">Código</th>
-                                    <td>{{ $dueno->vehiculos[0]->codigo }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Marca</th>
-                                    <td>{{ $dueno->vehiculos[0]->marca->description }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Modelo</th>
-                                    <td>{{ $dueno->vehiculos[0]->modelo }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Color</th>
-                                    <td>
-                                      <div class="cuadrado"  style="width: 50px;
-                                      height: 25px; border-radius: 3px; border: 1px solid #555;
-                                      background-color: {{$dueno->vehiculos[0]->color}}">
-                                      </div>
-                                    </td>
-                                  </tr>
+                      <div class="col-sm-6">
+                        <div class="card m-3 pb-4">
+                          <div class="card-body">
+                            <img src="{{ Storage::url($dueno->vehiculos[0]->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
+                            <table class="table responsive-md table-sm mb-0 pb-0">
+                              <tbody>
+                                <tr>
+                                  <th scope="row" style="width:30%;">Código</th>
+                                  <td>{{ $dueno->vehiculos[0]->codigo }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Marca</th>
+                                  <td>{{ $dueno->vehiculos[0]->marca->description }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Modelo</th>
+                                  <td>{{ $dueno->vehiculos[0]->modelo }}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">Color</th>
+                                  <td>
+                                    <div class="cuadrado"  style="width: 50px;
+                                    height: 25px; border-radius: 3px; border: 1px solid #555;
+                                    background-color: {{$dueno->vehiculos[0]->color}}">
+                                    </div>
+                                  </td>
+                                </tr>
 
-                                </tbody>
-                              </table>
-                            </div>
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
+
                       @endif
-                    </div>
+
                   @else
 
                     <div class="card-body">

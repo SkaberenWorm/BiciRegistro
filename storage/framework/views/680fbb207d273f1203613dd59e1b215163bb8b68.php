@@ -25,7 +25,7 @@
                                 <td><?php echo e($user->email); ?></td>
                               </tr>
                               <tr>
-                                <?php if($user->roles->where('activo',true)->count() > 1): ?>
+                                <?php if($user->roles->count() > 1): ?>
                                 <th >Roles</th>
                                 <?php else: ?>
                                 <th >Rol</th>

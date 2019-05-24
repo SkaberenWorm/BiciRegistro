@@ -29,9 +29,9 @@ class PermissionsTable extends Seeder
             'description'   => 'Editar un usuario',
         ]);
         Permission::create ([
-            'name'          => 'Deshabilitar usuarios',
-            'slug'          => 'users.destroy',
-            'description'   => 'Deshabilita cualquier usuario',
+            'name'          => 'Deshabilitar / Habilitar usuarios',
+            'slug'          => 'users.status',
+            'description'   => 'Deshabilita o habilita cualquier usuario',
         ]);
         Permission::create ([
             'name'          => 'Crear usuario',
@@ -100,9 +100,9 @@ class PermissionsTable extends Seeder
             'description'   => 'Editar un vehiculo',
         ]);
         Permission::create ([
-            'name'          => 'Deshabilitar vehiculos',
-            'slug'          => 'vehiculos.destroy',
-            'description'   => 'Deshabilita cualquier vehiculo',
+            'name'          => 'Deshabilitar / Habilita vehiculos',
+            'slug'          => 'vehiculos.status',
+            'description'   => 'Deshabilita o habilita cualquier vehiculo',
         ]);
         Permission::create ([
             'name'          => 'Crear vehiculo y dueño',

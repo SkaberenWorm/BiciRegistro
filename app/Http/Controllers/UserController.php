@@ -161,14 +161,30 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Desactiva la bicicleta
      *
-     * @param  \BiciRegistro\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function disable(Request $request)
     {
+      $user = User::find($request->input('user_idModalDisable'));
+      $user->activo = false;
+      $user->update();
         //$user->delete();
-        return back()->with('info','Deshabilitado correctamente (Terminar este método)');
+        return back()->with('info','Deshabilitado correctamente');
+    }
+
+    /**
+     * Desactiva la bicicleta
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function enable(Request $request)
+    {
+      $user = User::find($request->input('user_idModalEnable'));
+      $user->activo = true;
+      $user->update();
+        //$user->delete();
+        return back()->with('info','Habilitado correctamente');
     }
 }

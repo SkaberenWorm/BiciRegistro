@@ -26,7 +26,7 @@
 
 
 </head>
-<body>
+<body style="overflow-x:hidden;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -151,15 +151,21 @@
         min-width: 300px;
     }
       }
+      html{overflow : hidden;!important overflow-y : scroll;!important
+overflow : -moz-scrollbars-vertica}
     </style>
     <script type="text/javascript">
-      $('.message').animate({'opacity' : '0',},9000);
+      $('.message').animate({opacity : '100',},6000);
+      $('.message').animate({right: "10px"},500);
+      $('.message').animate({right: "-550px"},800);
+      $('.message').hide(1);
       $('.message').click(function(){
         $('.message').stop();
       });
       $(".closeInfo").click(function(){
         $('.message').hide();
       });
+
 
     </script>
 </body>

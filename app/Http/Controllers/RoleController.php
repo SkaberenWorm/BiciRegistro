@@ -82,7 +82,6 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:roles,name,'.$role->id,
-            'slug' => 'required|unique:roles,slug,'.$role->id,
             ]);
 
         // Actualizamos el rol

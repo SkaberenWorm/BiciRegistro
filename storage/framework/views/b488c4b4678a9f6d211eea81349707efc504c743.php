@@ -28,14 +28,14 @@
                                  <?php endif; ?>
                             </div>
                         </div>
-                       
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 <?php echo e(Form::label('description','Descripción')); ?>
 
                             </div>
                             <div class="col-sm-10">
-                                <?php echo e(Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios'])); ?> 
+                                <?php echo e(Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios'])); ?>
+
                                 <?php if($errors->has('description')): ?>
                                     <span class="invalid-feedback" role="alert">
                                         <strong><?php echo e($errors->first('description')); ?></strong>
@@ -74,4 +74,3 @@
                                 </ul>
                             </div>
                         </div>
-                        

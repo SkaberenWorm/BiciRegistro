@@ -24,13 +24,12 @@
                                  @endif
                             </div>
                         </div>
-                       
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('description','Descripción') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios']) }} 
+                                {{ Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios']) }}
                                 @if ($errors->has('description'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -65,4 +64,3 @@
                                 </ul>
                             </div>
                         </div>
-                        

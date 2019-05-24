@@ -73,7 +73,7 @@
           </div>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Disable-->
     <div class="modal fade" id="deshabilitarVehiculoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-danger" role="document">
         <div class="modal-content">
@@ -111,8 +111,8 @@
         </div>
       </div>
     </div>
-    <!-- /Modal -->
-    <!-- Modal -->
+    <!-- /Modal Disable-->
+    <!-- Modal Enable-->
     <div class="modal fade" id="habilitarVehiculoModal" tabindex="-1" role="dialog" aria-labelledby="habilitarVehiculoModal" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -149,7 +149,7 @@
         </div>
       </div>
     </div>
-    <!-- /Modal -->
+    <!-- /Modal Enable-->
 </div>
 <script type="text/javascript" class="init">
 $(document).ready(function() {

@@ -85,9 +85,9 @@ Route::middleware(['auth'])->group(function(){
             ->middleware('permission:vehiculos.show');
 
     Route::post('vehiculos/disable', 'VehiculoController@disable')->name('vehiculos.disable')
-            ->middleware('permission:vehiculos.destroy');
+            ->middleware('permission:vehiculos.status');
     Route::post('vehiculos/enable', 'VehiculoController@enable')->name('vehiculos.enable')
-            ->middleware('permission:vehiculos.destroy');
+            ->middleware('permission:vehiculos.status');
 
     Route::get('vehiculos/{vehiculo}/edit', 'VehiculoController@edit')->name('vehiculos.edit')
             ->middleware('permission:vehiculos.edit');
@@ -108,8 +108,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('users/{user}', 'UserController@show')->name('users.show')
             ->middleware('permission:users.show');
 
-    Route::put('users/{user}/disabled', 'UserController@destroy')->name('users.destroy')
-            ->middleware('permission:users.destroy');
+    Route::post('users/disable', 'UserController@disable')->name('users.disable')
+            ->middleware('permission:users.status');
+    Route::post('users/enable', 'UserController@enable')->name('users.enable')
+            ->middleware('permission:users.status');
+
 
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
             ->middleware('permission:users.edit');
