@@ -78,7 +78,7 @@ class UserController extends Controller
         ]);
         // Update roles
         $user2->roles()->sync($request->get('roles'));
-        return back()->with('info','Usuario guardado correctamente');
+        return back()->with('success','Usuario guardado correctamente');
     }
 
     /**
@@ -157,7 +157,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.edit', $user->id)
-        ->with('info','Usuario actualizado correctamente');
+        ->with('success','Usuario actualizado correctamente');
     }
 
     /**
@@ -181,7 +181,7 @@ class UserController extends Controller
       array_push($rolesUpdate,4);
 
       $user->roles()->sync($rolesUpdate);
-        return back()->with('info','Deshabilitado correctamente');
+        return back()->with('success','Deshabilitado correctamente');
 
     }
 
@@ -208,6 +208,6 @@ class UserController extends Controller
 
       $user->roles()->sync($rolesUpdate);
 
-      return back()->with('info','Habilitado correctamente');
+      return back()->with('success','Habilitado correctamente');
     }
 }

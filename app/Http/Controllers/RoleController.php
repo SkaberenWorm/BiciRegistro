@@ -45,7 +45,7 @@ class RoleController extends Controller
 
         $role = Role::create($request->all());
         $role->permissions()->sync($request->get('permissions'));
-        return back()->with('info','Rol guardado correctamente');
+        return back()->with('success','Rol guardado correctamente');
     }
 
     /**
@@ -89,7 +89,7 @@ class RoleController extends Controller
         // Actualizamos los permisos
         $role->permissions()->sync($request->get('permissions'));
         return redirect()->route('roles.edit', $role->id)
-        ->with('info','Rol actualizado correctamente');
+        ->with('success','Rol actualizado correctamente');
     }
 
     /**
@@ -98,9 +98,19 @@ class RoleController extends Controller
      * @param  \BiciRegistro\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Request $request)
     {
-        $role->delete();
-        return back()->with('info','Eliminado correctamente');
+        $role = Role::find($request->input('role_idModalDisable'));
+        if(isset($role)){
+          if($role->name == "Acceso denegado"){
+
+            return back()->with('danger','Para la seguridad del sistema, este rol no debe ser eliminado');
+          }else{
+            $role->delete();
+            return back()->with('success','Rol eliminado correctamente');
+          }
+        }else{
+          return back()->with('danger','Error al eliminar el rol');
+        }
     }
 }

@@ -110,8 +110,24 @@
         </nav>
 
         <main class="py-4">
-          @if(session('info'))
+          @if(session('success'))
             <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  {{session('success')}}</b>
+            </div>
+          @endif
+          @if(isset($success))
+            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  {{$success}}</b>
+            </div>
+          @endif
+          @if(session('info'))
+            <div class="message px-3 py-2" role="alert" style="background-color: #33b5e5;">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
@@ -119,22 +135,29 @@
             </div>
           @endif
           @if(isset($info))
-            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+            <div class="message px-3 py-2" role="alert" style="background-color: #33b5e5;">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
               <b class="pr-4">  {{$info}}</b>
             </div>
           @endif
-          @if(isset($warning))
+          @if(isset($danger))
             <div class="message px-3 py-2" role="alert" style="background-color:#F00 !important">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
-              <b class="pr-4"> {{$warning}}</b>
+              <b class="pr-4"> {{$danger}}</b>
             </div>
           @endif
-
+          @if(session('danger'))
+            <div class="message px-3 py-2" role="alert" style="background-color:#F00 !important">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4"> {{session('danger')}}</b>
+            </div>
+          @endif
 
             @yield('content')
         </main>

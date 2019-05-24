@@ -105,7 +105,7 @@ class DuenoController extends Controller
       $dueno->update();
 
       return redirect()->route('duenos.edit', $dueno->id)
-      ->with('info','Dueño actualizado correctamente');
+      ->with('success','Dueño actualizado correctamente');
     }
 
     /**

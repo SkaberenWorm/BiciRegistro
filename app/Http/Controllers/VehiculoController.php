@@ -131,7 +131,7 @@ class VehiculoController extends Controller
         ]);
 
         if(!$existeDueno){
-            return back()->with('info','Bicicleta guardada correctamente');
+            return back()->with('success','Bicicleta guardada correctamente');
         }else{
             return back()->with('info','Bicicleta guardada correctamente. El Dueño ya estaba registrado');
         }
@@ -201,7 +201,7 @@ class VehiculoController extends Controller
         ]);
 
         return redirect()->route('vehiculos.edit', $vehiculo->id)
-        ->with('info','Bicicleta actualizada correctamente');
+        ->with('success','Bicicleta actualizada correctamente');
     }
 
     /**
@@ -215,7 +215,7 @@ class VehiculoController extends Controller
       $vehiculo->activo = false;
       $vehiculo->update();
         //$vehiculo->delete();
-        return back()->with('info','Deshabilitado correctamente');
+        return back()->with('success','Deshabilitado correctamente');
     }
 
     /**
@@ -229,6 +229,6 @@ class VehiculoController extends Controller
       $vehiculo->activo = true;
       $vehiculo->update();
         //$vehiculo->delete();
-        return back()->with('info','Habilitado correctamente');
+        return back()->with('success','Habilitado correctamente');
     }
 }

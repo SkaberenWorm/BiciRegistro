@@ -64,9 +64,7 @@
                                 @endcan
                                 @can('roles.destroy')
                                 <td style="padding: .3rem; vertical-align: inherit;">
-                                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'roles.destroy', $role]]) }}
-                                    {{ Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger']) }}
-                                {{ Form::close() }}
+                                  <button type="button" name="button" onclick="btnEliminar('{{$role->id}}','{{$role->name}}','{{$role->description}}')" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarRoleModal">Eliminar</button>
                                 </td>
                                 @endcan
                             </tr>
@@ -78,5 +76,41 @@
             </div>
         </div>
     </div>
+    <!-- Modal Delete-->
+    <div class="modal fade" id="eliminarRoleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+          {{ Form::open([ 'method'  => 'post', 'route' => [ 'roles.destroy']]) }}
+
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Eliminar rol</b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ¿Está seguro(a) que desea deshabilitar este rol?
+
+                  <h5 class="mt-3 mb-1" id="roleNameModalDisable"></h5>
+                  <em><label id="roleDesciptionModalDisable"></label></em>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" id="role_idModalDisable" name="role_idModalDisable">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            {{ Form::submit('Eliminar', ['class' => 'btn btn-danger']) }}
+          </div>
+      {{ Form::close() }}
+        </div>
+      </div>
+    </div>
+    <!-- /Modal Delete-->
+    <script type="text/javascript">
+    btnEliminar=function(role_id, name, description){
+      $('#role_idModalDisable').val(role_id);
+      $('#roleNameModalDisable').text(name);
+      $('#roleDesciptionModalDisable').text(description);
+    };
+
+    </script>
 </div>
 @endsection

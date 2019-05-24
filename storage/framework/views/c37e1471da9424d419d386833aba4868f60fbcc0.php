@@ -109,8 +109,24 @@
         </nav>
 
         <main class="py-4">
-          <?php if(session('info')): ?>
+          <?php if(session('success')): ?>
             <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  <?php echo e(session('success')); ?></b>
+            </div>
+          <?php endif; ?>
+          <?php if(isset($success)): ?>
+            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4">  <?php echo e($success); ?></b>
+            </div>
+          <?php endif; ?>
+          <?php if(session('info')): ?>
+            <div class="message px-3 py-2" role="alert" style="background-color: #33b5e5;">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
@@ -118,19 +134,27 @@
             </div>
           <?php endif; ?>
           <?php if(isset($info)): ?>
-            <div class="message px-3 py-2" role="alert" style="background-color: #00c851;">
+            <div class="message px-3 py-2" role="alert" style="background-color: #33b5e5;">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
               <b class="pr-4">  <?php echo e($info); ?></b>
             </div>
           <?php endif; ?>
-          <?php if(isset($warning)): ?>
+          <?php if(isset($danger)): ?>
             <div class="message px-3 py-2" role="alert" style="background-color:#F00 !important">
               <button type="button" class="closeInfo close">
                 <span aria-hidden="true"><b>×</b></span>
               </button>
-              <b class="pr-4"> <?php echo e($warning); ?></b>
+              <b class="pr-4"> <?php echo e($danger); ?></b>
+            </div>
+          <?php endif; ?>
+          <?php if(session('danger')): ?>
+            <div class="message px-3 py-2" role="alert" style="background-color:#F00 !important">
+              <button type="button" class="closeInfo close">
+                <span aria-hidden="true"><b>×</b></span>
+              </button>
+              <b class="pr-4"> <?php echo e(session('danger')); ?></b>
             </div>
           <?php endif; ?>
 

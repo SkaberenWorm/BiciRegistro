@@ -35,7 +35,7 @@ class RegistroController extends Controller
           return view('registrar.index', compact('registrarNuevaBicicleta','retiroPorTercero'));
         }else{
           if(!$vehiculo->activo){
-            return view('registrar.index',['warning'=>'Bicicleta DESHABILITADA!!']);
+            return view('registrar.index',['danger'=>'Bicicleta DESHABILITADA!!']);
           }
         }
 
@@ -76,7 +76,7 @@ class RegistroController extends Controller
 
             return view('registrar.createCode', compact('dueno'));
           }else{
-            return view('registrar.createCode',['warning'=>'El usuario no tiene bicicletas registradas']);
+            return view('registrar.createCode',['danger'=>'El usuario no tiene bicicletas registradas']);
           }
 
         }
@@ -129,7 +129,7 @@ class RegistroController extends Controller
           'usuario_id' => $user->id,
           'accion' => $accion,
       ]);
-      return view('registrar.index',['info' => 'Registro guardado']);
+      return view('registrar.index',['success' => 'Registro guardado']);
     }
 
     /**
