@@ -223,5 +223,15 @@
       </div>
     </div>
     <!-- /Modal -->
+    <script src="{{ asset('js/jquery-ui.js') }}" defer></script>
+    <script defer type="text/javascript">
+    $(document).ready(function() {
+    $( "#buscarDueno" ).autocomplete({
+        source: "{{url('autocompleteRunDueno')}}",
+        minLength: 3
+ });
+});
+
+    </script>
 </div>
 @endsection

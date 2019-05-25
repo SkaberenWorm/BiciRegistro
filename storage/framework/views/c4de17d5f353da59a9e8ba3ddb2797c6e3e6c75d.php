@@ -4,7 +4,7 @@
         <div class="col-md-10">
             <div class="card" >
                 <div class="card-header"><h3 style="margin-bottom: 0px">Registrar bicicleta </h3> </div>
-                <?php echo e(Form::open(['enctype' => 'multipart/form-data','route' => 'vehiculos.store', 'file'=>true])); ?>
+                <?php echo e(Form::open(['enctype' => 'multipart/form-data','route' => 'vehiculos.store', 'file'=>true, 'id'=>'formEnviar'])); ?>
 
                 <div class="card-body" style="padding: 0.5rem;">
                     <div class="row">
@@ -39,8 +39,7 @@
                     </div>
                     <div class="form-group float-right mt-2">
                         <a href="<?php echo e(route('vehiculos.index')); ?>" class="btn btn-light mr-2">Volver</a>
-                        <?php echo e(Form::submit('Guardar', ['class' => 'btn btn-primary'])); ?>
-
+                        <button type="button" class="btn btn-primary"  onclick="enviarForm()" name="button">Guardar</button>
                     </div>
                 </div>
                 <?php echo e(Form::close()); ?>
@@ -48,6 +47,17 @@
             </div>
         </div>
     </div>
+    <script src="<?php echo e(asset('js/select2.min.js')); ?>"></script>
+    <script type="text/javascript">
+    $("#selectMarca").select2({
+            allowClear: false
+        })
+
+      function enviarForm() {
+         $("#formEnviar").submit();
+       }
+
+    </script>
 </div>
 <?php $__env->stopSection(); ?>
 

@@ -13,12 +13,17 @@
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" ></script>
-    <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery-3.3.1.js')); ?>"></script>
 
+    <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery-3.3.1.js')); ?>"></script>
 
     <!-- Fonts -->
     <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
     <link href="<?php echo e(asset('css/font.css')); ?>" defer rel="stylesheet">
+    <link href="<?php echo e(asset('css/select2.min.css')); ?>" defer rel="stylesheet">
+    <link href="<?php echo e(asset('css/jquery-ui.css')); ?>" defer rel="stylesheet">
+
+
+
 
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" defer rel="stylesheet">

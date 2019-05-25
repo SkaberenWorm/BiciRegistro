@@ -28,6 +28,9 @@ class RegistroController extends Controller
      */
     public function find(Request $request)
     {
+        $this->validate($request, [
+          'codigo' => 'required',
+        ]);
         $retiroPorTercero=false;
         $vehiculo = Vehiculo::where('codigo', $request->input('codigo'))->first();
         if(!isset($vehiculo)){
@@ -146,6 +149,20 @@ class RegistroController extends Controller
       ->orderBy('registros.created_at', 'desc')
       ->first();
       return $vehiculoEnRegistro;
+    }
+
+    /*
+    * Funcion que devuelve el rut de los dueños para el autocompletar
+    */
+    public function searchDueno(Request $request){
+      $search = $request->get('term');
+      $duenos = Dueno::select('rut')
+      ->where('rut', 'LIKE', '%'. $search. '%')->get();
+      $data = [];
+      foreach ($duenos as $dueno) {
+        $data[]=$dueno->rut;
+      }
+      return response($data);
     }
 
 

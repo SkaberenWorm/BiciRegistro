@@ -225,6 +225,16 @@
       </div>
     </div>
     <!-- /Modal -->
+    <script src="<?php echo e(asset('js/jquery-ui.js')); ?>" defer></script>
+    <script defer type="text/javascript">
+    $(document).ready(function() {
+    $( "#buscarDueno" ).autocomplete({
+        source: "<?php echo e(url('autocompleteRunDueno')); ?>",
+        minLength: 3
+ });
+});
+
+    </script>
 </div>
 <?php $__env->stopSection(); ?>
 

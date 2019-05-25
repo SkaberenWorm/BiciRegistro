@@ -7,7 +7,7 @@ $factory->define(BiciRegistro\Vehiculo::class, function (Faker $faker) {
         'codigo'    => $faker->isbn10,
         'modelo'    => $faker->domainWord,
         'color'     => $faker->hexcolor,
-        'marca_id'  => $faker->numberBetween($min = 1, $max = 30),
+        'marca_id'  => $faker->numberBetween($min = 1, $max = 289),
         'dueno_id'  => $faker->unique()->numberBetween(1,200),
     ];
 });
