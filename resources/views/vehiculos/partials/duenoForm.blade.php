@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-sm-10">
                                 {{ Form::text('correo_dueno', null, ['class' => 'form-control']) }}
-                                @if ($errors->has('corro_dueno'))
+                                @if ($errors->has('correo_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('correo_dueno') }}</strong>
                                     </span>

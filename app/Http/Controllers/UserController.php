@@ -21,7 +21,7 @@ class UserController extends Controller
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'role_user.role_id')
             ->get();
-        $users = User::paginate(10);
+        $users = User::get();
         return view('users.index', compact('users','roles'));
     }
 

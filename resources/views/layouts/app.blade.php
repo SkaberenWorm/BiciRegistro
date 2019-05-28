@@ -179,9 +179,6 @@
         max-width: 550px;
         min-width: 300px;
     }
-      }
-      html{overflow : hidden;!important overflow-y : scroll;!important
-overflow : -moz-scrollbars-vertica}
     </style>
     <script type="text/javascript">
       $('.message').animate({opacity : '100',},6000);

@@ -37,7 +37,7 @@
                             <div class="col-sm-10">
                                 <?php echo e(Form::text('correo_dueno', null, ['class' => 'form-control'])); ?>
 
-                                <?php if($errors->has('corro_dueno')): ?>
+                                <?php if($errors->has('correo_dueno')): ?>
                                     <span class="invalid-feedback" role="alert">
                                         <strong><?php echo e($errors->first('correo_dueno')); ?></strong>
                                     </span>

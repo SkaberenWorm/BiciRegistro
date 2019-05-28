@@ -82,9 +82,9 @@
                     Registro de bicicletas
                 </div>
 
-                <div class="links">
+                <!--div class="links">
                     <a href="https://github.com/Isma-camaleon/BicicletasDuocUC">GitHub</a>
-                </div>
+                </div-->
             </div>
         </div>
     </body>

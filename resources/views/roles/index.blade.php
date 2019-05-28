@@ -71,7 +71,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $roles->render() }}
                 </div>
             </div>
         </div>

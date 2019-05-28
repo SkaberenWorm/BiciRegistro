@@ -137,7 +137,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('terceros', 'RegistroController@findDueno')->name('registro.findDueno')
             ->middleware('permission:registros.tercero');
 
-    /* Solo podra podran ver los datos, aquellos con permisos de listar los dueños */
+    /* Solo podran ver los datos, aquellos con permisos de listar los dueños */
     Route::get('autocompleteRunDueno', 'RegistroController@searchDueno')->name('registro.autocompleteRunDueno')
-            ->middleware('permission:duenos.index');;
+            ->middleware('permission:duenos.index');
 });

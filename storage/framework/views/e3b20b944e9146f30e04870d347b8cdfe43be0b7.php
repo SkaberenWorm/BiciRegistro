@@ -80,17 +80,17 @@
                           <div class="card mt-1 mr-3">
                             <div class="card-header py-0" id="heading<?php echo e($vehiculo->id); ?>">
                               <div class="row justify-content-center" data-toggle="collapse" data-target="#collapseOne<?php echo e($vehiculo->id); ?>" aria-expanded="true" aria-controls="collapseOne<?php echo e($vehiculo->id); ?>">
-                                <div class="col-sm-3 mt-1">
+                                <div class="col-sm-3 mt-1 px-0">
                                   <img src="<?php echo e(Storage::url($vehiculo->image)); ?>" class="img-fluid rounded" style="max-height:50px;" alt="">
                                 </div>
-                                <h5 class="mb-0 col-sm-5">
+                                <h5 class="mb-0 col-sm-6  px-0">
                                   <button class="btn btn-link" style="text-decoration:none" data-toggle="collapse" data-target="#collapseOne<?php echo e($vehiculo->id); ?>" aria-expanded="true" aria-controls="collapseOne<?php echo e($vehiculo->id); ?>">
                                     <b><?php echo e($vehiculo->marca->description); ?> <?php echo e($vehiculo->modelo); ?></b><br>
                                     <?php echo e($vehiculo->codigo); ?>
 
                                   </button>
                                 </h5>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3  px-0">
                                   <div class="input-group mt-3">
                                     <button type="button" class="btn btn-success btn-sm" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
                                   </div>
@@ -215,7 +215,11 @@
             </button>
           </div>
           <div class="modal-body">
-            ...
+            Se enviará un e-mail a la cuenta
+            <?php if(isset($dueno)): ?>
+            <em><b><?php echo e($dueno->correo); ?></b></em>,
+            <?php endif; ?>
+             con el código de retiro <b> 747832 </b>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

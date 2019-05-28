@@ -38,4 +38,15 @@
         </div>
     </div>
 </div>
+<script src="{{asset('js/select2.min.js')}}"></script>
+<script type="text/javascript">
+$("#selectMarca").select2({
+        allowClear: false
+    })
+
+  function enviarForm() {
+     $("#formEnviar").submit();
+   }
+
+</script>
 @endsection

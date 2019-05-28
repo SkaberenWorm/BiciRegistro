@@ -300,7 +300,22 @@ class MarcaTableSeeder extends Seeder
       BiciRegistro\Marca::create(['description'=>'Trigon']);
       BiciRegistro\Marca::create(['description'=>'Wheeler']);
       BiciRegistro\Marca::create(['description'=>'Salcano']);
-
+      BiciRegistro\Marca::create(['description'=>'Roda']);
+      BiciRegistro\Marca::create(['description'=>'Altitude']);
+      BiciRegistro\Marca::create(['description'=>'Oxford']);
+      BiciRegistro\Marca::create(['description'=>'Fantic']);
+      BiciRegistro\Marca::create(['description'=>'Phoenix']);
+      BiciRegistro\Marca::create(['description'=>'Radical Mountain']);
+      BiciRegistro\Marca::create(['description'=>'Veason']);
+      BiciRegistro\Marca::create(['description'=>'Royal Baby']);
+      BiciRegistro\Marca::create(['description'=>'Vision']);
+      BiciRegistro\Marca::create(['description'=>'Frata']);
+      BiciRegistro\Marca::create(['description'=>'Jeep']);
+      BiciRegistro\Marca::create(['description'=>'Lahsen']);
+      BiciRegistro\Marca::create(['description'=>'Orbital']);
+      BiciRegistro\Marca::create(['description'=>'Ozono']);
+      BiciRegistro\Marca::create(['description'=>'Upland']);
+      BiciRegistro\Marca::create(['description'=>'Volmark']);
 
     }
 }

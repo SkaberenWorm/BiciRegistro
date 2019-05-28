@@ -63,6 +63,7 @@ class VehiculoController extends Controller
               'image' => 'required|image|mimes:jpeg,png,jpg',
               'run_dueno' => 'required',
               'nombre_dueno' => 'required',
+              'correo_dueno' => 'required|unique:duenos,correo',
               'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
               'celular_dueno' => 'digits_between:0,8',
               'tipoDueno' => 'required',

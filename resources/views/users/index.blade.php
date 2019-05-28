@@ -79,7 +79,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $users->render() }}
                 </div>
             </div>
         </div>
@@ -126,13 +125,13 @@
         <div class="modal-content">
           {{ Form::open([ 'method'  => 'post', 'route' => [ 'users.enable']]) }}
           <div class="modal-header" style="background-color: #00c851;">
-            <h5 class="modal-title"><b class="text-white">Habilitar bicicleta</b></h5>
+            <h5 class="modal-title"><b class="text-white">Habilitar usuario</b></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ¿Está seguro(a) que desea habilitar esta bicicleta?
+            ¿Está seguro(a) que desea habilitar este usuario?
             <table class=" mt-3">
               <tr>
                 <td><img src="" id="imagenUserModalEnable" class="img-fluid rounded " style="max-height: 100px" alt=""></td>

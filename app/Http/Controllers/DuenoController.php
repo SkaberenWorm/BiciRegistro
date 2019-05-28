@@ -17,7 +17,7 @@ class DuenoController extends Controller
      */
     public function index()
     {
-      $duenos = Dueno::paginate(10);
+      $duenos = Dueno::get();
       return view('duenos.index', compact('duenos'));
     }
 

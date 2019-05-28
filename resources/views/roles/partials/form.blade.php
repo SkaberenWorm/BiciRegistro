@@ -51,16 +51,116 @@
                             <div class="col-sm-2">
                                 {{ Form::label('permission','Permisos') }}
                             </div>
-                            <div class="col-sm-10">
-                                <ul class="list-unstyled">
+                            <div class="row col-sm-10">
+                              <!-- Permisos de usuarios -->
+                              <div class="card col-4 p-0 my-1">
+                                <div class="card-header">
+                                  Usuarios
+                                </div>
+                                <div class="card-body py-2">
+                                  <ul class="list-unstyled my-0">
                                     @foreach($permissions as $permission)
+                                      @if($permission->grupo=="usuarios")
                                         <li>
                                             <label>
                                             {{ Form::checkbox('permissions[]', $permission->id, null ) }}
                                             {{ $permission->name}}
                                             </label>
                                         </li>
+                                      @endif
                                     @endforeach
-                                </ul>
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- Permisos de usuarios -->
+
+                              <!-- Permisos de roles -->
+                              <div class="card col-4 p-0 my-1">
+                                <div class="card-header">
+                                  Roles
+                                </div>
+                                <div class="card-body py-2">
+                                  <ul class="list-unstyled my-0">
+                                    @foreach($permissions as $permission)
+                                      @if($permission->grupo=="roles")
+                                        <li>
+                                            <label>
+                                            {{ Form::checkbox('permissions[]', $permission->id, null ) }}
+                                            {{ $permission->name}}
+                                            </label>
+                                        </li>
+                                      @endif
+                                    @endforeach
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- Permisos de roles -->
+
+                              <!-- Permisos de bicicletas -->
+                              <div class="card col-4 p-0 my-1">
+                                <div class="card-header">
+                                  Bicicletas
+                                </div>
+                                <div class="card-body py-2">
+                                  <ul class="list-unstyled my-0">
+                                    @foreach($permissions as $permission)
+                                      @if($permission->grupo=="bicicletas")
+                                        <li>
+                                            <label>
+                                            {{ Form::checkbox('permissions[]', $permission->id, null ) }}
+                                            {{ $permission->name}}
+                                            </label>
+                                        </li>
+                                      @endif
+                                    @endforeach
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- Permisos de bicicletas -->
+
+                              <!-- Permisos de dueños -->
+                              <div class="card col-4 p-0 my-1">
+                                <div class="card-header">
+                                  Dueños
+                                </div>
+                                <div class="card-body py-2">
+                                  <ul class="list-unstyled my-0">
+                                    @foreach($permissions as $permission)
+                                      @if($permission->grupo=="duenos")
+                                        <li>
+                                            <label>
+                                            {{ Form::checkbox('permissions[]', $permission->id, null ) }}
+                                            {{ $permission->name}}
+                                            </label>
+                                        </li>
+                                      @endif
+                                    @endforeach
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- Permisos de dueños -->
+
+                              <!-- Permisos de otros -->
+                              <div class="card col-8 p-0 my-1">
+                                <div class="card-header">
+                                  Otros
+                                </div>
+                                <div class="card-body py-2">
+                                  <ul class="list-unstyled my-0">
+                                    @foreach($permissions as $permission)
+                                      @if($permission->grupo=="otros")
+                                        <li>
+                                            <label>
+                                            {{ Form::checkbox('permissions[]', $permission->id, null ) }}
+                                            {{ $permission->name}}
+                                            </label>
+                                        </li>
+                                      @endif
+                                    @endforeach
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- Permisos de otros -->
+
                             </div>
                         </div>

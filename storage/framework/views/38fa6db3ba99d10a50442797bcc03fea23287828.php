@@ -70,8 +70,6 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
-                    <?php echo e($roles->render()); ?>
-
                 </div>
             </div>
         </div>

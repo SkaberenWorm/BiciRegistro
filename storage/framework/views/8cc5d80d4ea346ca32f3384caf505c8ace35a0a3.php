@@ -20,7 +20,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <table id="tablasAdministracion" class="table table-hover table-responsive-sm">
+                    <table id="tablasAdministracionDuenos" class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
                             <th >N°</th>
@@ -71,8 +71,6 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
-                    <?php echo e($duenos->render()); ?>
-
                 </div>
             </div>
         </div>
@@ -80,7 +78,7 @@
 </div>
 <script type="text/javascript" class="init">
 $(document).ready(function() {
-  $('#tablasAdministracion').DataTable({
+  $('#tablasAdministracionDuenos').DataTable({
     "columnDefs": [{
         "orderable": false,
         "targets": [1,7,8,-1,-2]
@@ -91,7 +89,7 @@ $(document).ready(function() {
      "sLengthMenu": "Ver _MENU_ registros",
       "search": "Buscar",
       "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "sInfo": "Mostrando _TOTAL_ registros",
       "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
       "paginate": {
         "first": "Primero",
@@ -101,6 +99,7 @@ $(document).ready(function() {
       }
   }
   });
+  $('.dataTables_length').addClass('bs-select');
 } );
 </script>
 <?php $__env->stopSection(); ?>
