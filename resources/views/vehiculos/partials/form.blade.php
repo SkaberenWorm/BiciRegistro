@@ -3,7 +3,7 @@
                             {{ Form::label('codigo','Código') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':'']) }}
+                            {{ Form::text('codigo', null , ['class' => 'form-control','autocomplete' => 'off', isset($vehiculo)?'disabled':'']) }}
                                 @if ($errors->has('codigo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('codigo') }}</strong>
@@ -33,7 +33,7 @@
                                 {{ Form::label('modelo','Modelo') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('modelo', null, ['class' => 'form-control']) }}
+                                {{ Form::text('modelo', null, ['class' => 'form-control','autocomplete' => 'off']) }}
                                 @if ($errors->has('modelo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('modelo') }}</strong>
@@ -47,7 +47,7 @@
                                 {{ Form::label('color','Color') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('color', null, ['class' => 'form-control px-1 py-0', 'style'=>'height:37px;']) }}
+                                {{ Form::text('color', null, ['class' => 'form-control px-1 py-0','autocomplete' => 'off', 'style'=>'height:37px;']) }}
                                 @if ($errors->has('color'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('color') }}</strong>

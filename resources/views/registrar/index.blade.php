@@ -51,7 +51,11 @@
                           @endif
                           <div class="col-md-8">
                             <h4 class="text-danger pl-2">Acción: {{$accion}} </h4>
-                            <h4 class="text-danger pl-2"><?php setlocale(LC_ALL, 'es_CL'); echo (date("d/m/Y g:i a")); ?> </h4>
+                            <h4 class="text-danger pl-2">
+                              <div id="hora">
+
+                              </div>
+
                           </div>
                           <div class="col-md-4 pt-2">
                             {{ Form::open(['route' => 'registro.store']) }}
@@ -108,10 +112,7 @@
                                   <tr>
                                     <th scope="row">Color</th>
                                     <td>
-                                      <div class="cuadrado"  style="width: 50px;
-                                      height: 25px; border-radius: 3px; border: 1px solid #555;
-                                      background-color: {{$vehiculo->color}}">
-                                      </div>
+                                      {{$vehiculo->color}}
                                     </td>
                                   </tr>
 
@@ -185,4 +186,13 @@
     </div>
 
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#hora").load("{{route('hora')}}");
+    var refreshId = setInterval(function() {
+        $("#hora").load("{{route('hora')}}")
+        .error(function() { alert("Error al actualizar la hora"); });
+    }, 1000);
+});
+</script>
 @endsection

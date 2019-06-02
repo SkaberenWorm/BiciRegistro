@@ -3,7 +3,7 @@
                             {{ Form::label('run_dueno','Run') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('run_dueno', null , ['placeholder' => '11111111-1','class' => 'form-control', isset($dueno)?'disabled':'']) }}
+                            {{ Form::text('run_dueno', null , ['autocomplete' => 'off', 'placeholder' => '11111111-1','class' => 'form-control', isset($dueno)?'disabled':'']) }}
                                 @if ($errors->has('run_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('run_dueno') }}</strong>
@@ -16,7 +16,7 @@
                                 {{ Form::label('nombre_dueno','Nombre') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('nombre_dueno', null, ['class' => 'form-control']) }}
+                                {{ Form::text('nombre_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('nombre_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('nombre_dueno') }}</strong>
@@ -30,7 +30,7 @@
                                 {{ Form::label('correo_dueno','Correo') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('correo_dueno', null, ['class' => 'form-control']) }}
+                                {{ Form::text('correo_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('correo_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('correo_dueno') }}</strong>

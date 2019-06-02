@@ -4,7 +4,7 @@
 
     </div>
     <div class="col-sm-10">
-    <?php echo e(Form::text('rut', null , ['class' => 'form-control', isset($dueno)?'disabled':''])); ?>
+    <?php echo e(Form::text('rut', null , ['autocomplete' => 'off', 'class' => 'form-control', isset($dueno)?'disabled':''])); ?>
 
         <?php if($errors->has('rut')): ?>
             <span class="invalid-feedback" role="alert">
@@ -19,7 +19,7 @@
 
     </div>
     <div class="col-sm-10">
-        <?php echo e(Form::text('nombre', null, ['class' => 'form-control'])); ?>
+        <?php echo e(Form::text('nombre', null, ['autocomplete' => 'off', 'class' => 'form-control'])); ?>
 
         <?php if($errors->has('nombre')): ?>
             <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
 
     </div>
     <div class="col-sm-10">
-        <?php echo e(Form::text('correo', null, ['class' => 'form-control'])); ?>
+        <?php echo e(Form::text('correo', null, ['autocomplete' => 'off', 'class' => 'form-control'])); ?>
 
         <?php if($errors->has('correo')): ?>
             <span class="invalid-feedback" role="alert">

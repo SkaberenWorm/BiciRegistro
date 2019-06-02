@@ -3,7 +3,7 @@
                             {{ Form::label('name','Nombre') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('name', null , ['class' => 'form-control']) }}
+                            {{ Form::text('name', null , ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -16,7 +16,7 @@
                                 {{ Form::label('email','Correo') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('email', null, ['class' => 'form-control']) }}
+                                {{ Form::text('email', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -24,7 +24,7 @@
                                  @endif
                             </div>
                         </div>
-                       
+
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 {{ Form::label('password','Contraseña') }}
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-sm-10">
                                        <ul class="list-unstyled">
-                                       
+
                                        @foreach($roles as $role)
                                             <li>
                                                 <label>
@@ -71,6 +71,3 @@
                                        </ul>
                                     </div>
                                 </div>
-
-
-                        

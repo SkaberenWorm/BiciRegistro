@@ -3,7 +3,7 @@
     {{ Form::label('rut','Run') }}
     </div>
     <div class="col-sm-10">
-    {{ Form::text('rut', null , ['class' => 'form-control', isset($dueno)?'disabled':'']) }}
+    {{ Form::text('rut', null , ['autocomplete' => 'off', 'class' => 'form-control', isset($dueno)?'disabled':'']) }}
         @if ($errors->has('rut'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('rut') }}</strong>
@@ -16,7 +16,7 @@
         {{ Form::label('nombre','Nombre') }}
     </div>
     <div class="col-sm-10">
-        {{ Form::text('nombre', null, ['class' => 'form-control']) }}
+        {{ Form::text('nombre', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
         @if ($errors->has('nombre'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('nombre') }}</strong>
@@ -30,7 +30,7 @@
         {{ Form::label('correo','Correo') }}
     </div>
     <div class="col-sm-10">
-        {{ Form::text('correo', null, ['class' => 'form-control']) }}
+        {{ Form::text('correo', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
         @if ($errors->has('correo'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('correo') }}</strong>

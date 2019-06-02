@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegistrosTable extends Migration
+class CreateTercerosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateRegistrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('registros', function (Blueprint $table) {
+        Schema::create('terceros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vehiculo_id')->unsigned()->index();
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
-            $table->integer('usuario_id')->unsigned()->index();
-            $table->foreign('usuario_id')->references('id')->on('users');
-            $table->integer('codigo_tercero')->nullable();
-            $table->string('accion')->default('');
+            $table->integer('codigo_tercero');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateRegistrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registros');
+        Schema::dropIfExists('terceros');
     }
 }

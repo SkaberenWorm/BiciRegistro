@@ -121,10 +121,7 @@
                                       <tr>
                                         <th scope="row">Color</th>
                                         <td>
-                                          <div class="cuadrado"  style="width: 50px;
-                                          height: 25px; border-radius: 3px; border: 1px solid #555;
-                                          background-color: {{$vehiculo->color}}">
-                                          </div>
+                                          {{$vehiculo->color}}
                                         </td>
                                       </tr>
 
@@ -159,11 +156,7 @@
                                 </tr>
                                 <tr>
                                   <th scope="row">Color</th>
-                                  <td>
-                                    <div class="cuadrado"  style="width: 50px;
-                                    height: 25px; border-radius: 3px; border: 1px solid #555;
-                                    background-color: {{$dueno->vehiculos[0]->color}}">
-                                    </div>
+                                  <td>{{$dueno->vehiculos[0]->color}}
                                   </td>
                                 </tr>
 

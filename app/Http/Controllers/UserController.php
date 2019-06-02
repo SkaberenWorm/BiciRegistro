@@ -68,6 +68,8 @@ class UserController extends Controller
                 $extension = $request->file('image')->getClientOriginalExtension();
                 $user->image = 'users/'.$request->input('name').'_'.$fechaHora.'.'.$extension;
                 Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$request->input('name').'_'.$fechaHora.'.'.$extension));
+            }else{
+              $user->image='users/default_user.png';
             }
 
         $user2 = User::create([
@@ -143,6 +145,8 @@ class UserController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $user->image = 'users/'.$user->name.'_'.$fechaHora.'.'.$extension;
             Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/users/'.$user->name.'_'.$fechaHora.'.'.$extension));
+        }else{
+          $user->image='users/default_user.png';
         }
 
 

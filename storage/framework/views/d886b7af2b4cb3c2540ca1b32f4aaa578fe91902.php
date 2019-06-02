@@ -4,7 +4,7 @@
 
                             </div>
                             <div class="col-sm-10">
-                            <?php echo e(Form::text('codigo', null , ['class' => 'form-control', isset($vehiculo)?'disabled':''])); ?>
+                            <?php echo e(Form::text('codigo', null , ['class' => 'form-control','autocomplete' => 'off', isset($vehiculo)?'disabled':''])); ?>
 
                                 <?php if($errors->has('codigo')): ?>
                                     <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
 
                             </div>
                             <div class="col-sm-10">
-                                <?php echo e(Form::text('modelo', null, ['class' => 'form-control'])); ?>
+                                <?php echo e(Form::text('modelo', null, ['class' => 'form-control','autocomplete' => 'off'])); ?>
 
                                 <?php if($errors->has('modelo')): ?>
                                     <span class="invalid-feedback" role="alert">
@@ -54,7 +54,7 @@
 
                             </div>
                             <div class="col-sm-10">
-                                <?php echo e(Form::text('color', null, ['class' => 'form-control px-1 py-0', 'style'=>'height:37px;'])); ?>
+                                <?php echo e(Form::text('color', null, ['class' => 'form-control px-1 py-0','autocomplete' => 'off', 'style'=>'height:37px;'])); ?>
 
                                 <?php if($errors->has('color')): ?>
                                     <span class="invalid-feedback" role="alert">

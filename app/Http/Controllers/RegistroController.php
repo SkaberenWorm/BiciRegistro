@@ -44,16 +44,10 @@ class RegistroController extends Controller
 
         $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
 
-        if(!isset($vehiculoEnRegistro)){
-          $accion="Ingreso";
-          //dd("No hay movimiento");
+        if($vehiculo->isInside){
+          $accion="Salida";
         }else{
-          if($vehiculoEnRegistro->accion == "Ingreso"){
-            $accion = "Salida";
-          }else{
-            $accion="Ingreso";
-          }
-          //dd("Hay movimiento");
+          $accion="Ingreso";
         }
 
       if(isset($vehiculoEnRegistro->codigo_tercero)){
@@ -103,7 +97,7 @@ class RegistroController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda el registro de entrada o salida de la bicicleta
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -120,13 +114,16 @@ class RegistroController extends Controller
         $accion="Ingreso";
         //dd("No hay movimiento");
       }else{
-        if($vehiculoEnRegistro->accion == "Ingreso"){
+        if($vehiculo->isInside){
           $accion = "Salida";
+            $vehiculo->isInside = false;
         }else{
           $accion="Ingreso";
+            $vehiculo->isInside = true;
         }
         //dd("Hay movimiento");
       }
+      $vehiculo->update();
       Registro::create([
           'vehiculo_id' => $vehiculo->id,
           'usuario_id' => $user->id,

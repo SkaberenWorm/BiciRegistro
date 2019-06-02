@@ -123,10 +123,8 @@
                                       <tr>
                                         <th scope="row">Color</th>
                                         <td>
-                                          <div class="cuadrado"  style="width: 50px;
-                                          height: 25px; border-radius: 3px; border: 1px solid #555;
-                                          background-color: <?php echo e($vehiculo->color); ?>">
-                                          </div>
+                                          <?php echo e($vehiculo->color); ?>
+
                                         </td>
                                       </tr>
 
@@ -161,11 +159,8 @@
                                 </tr>
                                 <tr>
                                   <th scope="row">Color</th>
-                                  <td>
-                                    <div class="cuadrado"  style="width: 50px;
-                                    height: 25px; border-radius: 3px; border: 1px solid #555;
-                                    background-color: <?php echo e($dueno->vehiculos[0]->color); ?>">
-                                    </div>
+                                  <td><?php echo e($dueno->vehiculos[0]->color); ?>
+
                                   </td>
                                 </tr>
 

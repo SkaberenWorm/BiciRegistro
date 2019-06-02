@@ -3,7 +3,7 @@
                             {{ Form::label('name','Nombre') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('name', null , ['class' => 'form-control','placeholder'=>'Administrador']) }}
+                            {{ Form::text('name', null , ['autocomplete' => 'off', 'class' => 'form-control','placeholder'=>'Administrador']) }}
                             @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -16,7 +16,7 @@
                                 {{ Form::label('slug','URL') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('slug', null, ['class' => 'form-control','placeholder'=>'admin_user']) }}
+                                {{ Form::text('slug', null, ['autocomplete' => 'off', 'class' => 'form-control','placeholder'=>'admin_user']) }}
                                 @if ($errors->has('slug'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('slug') }}</strong>
@@ -29,7 +29,7 @@
                                 {{ Form::label('description','Descripción') }}
                             </div>
                             <div class="col-sm-10">
-                                {{ Form::text('description', null, ['class' => 'form-control','placeholder'=>'Administrador de usuarios']) }}
+                                {{ Form::text('description', null, ['autocomplete' => 'off', 'class' => 'form-control','placeholder'=>'Administrador de usuarios']) }}
                                 @if ($errors->has('description'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
