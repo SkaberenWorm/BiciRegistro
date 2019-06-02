@@ -173,7 +173,13 @@
         right: 0px;
         max-width: 550px;
         min-width: 300px;
-    }
+      }
+      .dropdown-menu{
+        margin-top: 0px;
+      }
+      .dropdown:hover>.dropdown-menu {
+        display: block;
+      }
       }
     </style>
     <script type="text/javascript">

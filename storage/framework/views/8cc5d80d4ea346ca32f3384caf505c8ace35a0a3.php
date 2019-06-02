@@ -20,56 +20,21 @@
                         </div>
                     <?php endif; ?>
 
-                    <table id="tablasAdministracionDuenos" class="table table-hover table-responsive-sm">
+                    <table id="tablasAdministracionDuenos" class="table table-hovertable-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" width="100%">
                         <thead>
                             <tr>
                             <th >N°</th>
-                            <th>Imagen</th>
+                            <th data-orderable="false">Imagen</th>
                             <th>Run</th>
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Celular</th>
-                            <th>Bicicletas</th>
-                            <?php if (\Shinobi::can('duenos.show')): ?>
-                            <th style="width:10px"></th>
-                            <?php endif; ?>
-                            <?php if (\Shinobi::can('duenos.edit')): ?>
-                            <th style="width:10px"></th>
-                            <?php endif; ?>
+                            <th >Bicicletas</th>
+                            <th data-orderable="false"></th>
 
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php $__currentLoopData = $duenos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dueno): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($dueno->vehiculos->where('activo',true)->count()==0): ?>
-                                <tr style="color:red">
-                            <?php else: ?>
-                                <tr>
-                            <?php endif; ?>
-                                <td><?php echo e($dueno->id); ?></td>
-                                <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
-                                    <img src="<?php echo e(Storage::url($dueno->image)); ?>" class="img-fluid rounded " style="max-height: 35px" alt="">
-                                </td>
-                                <td><?php echo e($dueno->rut); ?></td>
-                                <td><?php echo e($dueno->nombre); ?></td>
-                                <td><?php echo e($dueno->correo); ?></td>
-                                <td>+569&nbsp<?php echo e($dueno->celular); ?></td>
-                                <td  class="text-center"><?php echo e($dueno->vehiculos->where('activo',true)->count()); ?></td>
 
-                                <?php if (\Shinobi::can('duenos.show')): ?>
-                                <td style="padding: .3rem; vertical-align: inherit;">
-                                    <a class="btn btn-light btn-sm" href="<?php echo e(route('duenos.show', $dueno->id)); ?>" >Ver</a>
-                                </td>
-                                <?php endif; ?>
-                                <?php if (\Shinobi::can('duenos.edit')): ?>
-                                <td style="padding: .3rem; vertical-align: inherit;">
-                                    <a class="btn btn-light btn-sm" href="<?php echo e(route('duenos.edit', $dueno->id)); ?>" >Editar</a>
-                                </td>
-                                <?php endif; ?>
-
-                            </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -79,10 +44,20 @@
 <script type="text/javascript" class="init">
 $(document).ready(function() {
   $('#tablasAdministracionDuenos').DataTable({
-    "columnDefs": [{
-        "orderable": false,
-        "targets": [1,7,8,-1,-2]
-    }],
+    "processing": true,
+    'serverSide': true,
+    ajax: "<?php echo e(route('duenos.listar')); ?>",
+
+    'columns':[
+          {'data':'id'},
+          {'data':'imagen'},
+          {'data':'rut'},
+          {'data':'nombre'},
+          {'data':'correo'},
+          {'data':'celular'},
+          {'data':'bicicletas'},
+          {'data':'accion'},
+    ],
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {

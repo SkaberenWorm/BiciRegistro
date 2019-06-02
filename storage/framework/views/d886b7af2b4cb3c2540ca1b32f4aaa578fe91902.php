@@ -54,7 +54,7 @@
 
                             </div>
                             <div class="col-sm-10">
-                                <?php echo e(Form::color('color', null, ['class' => 'form-control px-1 py-0', 'style'=>'height:37px;'])); ?>
+                                <?php echo e(Form::text('color', null, ['class' => 'form-control px-1 py-0', 'style'=>'height:37px;'])); ?>
 
                                 <?php if($errors->has('color')): ?>
                                     <span class="invalid-feedback" role="alert">

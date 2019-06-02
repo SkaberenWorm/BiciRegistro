@@ -116,7 +116,7 @@ class PermissionsTable extends Seeder
             'grupo'         => 'bicicletas',
         ]);
         Permission::create ([
-            'name'          => 'Deshabilitar / Habilita bicicleta',
+            'name'          => 'Deshabilitar / Habilitar bicicleta',
             'slug'          => 'vehiculos.status',
             'description'   => 'Deshabilita o habilita cualquier bicicleta',
             'grupo'         => 'bicicletas',

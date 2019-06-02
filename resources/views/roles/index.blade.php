@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <table class="table table-hover table-responsive-sm">
+                    <table class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
                         <thead>
                             <tr>
                             <th>N°</th>

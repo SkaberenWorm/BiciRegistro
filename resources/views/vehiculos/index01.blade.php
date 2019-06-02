@@ -14,20 +14,62 @@
                   <h3 style="margin-top: 5px; margin-bottom: 0px">Bicicletas</h3>
               </div>
               <div class="card-body">
-                  <table id="tablasAdministracion" class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" width="100%">
+                  <table id="tablasAdministracion" class="table table-hover table-responsive" width="100%">
                       <thead>
                           <tr>
 
                           <th>N°</th>
-                          <th data-orderable="false" style="width: 10px;">Imagen</th>
+                          <th style="width: 10px;">Imagen</th>
                           <th>Código</th>
                           <th>Marca</th>
                           <th>Modelo</th>
-                          <th >Dueño</th>
-                          <th data-orderable="false"></th>
+                          <th>Dueño</th>
+                          @can('vehiculos.show')
+                          <th style="width:10px"></th>
+                          @endcan
+                          @can('vehiculos.edit')
+                          <th style="width:10px"></th>
+                          @endcan
+                          @can('vehiculos.destroy')
+                          <th style="width:10px"></th>
+                          @endcan
                           </tr>
                       </thead>
-
+                      <tbody>
+                          @foreach($vehiculos as $vehiculo)
+                          <tr>
+                              <td>{{$vehiculo->id}}</td>
+                              <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
+                                  <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded " style="max-height: 35px" alt="">
+                              </td>
+                              <td> {{$vehiculo->codigo}}</td>
+                              <td> {{ $vehiculo->marca->description }} </td>
+                              <td> {{$vehiculo->modelo}}</td>
+                              <td> {{ $vehiculo->dueno->nombre }} </td>
+                              @can('vehiculos.show')
+                              <td style="padding: .3rem; vertical-align: inherit;">
+                                  <a class="btn btn-light btn-sm" href="{{route('vehiculos.show', $vehiculo->id)}}">Ver</a>
+                              </td>
+                              @endcan
+                              @can('vehiculos.edit')
+                              <td style="padding: .3rem; vertical-align: inherit;">
+                                  <a class="btn btn-light btn-sm" href="{{route('vehiculos.edit', $vehiculo->id)}}">Editar</a>
+                              </td>
+                              @endcan
+                              @can('vehiculos.destroy')
+                              @if($vehiculo->activo)
+                                <td style="padding: .3rem; vertical-align: inherit;">
+                                  <button type="button" name="button" onclick="btnDeshabiliar('{{$vehiculo->id}}','{{$vehiculo->codigo}}','{{$vehiculo->marca->description}}','{{$vehiculo->modelo}}','{{ Storage::url($vehiculo->image) }}')" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deshabilitarVehiculoModal">Deshabilitar</button>
+                                </td>
+                                @else
+                                <td style="padding: .3rem; vertical-align: inherit;">
+                                  <button type="button" name="button" onclick="btnHabiliar('{{$vehiculo->id}}','{{$vehiculo->codigo}}','{{$vehiculo->marca->description}}','{{$vehiculo->modelo}}','{{ Storage::url($vehiculo->image) }}')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#habilitarVehiculoModal">Habilitar</button>
+                                </td>
+                              @endif
+                              @endcan
+                          </tr>
+                          @endforeach
+                      </tbody>
                   </table>
               </div>
           </div>
@@ -108,19 +150,10 @@
 <script type="text/javascript" class="init">
 $(document).ready(function() {
   $('#tablasAdministracion').DataTable({
-    "processing": true,
-    'serverSide': true,
-    ajax: "{{route('vehiculos.listar')}}",
-
-    'columns':[
-          {'data':'id'},
-          {'data':'imagen'},
-          {'data':'codigo'},
-          {'data':'marca'},
-          {'data':'modelo'},
-          {'data':'dueno'},
-          {'data':'accion'},
-    ],
+    "columnDefs": [{
+        "orderable": false,
+        "targets": [1,6,7,-1,-2]
+    }],
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {
@@ -136,8 +169,6 @@ $(document).ready(function() {
         "previous":"Anterior",
       }
     }
-
-
   });
   $('.dataTables_length').addClass('bs-select');
 
@@ -158,7 +189,6 @@ $(document).ready(function() {
 
 } );
 </script>
-
 
 <!--script type="text/javascript" class="init">
 

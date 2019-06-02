@@ -8,7 +8,10 @@ use BiciRegistro\Vehiculo;
 use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
 use Image;
-use Illuminate\Support\Facedes\Storage;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Datatables;
+use \Illuminate\Support\Facades\Auth;
+
 
 class VehiculoController extends Controller
 {
@@ -65,7 +68,7 @@ class VehiculoController extends Controller
               'nombre_dueno' => 'required',
               'correo_dueno' => 'required|unique:duenos,correo',
               'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
-              'celular_dueno' => 'digits_between:0,8',
+              'celular_dueno' => 'digits_between:0,9',
               'tipoDueno' => 'required',
               ]);
               $dueno = new Dueno();
@@ -91,7 +94,7 @@ class VehiculoController extends Controller
             Image::make($request->file('image'))->resize($widthResize,$heightResize)->save(storage_path('app/public/bicicletas/'.$request->input('codigo').'_'.$fechaHora.'.'.$extension));
         }
 
-        if($request->hasFile('image_dueno')&& $existeDueno){
+        if($request->hasFile('image_dueno') && !$existeDueno){
 
           $tamaño = getimagesize($request->file('image_dueno'));
           $width = intval($tamaño[0]);
@@ -231,5 +234,49 @@ class VehiculoController extends Controller
       $vehiculo->update();
         //$vehiculo->delete();
         return back()->with('success','Habilitado correctamente');
+    }
+
+
+
+    /*
+    * Muestra la lista en Json (DataTable server side processing https://datatables.net/manual/server-side)
+    */
+    public function listar(){
+      $model = Vehiculo::query();
+        // return datatables()->eloquent(Usuario::query())->toJson();
+        return datatables()->eloquent($model)
+        ->addColumn('marca', function($vehiculo) {
+            return $vehiculo->marca->description;
+        })
+        ->addColumn('dueno', function($vehiculo) {
+            return $vehiculo->dueno->nombre;
+        })
+        ->addColumn('imagen', function($vehiculo) {
+            return '<img src="'.Storage::url($vehiculo->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
+        })
+
+        ->addColumn('accion', function($vehiculo) {
+            $botones = '';
+
+            if (Auth::user()->can('vehiculos.show')) {
+              $botones .= '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $vehiculo->id).'">Ver</a>';
+            }
+            if (Auth::user()->can('vehiculos.edit')) {
+              $botones .= '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.edit', $vehiculo->id).'">Editar</a>';
+            }
+            if (Auth::user()->can('vehiculos.delete')) {
+              if($vehiculo->activo){
+                $botones .= '<button type="button" name="button" onclick="btnDeshabiliar(\''.$vehiculo->id.'\',\''.$vehiculo->codigo.'\',\''.$vehiculo->marca->description.'\',\''.$vehiculo->modelo.'\',\''.Storage::url($vehiculo->image).'\')" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#deshabilitarVehiculoModal">Deshabilitar</button>';
+              }else{
+                $botones .= '<button type="button" name="button" onclick="btnHabiliar(\''.$vehiculo->id.'\',\''.$vehiculo->codigo.'\',\''.$vehiculo->marca->description.'\',\''.$vehiculo->modelo.'\',\''.Storage::url($vehiculo->image).'\')" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#habilitarVehiculoModal">Habilitar</button>';
+              }
+            }
+            return $botones;
+          })
+
+
+        ->rawColumns(['imagen','accion'])
+        ->toJson();
+
     }
 }

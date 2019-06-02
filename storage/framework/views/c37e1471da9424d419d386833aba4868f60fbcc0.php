@@ -13,7 +13,6 @@
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" ></script>
-
     <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery-3.3.1.js')); ?>"></script>
 
     <!-- Fonts -->
@@ -178,7 +177,13 @@
         right: 0px;
         max-width: 550px;
         min-width: 300px;
-    }
+      }
+      .dropdown-menu{
+        margin-top: 0px;
+      }
+      .dropdown:hover>.dropdown-menu {
+        display: block;
+      }
     </style>
     <script type="text/javascript">
       $('.message').animate({opacity : '100',},6000);
@@ -191,7 +196,6 @@
       $(".closeInfo").click(function(){
         $('.message').hide();
       });
-
 
     </script>
 </body>

@@ -7,6 +7,8 @@ use BiciRegistro\TipoDueno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use Yajra\DataTables\Datatables;
+use \Illuminate\Support\Facades\Auth;
 
 class DuenoController extends Controller
 {
@@ -21,25 +23,33 @@ class DuenoController extends Controller
       return view('duenos.index', compact('duenos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function listar(){
+      $model = Dueno::query();
+        // return datatables()->eloquent(Usuario::query())->toJson();
+        return datatables()->eloquent($model)
+        ->addColumn('imagen', function($dueno) {
+            return '<img src="'.Storage::url($dueno->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
+        })
+        ->addColumn('bicicletas', function($dueno) {
+            return '<center>'.$dueno->vehiculos->count().'</center>';
+        })
+        ->addColumn('accion', function($dueno) {
+            $botones = '';
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+            if (Auth::user()->can('duenos.show')) {
+              $botones .= '<a class="btn btn-light btn-sm mx-1" href="'.route('duenos.show', $dueno->id).'">Ver</a>';
+            }
+            if (Auth::user()->can('duenos.edit')) {
+              $botones .= '<a class="btn btn-light btn-sm mx-1" href="'.route('duenos.edit', $dueno->id).'">Editar</a>';
+            }
+
+            return $botones;
+          })
+
+
+        ->rawColumns(['imagen','accion','bicicletas'])
+        ->toJson();
+
     }
 
     /**

@@ -21,56 +21,21 @@
                         </div>
                     @endif
 
-                    <table id="tablasAdministracionDuenos" class="table table-hover table-responsive-sm">
+                    <table id="tablasAdministracionDuenos" class="table table-hovertable-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" width="100%">
                         <thead>
                             <tr>
                             <th >N°</th>
-                            <th>Imagen</th>
+                            <th data-orderable="false">Imagen</th>
                             <th>Run</th>
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Celular</th>
-                            <th>Bicicletas</th>
-                            @can('duenos.show')
-                            <th style="width:10px"></th>
-                            @endcan
-                            @can('duenos.edit')
-                            <th style="width:10px"></th>
-                            @endcan
+                            <th >Bicicletas</th>
+                            <th data-orderable="false"></th>
 
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($duenos as $dueno)
-                            @if($dueno->vehiculos->where('activo',true)->count()==0)
-                                <tr style="color:red">
-                            @else
-                                <tr>
-                            @endif
-                                <td>{{$dueno->id}}</td>
-                                <td style="padding: 0.05rem 0.75rem 0.05rem 0.75rem; vertical-align: inherit;">
-                                    <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded " style="max-height: 35px" alt="">
-                                </td>
-                                <td>{{$dueno->rut}}</td>
-                                <td>{{$dueno->nombre}}</td>
-                                <td>{{$dueno->correo}}</td>
-                                <td>+569&nbsp{{$dueno->celular}}</td>
-                                <td  class="text-center">{{$dueno->vehiculos->where('activo',true)->count()}}</td>
 
-                                @can('duenos.show')
-                                <td style="padding: .3rem; vertical-align: inherit;">
-                                    <a class="btn btn-light btn-sm" href="{{route('duenos.show', $dueno->id)}}" >Ver</a>
-                                </td>
-                                @endcan
-                                @can('duenos.edit')
-                                <td style="padding: .3rem; vertical-align: inherit;">
-                                    <a class="btn btn-light btn-sm" href="{{route('duenos.edit', $dueno->id)}}" >Editar</a>
-                                </td>
-                                @endcan
-
-                            </tr>
-                            @endforeach
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -80,10 +45,20 @@
 <script type="text/javascript" class="init">
 $(document).ready(function() {
   $('#tablasAdministracionDuenos').DataTable({
-    "columnDefs": [{
-        "orderable": false,
-        "targets": [1,7,8,-1,-2]
-    }],
+    "processing": true,
+    'serverSide': true,
+    ajax: "{{route('duenos.listar')}}",
+
+    'columns':[
+          {'data':'id'},
+          {'data':'imagen'},
+          {'data':'rut'},
+          {'data':'nombre'},
+          {'data':'correo'},
+          {'data':'celular'},
+          {'data':'bicicletas'},
+          {'data':'accion'},
+    ],
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {

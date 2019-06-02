@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function(){
         ]
     */
 
+
+
     // ROLES
     Route::post('roles/store', 'RoleController@store')->name('roles.store')
             ->middleware('permission:roles.create');
@@ -56,7 +58,11 @@ Route::middleware(['auth'])->group(function(){
 
    // DUEÑOS
 
+
     Route::get('duenos', 'DuenoController@index')->name('duenos.index')
+            ->middleware('permission:duenos.index');
+
+    Route::get('duenos/listar', 'DuenoController@listar')->name('duenos.listar')
             ->middleware('permission:duenos.index');
 
     Route::put('duenos/{dueno}', 'DuenoController@update')->name('duenos.update')
@@ -65,14 +71,21 @@ Route::middleware(['auth'])->group(function(){
     Route::get('duenos/{dueno}', 'DuenoController@show')->name('duenos.show')
             ->middleware('permission:duenos.show');
 
+
     Route::get('duenos/{dueno}/edit', 'DuenoController@edit')->name('duenos.edit')
             ->middleware('permission:duenos.edit');
+
+
+
 
     // VEHICULOS
     Route::post('vehiculos/store', 'VehiculoController@store')->name('vehiculos.store')
             ->middleware('permission:vehiculos.create');
 
     Route::get('vehiculos', 'VehiculoController@index')->name('vehiculos.index')
+            ->middleware('permission:vehiculos.index');
+
+    Route::get('vehiculos/listar', 'VehiculoController@listar')->name('vehiculos.listar')
             ->middleware('permission:vehiculos.index');
 
     Route::get('vehiculos/create', 'VehiculoController@create')->name('vehiculos.create')

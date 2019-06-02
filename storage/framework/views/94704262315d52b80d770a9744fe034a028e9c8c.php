@@ -14,7 +14,7 @@
 
                 <div class="card-body">
 
-                    <table id="tablasAdministracion" class="table table-hover table-responsive-sm">
+                    <table id="tablasAdministracion" class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
                         <thead>
                             <tr>
                             <th >N°</th>
@@ -22,13 +22,13 @@
                             <th>Correo</th>
                             <th>Rol</th>
                             <?php if (\Shinobi::can('users.show')): ?>
-                            <th style="width:10px"></th>
+                            <th data-orderable="false" style="width:10px"></th>
                             <?php endif; ?>
                             <?php if (\Shinobi::can('users.edit')): ?>
-                            <th style="width:10px"></th>
+                            <th data-orderable="false" style="width:10px"></th>
                             <?php endif; ?>
                             <?php if (\Shinobi::can('users.destroy')): ?>
-                            <th style="width:10px"></th>
+                            <th data-orderable="false" style="width:10px"></th>
                             <?php endif; ?>
                             </tr>
                         </thead>
@@ -162,10 +162,7 @@
 <script type="text/javascript" class="init">
 $(document).ready(function() {
   $('#tablasAdministracion').DataTable({
-    "columnDefs": [{
-        "orderable": false,
-        "targets": [4,5,-1,-2]
-    }],
+    
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {
