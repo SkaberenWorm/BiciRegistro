@@ -17,8 +17,6 @@
   <script type="text/javascript" language="javascript" defer src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 
   <!-- Styles -->
-
-  <link defer href="{{ asset('css/style.css') }}" rel="stylesheet">
 	<link defer rel="stylesheet" type="text/css" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
   <link  defer href="{{ asset('css/app.css') }}" rel="stylesheet">
   <!-- Fonts -->

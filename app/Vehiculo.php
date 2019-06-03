@@ -16,4 +16,5 @@ class Vehiculo extends Model
     public function marca(){
         return $this->belongsTo(Marca::class);
     }
+
 }

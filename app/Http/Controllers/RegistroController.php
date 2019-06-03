@@ -5,6 +5,7 @@ namespace BiciRegistro\Http\Controllers;
 use BiciRegistro\Registro;
 use BiciRegistro\Vehiculo;
 use BiciRegistro\Dueno;
+use BiciRegistro\Tercero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class RegistroController extends Controller
      */
     public function find(Request $request)
     {
+      setlocale(LC_ALL, 'es_CL');
         $this->validate($request, [
           'codigo' => 'required',
         ]);
@@ -49,15 +51,23 @@ class RegistroController extends Controller
         }else{
           $accion="Ingreso";
         }
+        if($this->hasCodeTercero($vehiculo)){
+          $retiroPorTercero=true;
+        }
 
-      if(isset($vehiculoEnRegistro->codigo_tercero)){
-        //dd($vehiculoEnRegistro->codigo_tercero);
-        $retiroPorTercero=true;
-        return view('registrar.index', compact('vehiculo','accion','retiroPorTercero'));
-      }else{
-        return view('registrar.index', compact('vehiculo','accion','retiroPorTercero'));
-      }
+      return view('registrar.index', compact('vehiculo','accion','retiroPorTercero'));
 
+    }
+
+    public function hasCodeTercero(Vehiculo $vehiculo){
+        $tercero = Tercero::where('vehiculo_id','=',$vehiculo->id)
+        ->where('created_at','like',date("Y-m-d").'%')
+        ->first();
+        if(isset($tercero->codigo_tercero)){
+          return true;
+        }else{
+          return false;
+        }
     }
 
 
@@ -87,7 +97,23 @@ class RegistroController extends Controller
      */
     public function validarTercero(Request $request)
     {
-        return "Validar codigo tercro";
+      if($request->ajax()){
+        if($request->input('codigo')!=null && $request->input('vehiculo_id')!=null){
+
+          $tercero = Tercero::where('codigo_tercero','=',$request->input('codigo'))
+                      ->where('vehiculo_id','=',$request->input('vehiculo_id'))
+                      ->where('created_at','like',date("Y-m-d").'%')
+                      ->first();
+
+          if(isset($tercero)){
+            return "permitted";
+          }
+        }
+      }
+
+      return "denied";
+
+
     }
 
     public function crearCodigoTercero(){
@@ -139,7 +165,7 @@ class RegistroController extends Controller
      */
     public function obtenerMovimientoVehiculo(Vehiculo $vehiculo){
       // Obtenemos el ultimo movimiento de la bicicleta en el día
-      $vehiculoEnRegistro = Registro::select('registros.vehiculo_id as vehiculo_id','registros.codigo_tercero as codigo_tercero', 'registros.accion as accion', 'registros.created_at')
+      $vehiculoEnRegistro = Registro::select('registros.vehiculo_id as vehiculo_id', 'registros.accion as accion', 'registros.created_at')
       ->join('vehiculos', 'vehiculos.id', '=', 'registros.vehiculo_id')
       ->where('registros.vehiculo_id','=',$vehiculo->id)
       ->where('registros.created_at','like',date("Y-m-d").'%')

@@ -17,8 +17,6 @@
   <script type="text/javascript" language="javascript" defer src="<?php echo e(asset('js/dataTables.bootstrap4.min.js')); ?>"></script>
 
   <!-- Styles -->
-
-  <link defer href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 	<link defer rel="stylesheet" type="text/css" href="<?php echo e(asset('css/dataTables.bootstrap4.min.css')); ?>">
   <link  defer href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
   <!-- Fonts -->

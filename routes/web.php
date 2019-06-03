@@ -144,6 +144,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::post('registro/validar', 'RegistroController@validarTercero')->name('registro.validarTercero')
             ->middleware('permission:registros.tercero');
+            Route::post('registro/validar/{codigo}', 'RegistroController@validarTercero')->name('registro.validarTercero2')
+                    ->middleware('permission:registros.tercero');
 
     Route::get('terceros', 'RegistroController@crearCodigoTercero')->name('registro.crearCodigoTercero')
             ->middleware('permission:registros.tercero');

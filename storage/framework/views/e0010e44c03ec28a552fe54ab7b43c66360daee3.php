@@ -13,7 +13,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text">Código bicicleta</span>
                           </div>
-                          <input type="text" id="buscarVehiculo" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Ingrese código de la bicicleta" required  autofocus>
+                          <input type="text" id="buscarVehiculo" class="form-control mr-1" autocomplete="off"  name="codigo" data-toggle="tooltip" data-placement="bottom" title="Ingrese código de la bicicleta" required  autofocus>
 
                           <?php echo e(Form::submit('Buscar', ['class' => 'btn btn-secondary', 'id'=>'btnBuscarVehiculo'])); ?>
 
@@ -23,16 +23,17 @@
 
 
                       <?php if(isset($vehiculo)): ?>
-                      <?php echo e(Form::open(['route' => 'registro.validarTercero','class' => 'col-md-6'])); ?>
+                      <?php echo e(Form::open(['id'=>'formValidate','class' => 'col-md-6'])); ?>
 
                       <div class="mb-3 mt-2" >
                         <div class="input-group ">
                           <div class="input-group-prepend">
                             <span class="input-group-text">Código tercero</span>
                           </div>
-                          <input type="text" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Validar código para retiro por terceros" required  >
-                          <?php echo e(Form::submit('Validar', ['class' => 'btn btn-secondary'])); ?>
+                          <input type="hidden" name="vehiculo_id" value="<?php echo e($vehiculo->id); ?>">
+                          <input type="text" autocomplete="off" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Validar código para retiro por terceros" required  >
 
+                          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#validarModal" onclick="validarCodigo()" name="button">Validar</button>
                         </div>
                       </div>
                       <?php echo e(Form::close()); ?>
@@ -95,6 +96,8 @@
                       </div>
                     </div>
                     <!-- /Modal -->
+
+
 
                     <div class="card-body">
                       <div class="row">
@@ -194,13 +197,77 @@
     </div>
 
 </div>
+
+
+
+<!-- Modal Validacion-->
+<div class="modal fade" id="validarModal" tabindex="-1" role="dialog" aria-labelledby="validarModalLabel" aria-hidden="true">
+  <div id="modal-dialog" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div  class="modal-header">
+        <h5 class="modal-title"><b>Resultado de la validación<label id="resultadoLabel"></label> </b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div id="permitted" class="my-5" style="display:none">
+
+          <div class="o-circle mx-auto o-circle__sign--success ">
+            <div class="o-circle__sign"></div>
+          </div>
+        </div>
+        <div id="denied" class="my-5" style="display:none">
+
+          <div class="o-circle mx-auto o-circle__sign--failure">
+            <div class="o-circle__sign"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /Modal Validacions-->
 <script type="text/javascript">
 $(document).ready(function() {
     $("#hora").load("<?php echo e(route('hora')); ?>");
     var refreshId = setInterval(function() {
         $("#hora").load("<?php echo e(route('hora')); ?>")
-        .error(function() { alert("Error al actualizar la hora"); });
     }, 1000);
+
+    // Función  para validar el código de retiro por terceros, sin recargar la página
+    validarCodigo = function(){
+      $(".check-icon").hide();
+      $.ajax({
+         type: "POST",
+         url: "<?php echo e(route('registro.validarTercero')); ?>",
+         data: $("#formValidate").serialize(),
+         success: function(data)
+         {
+           // El código para retiro por terceros es válido
+           if(data == 'permitted'){
+             $('#resultadoLabel').text(': Correcto!!')
+             $('#denied').hide();
+              $('#permitted').show();
+              $('#modal-dialog').addClass('modal-success');
+              $('#modal-dialog').removeClass('modal-danger');
+
+           }else{
+             $('#resultadoLabel').text(': Incorrecto!!')
+             $('#permitted').hide();
+             $("#denied").show();
+             $('#modal-dialog').addClass('modal-danger');
+             $('#modal-dialog').removeClass('modal-success');
+           }
+
+         }
+     });
+    };
 });
 </script>
 <?php $__env->stopSection(); ?>

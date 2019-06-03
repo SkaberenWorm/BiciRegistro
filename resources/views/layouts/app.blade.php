@@ -26,7 +26,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" defer rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" defer rel="stylesheet">
 
 
 </head>
@@ -167,6 +166,10 @@
         </main>
     </div>
     <style media="screen">
+      .modal-dialog.modal-success .modal-header {
+        background-color: #00c851;
+        color: white;
+      }
       .message{
         position: absolute;
         z-index: 999;
