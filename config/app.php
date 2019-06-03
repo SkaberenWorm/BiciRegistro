@@ -167,6 +167,8 @@ return [
 
         Yajra\DataTables\DataTablesServiceProvider::class,
 
+        Freshwork\ChileanBundle\Laravel\ChileanBundleServiceProvider::class
+
     ],
 
     /*
@@ -222,6 +224,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
+        'Rut'   => Freshwork\ChileanBundle\Laravel\Facades\Rut::class
 
     ],
 

@@ -3,6 +3,7 @@
 namespace BiciRegistro\Http\Controllers;
 
 use BiciRegistro\Marca;
+use BiciRegistro\Registro;
 use BiciRegistro\Dueno;
 use BiciRegistro\Vehiculo;
 use BiciRegistro\TipoDueno;
@@ -11,6 +12,7 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Datatables;
 use \Illuminate\Support\Facades\Auth;
+use Freshwork\ChileanBundle\Rut;
 
 
 class VehiculoController extends Controller
@@ -46,6 +48,7 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
+
       $existeDueno=false;
       $dueno = Dueno::where('rut','=',$request->input('run_dueno'))
                     ->get()->first();
@@ -56,7 +59,7 @@ class VehiculoController extends Controller
               'marca_id' => 'required',
               'color' => 'required|string|max:255',
               'image' => 'required|image|mimes:jpeg,png,jpg',
-              'run_dueno' => 'required',
+              'run_dueno' => 'required|cl_rut',
               ]);
         }else{
           $this->validate($request, [
@@ -64,13 +67,14 @@ class VehiculoController extends Controller
               'marca_id' => 'required',
               'color' => 'required|string|max:255',
               'image' => 'required|image|mimes:jpeg,png,jpg',
-              'run_dueno' => 'required',
+              'run_dueno' => 'required|cl_rut',
               'nombre_dueno' => 'required',
               'correo_dueno' => 'required|unique:duenos,correo',
               'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
               'celular_dueno' => 'digits_between:0,9',
               'tipoDueno' => 'required',
               ]);
+
               $dueno = new Dueno();
         }
 
@@ -111,12 +115,14 @@ class VehiculoController extends Controller
             Image::make($request->file('image_dueno'))->resize($widthResize,$heightResize)->save(storage_path('app/public/duenos/'.$request->input('run_dueno').'_'.$fechaHora.'.'.$extension));
         }
 
+        $dueno->rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
+
 
         // No existe el dueño
         if(!$existeDueno){
             // Creamos el dueño
             $dueno = Dueno::create([
-                'rut' => $request->input('run_dueno'),
+                'rut' => $dueno->rut,
                 'nombre' => $request->input('nombre_dueno'),
                 'correo' => $request->input('correo_dueno'),
                 'celular' => $request->input('celular_dueno'),
@@ -132,6 +138,12 @@ class VehiculoController extends Controller
             'color' => $request->input('color'),
             'dueno_id' => $dueno->id,
             'image' => $vehiculo->image,
+        ]);
+
+        Registro::create([
+            'vehiculo_id' => $vehiculo->id,
+            'usuario_id' => Auth::user()->id,
+            'accion' => "Ingreso",
         ]);
 
         if(!$existeDueno){

@@ -9,6 +9,7 @@ use BiciRegistro\Tercero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Freshwork\ChileanBundle\Rut;
 
 class RegistroController extends Controller
 {
@@ -62,6 +63,7 @@ class RegistroController extends Controller
     public function hasCodeTercero(Vehiculo $vehiculo){
         $tercero = Tercero::where('vehiculo_id','=',$vehiculo->id)
         ->where('created_at','like',date("Y-m-d").'%')
+        ->orderBy('id','desc')
         ->first();
         if(isset($tercero->codigo_tercero)){
           return true;
@@ -73,7 +75,8 @@ class RegistroController extends Controller
 
     public function findDueno(Request $request)
     {
-        $dueno = Dueno::where('rut', $request->input('run'))->first();
+      $run = Rut::parse($request->input('run'))->format(Rut::FORMAT_WITH_DASH);
+        $dueno = Dueno::where('rut', $run)->first();
 
         if(!isset($dueno)){
           $registrarDueno=true;
@@ -103,6 +106,7 @@ class RegistroController extends Controller
           $tercero = Tercero::where('codigo_tercero','=',$request->input('codigo'))
                       ->where('vehiculo_id','=',$request->input('vehiculo_id'))
                       ->where('created_at','like',date("Y-m-d").'%')
+                      ->orderBy('id','desc')
                       ->first();
 
           if(isset($tercero)){
@@ -175,7 +179,7 @@ class RegistroController extends Controller
     }
 
     /*
-    * Funcion que devuelve el rut de los dueños para el autocompletar
+    * Funcion que devuelve el rut de los dueños para el autocompletar del módulo Retiro por terceros
     */
     public function searchDueno(Request $request){
       $search = $request->get('term');
