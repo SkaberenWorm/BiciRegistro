@@ -12,20 +12,23 @@
     <title>Biciregistro</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+    <script type="text/javascript" language="javascript"  src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+    <script type="text/javascript" language="javascript" defer src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 
     <!-- Fonts -->
     <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
-    <link href="{{ asset('css/font.css') }}" defer rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" defer rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.css') }}" defer rel="stylesheet">
 
 
-
-
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" defer rel="stylesheet">
+  	<link defer rel="stylesheet" type="text/css" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
+    <link  defer href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Fonts -->
+    <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
+    <link href="{{ asset('css/font.css') }}" defer rel="stylesheet">
 
 
 </head>

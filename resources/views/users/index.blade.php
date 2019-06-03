@@ -1,4 +1,4 @@
-@extends('layouts.appTables')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -158,7 +158,7 @@
 <script type="text/javascript" class="init">
 $(document).ready(function() {
   $('#tablasAdministracion').DataTable({
-    
+
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {

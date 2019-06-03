@@ -3,10 +3,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10 col-sm-10">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header py-0">
 
                   <div class="row ">
-                      <?php echo e(Form::open(['route' => 'registro.findDueno','class' => 'col-sm-6 col-md-6'])); ?>
+                      <?php echo e(Form::open(['route' => 'registro.findDueno','class' => 'col-sm-6 col-md-6 mt-2'])); ?>
 
                       <div class="mb-3 mt-2">
                         <div class="input-group ">
@@ -22,15 +22,26 @@
                       <?php echo e(Form::close()); ?>
 
                       <?php if(isset($dueno)): ?>
+                      <?php if($dueno->vehiculos->where('activo',true)->count() <= 1): ?>
                       <div class="col-md-3 col-sm-2 col-lg-4">
 
                       </div>
-                      <?php if($dueno->vehiculos->where('activo',true)->count() <= 1): ?>
-                      <div class="col-sm-4 col-md-3 mt-2 col-lg-2 px-0">
-                        <div class="input-group mx-auto">
-                          <button style="z-index:1"type="button" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+
+                        <?php echo e(Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode'])); ?>
+
+                        <input type="hidden" name="vehiculoId" class="vehiculoId" value="<?php echo e($dueno->vehiculos[0]->id); ?>">
+                        <div class="col-sm-4 col-md-3 mt-2 col-lg-2 px-0">
+                          <div class="input-group mx-auto">
+                            <button style="z-index:1"type="button" onclick="generarCodigoTercero(<?php echo e($dueno->vehiculos[0]->id); ?>)" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                          </div>
                         </div>
+                        <?php echo e(Form::close()); ?>
+
+                      <?php else: ?>
+                      <div class="text-right mt-3 px-3 pt-2 col-sm-6 col-md-6">
+                      <h5 class="mb-0 pb-0">  <label class="text-secondary"> Código de retiro: <b class="codigoTercero text-danger"> </b></label></h5>
                       </div>
+
                       <?php endif; ?>
                       <?php endif; ?>
                     </div>
@@ -75,6 +86,9 @@
 
                       <?php if($dueno->vehiculos->where('activo',true)->count()>1): ?>
                       <div class="col-sm-6 my-3">
+                        <?php echo e(Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode'])); ?>
+
+                        <input type="hidden" class="vehiculoId" name="vehiculoId" value="">
                         <?php $__currentLoopData = $dueno->vehiculos->where('activo',true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vehiculo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div id="accordion">
                           <div class="card mt-1 mr-3">
@@ -84,17 +98,20 @@
                                   <img src="<?php echo e(Storage::url($vehiculo->image)); ?>" class="img-fluid rounded" style="max-height:50px;" alt="">
                                 </div>
                                 <h5 class="mb-0 col-sm-6  px-0">
-                                  <button class="btn btn-link" style="text-decoration:none" data-toggle="collapse" data-target="#collapseOne<?php echo e($vehiculo->id); ?>" aria-expanded="true" aria-controls="collapseOne<?php echo e($vehiculo->id); ?>">
+                                  <a class="btn btn-link text-primary" style="text-decoration:none" data-toggle="collapse" data-target="#collapseOne<?php echo e($vehiculo->id); ?>" aria-expanded="true" aria-controls="collapseOne<?php echo e($vehiculo->id); ?>">
                                     <b><?php echo e($vehiculo->marca->description); ?> <?php echo e($vehiculo->modelo); ?></b><br>
                                     <?php echo e($vehiculo->codigo); ?>
 
-                                  </button>
+                                  </a>
                                 </h5>
-                                <div class="col-sm-3  px-0">
-                                  <div class="input-group mt-3">
-                                    <button type="button" class="btn btn-success btn-sm" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                                  <div class="col-sm-3  px-0">
+                                    <div class="input-group mt-3">
+                                      <button type="button" class="btn btn-success btn-sm" onclick="generarCodigoTercero(<?php echo e($vehiculo->id); ?>)" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                                    </div>
                                   </div>
                                 </div>
+
+
                               </div>
 
                             </div>
@@ -128,6 +145,8 @@
                                         </td>
                                       </tr>
 
+
+
                                     </tbody>
                                   </table>
                                 </div>
@@ -135,6 +154,8 @@
                             </div>
                           </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php echo e(Form::close()); ?>
+
                         </div>
                       </div>
                       <?php else: ?>
@@ -146,7 +167,7 @@
                             <table class="table responsive-md table-sm mb-0 pb-0">
                               <tbody>
                                 <tr>
-                                  <th scope="row" style="width:30%;">Código</th>
+                                  <th scope="row" style="width:35%;">Código</th>
                                   <td><?php echo e($dueno->vehiculos[0]->codigo); ?></td>
                                 </tr>
                                 <tr>
@@ -162,6 +183,10 @@
                                   <td><?php echo e($dueno->vehiculos[0]->color); ?>
 
                                   </td>
+                                </tr>
+                                <tr>
+                                  <th>Código de retiro </th>
+                                  <td><b class="codigoTercero text-danger"> </b> </td>
                                 </tr>
 
                               </tbody>
@@ -210,13 +235,17 @@
             </button>
           </div>
           <div class="modal-body">
-            Se enviará un e-mail a la cuenta
+            Se ha generado el código correctamente! <br>
+            El código <b class="codigoTercero">  </b> solo será válido hasta las 23:59 <br><br>
+            ¿Desea envíar un e-mail a la cuenta
             <?php if(isset($dueno)): ?>
             <em><b><?php echo e($dueno->correo); ?></b></em>,
             <?php endif; ?>
-             con el código de retiro <b> 747832 </b>
+             con el código de retiro <b class="codigoTercero">  </b>?
           </div>
           <div class="modal-footer">
+            <input type="hidden" id="vehiculo_id" name="vehiculo_id" value="">
+            <input type="hidden" id="codigo_tercero" name="codigo_tercero" value="">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary">Enviar e-mail</button>
           </div>
@@ -227,10 +256,30 @@
     <script src="<?php echo e(asset('js/jquery-ui.js')); ?>" defer></script>
     <script defer type="text/javascript">
     $(document).ready(function() {
+
     $( "#buscarDueno" ).autocomplete({
         source: "<?php echo e(url('autocompleteRunDueno')); ?>",
         minLength: 3
- });
+      });
+
+    generarCodigoTercero = function(vehiculo_id){
+      $('.vehiculoId').val(vehiculo_id);
+      $.ajax({
+         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+         type: "POST",
+         url: "<?php echo e(route('registro.crearCodigoTercero')); ?>",
+         data: {
+           "vehiculoId": $('.vehiculoId').val(),
+         },
+         success: function(data)
+         {
+           $('.codigoTercero').html(data);
+           $('#codigo_tercero').val(data);
+           $('#vehiculo_id').val(vehiculo_id);
+         }
+     });
+    };
+
 });
 
     </script>

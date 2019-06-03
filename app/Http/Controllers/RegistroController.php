@@ -120,8 +120,26 @@ class RegistroController extends Controller
 
     }
 
-    public function crearCodigoTercero(){
+    
+    public function terceroIndex(){
       return view('registrar.createCode');
+    }
+
+    // Genera el código para retiro por terceros y lo guarda en la BD
+    public function crearCodigoTercero(Request $request){
+      if($request->ajax()){
+        $codigoRetiroTercero = rand(1000,9999);
+        $vehiculo_id = $request->input('vehiculoId');
+
+        Tercero::create([
+          "vehiculo_id" => $vehiculo_id,
+          "codigo_tercero" => $codigoRetiroTercero
+        ]);
+
+        return $codigoRetiroTercero;
+        //
+      }
+      return back()->with('danger','Error al cargar el código para retiro por terceros');
     }
 
 
