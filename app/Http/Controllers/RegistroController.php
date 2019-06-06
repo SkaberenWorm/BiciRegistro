@@ -120,7 +120,7 @@ class RegistroController extends Controller
 
     }
 
-    
+
     public function terceroIndex(){
       return view('registrar.createCode');
     }
@@ -211,5 +211,261 @@ class RegistroController extends Controller
     }
 
 
+
+
+
+  ///////////////////////////////////////////////////////
+  /////////////     REPORTES    ////////////////////////
+  /////////////////////////////////////////////////////
+
+  public function reportes(){
+    $anios = Registro::query()
+    ->select(\DB::raw(\DB::raw("YEAR(created_at) as anio")))
+    ->groupBy('anio')
+    ->get();
+    dd("Que esta pasando");
+    return view('reportes.index',compact('anios'));
+  }
+
+  public function listarJson(Request $request){
+
+      $model = Registro::query();//->orderBy('registros.id', 'desc');
+      // return datatables()->eloquent(Usuario::query())->toJson();
+      $modelo =  Registro::join('vehiculos','vehiculos.id', '=', 'vehiculo_id')
+                ->join('users','usuario_id','=','users.id')
+                ->join('marcas','vehiculos.marca_id','=','marcas.id')
+                ->select(\DB::raw("CONCAT(marcas.description,' ' ,vehiculos.modelo) AS vehiculo"), "registros.id", "registros.accion","registros.created_at","vehiculos.codigo as codigoVehiculo","users.name as usuario", "users.email as correoUsuario");
+      return datatables()->eloquent($modelo)->toJson();
+
+  }
+
+  ///////////////////////////////////////////////////////
+  /////////////     Gráficos    ////////////////////////
+  /////////////////////////////////////////////////////
+
+  public function ultimoDiaDelMes($anio, $mes){
+    return date('d',(mktime(0,0,0,$mes+1,1,$anio)-1));
+  }
+
+  public function registrosPorDias($anio, $mes){
+    $primerDia = 1;
+    $ultimoDia = $this->ultimoDiaDelMes($anio, $mes);
+
+    $fechaInicial = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$primerDia));
+    $fechaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$ultimoDia));
+    /*
+    SELECT COUNT(*), DAY(created_at) FROM `registros`
+    where created_at BETWEEN '2019-06-01' and '2019-06-20'
+    GROUP BY DAY(created_at);
+    */
+
+    $entradas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("DAY(created_at) as dia"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Ingreso')
+    ->groupBy('dia')
+    ->get();
+    $salidas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("DAY(created_at) as dia"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Salida')
+    ->groupBy('dia')
+    ->get();
+
+    for($i=0;$i<=$ultimoDia;$i++){
+        $registrosEntrada[$i]=0;
+        $registrosSalida[$i]=0;
+    }
+
+    foreach ($entradas as $registro) {
+      $registrosEntrada[($registro->dia)]=$registro->countRegistros;
+    }
+    foreach ($salidas as $registro) {
+      $registrosSalida[($registro->dia)]=$registro->countRegistros;
+    }
+
+
+    $data = array("totalDias"=>$ultimoDia, "entradas"=>$registrosEntrada, "salidas"=>$registrosSalida);
+    return json_encode($data);
+
+  }
+
+  public function registrosPorHora($anio, $mes, $dia){
+    $horaInicial = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 00:00:00'));
+    $horaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 23:59:59'));
+    $rangoHora = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00',
+                  '16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00'];
+    /*
+    SELECT COUNT(*), HOUR(created_at) FROM `registros`
+    where created_at BETWEEN '2019-06-01 00:00:00' and '2019-06-20 23:59:59'
+    GROUP BY HOUR(created_at);
+    */
+    $entradas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("HOUR(created_at) as hora"))
+    ->whereBetween('created_at',[$horaInicial, $horaFinal])
+    ->where('accion','=','Ingreso')
+    ->groupBy('hora')
+    ->get();
+    $salidas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("HOUR(created_at) as hora"))
+    ->whereBetween('created_at',[$horaInicial, $horaFinal])
+    ->where('accion','=','Salida')
+    ->groupBy('hora')
+    ->get();
+
+    for($i=0;$i<sizeof($rangoHora);$i++){
+        $registrosEntrada[$i]=0;
+        $registrosSalida[$i]=0;
+      }
+    for($j=0;$j<sizeof($entradas);$j++){
+      //echo 'Hora registrada['.$j.'] '.$entradas[$j]->hora.': '.$entradas[$j]->hora.' - '.$entradas[$j]->countRegistros."<br>";
+      for($i=0;$i<sizeof($rangoHora);$i++){
+        $hora = date('H',strtotime($anio.'-'.$mes.'-'.$dia.' '.$rangoHora[$i]));
+        if($hora == $entradas[$j]->hora){
+          $registrosEntrada[$i]=$entradas[$j]->countRegistros;
+          break;
+        }
+      }
+    }
+
+    for($j=0;$j<sizeof($salidas);$j++){
+      $horasRegistradas= date('H',strtotime($salidas[$j]->created_at));
+
+      for($i=0;$i<sizeof($rangoHora);$i++){
+        $hora = date('H',strtotime($anio.'-'.$mes.'-'.$dia.' '.$rangoHora[$i]));
+        if($hora == $horasRegistradas){
+          $registrosSalida[$i]=$salidas[$j]->countRegistros;
+        }
+      }
+    }
+    $data = array("ragoHoras" => $rangoHora,"entradas"=>$registrosEntrada, "salidas"=>$registrosSalida);
+    //dd($data);
+
+    return json_encode($data);
+
+  }
+
+
+  public function registrosMensual($anio){
+    $fechaInicial = date('Y-m-d H:i:s',strtotime($anio.'-01-01'));
+    $fechaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-12-31'));
+    $meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+
+    $entradas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("MONTH(created_at) as mes"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Ingreso')
+    ->groupBy('mes')
+    ->get();
+    $salidas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("MONTH(created_at) as mes"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Salida')
+    ->groupBy('mes')
+    ->get();
+
+    // 12 Meses
+    for($i=0;$i<12;$i++){
+        $registrosEntrada[$i]=0;
+        $registrosSalida[$i]=0;
+    }
+
+    for($j=0;$j<sizeof($entradas);$j++){
+      for($i=0;$i<12;$i++){
+        $mes = date('m',strtotime($anio.'-'.($i+1)));
+        if($mes == $entradas[$j]->mes){
+          $registrosEntrada[$i]=$entradas[$j]->countRegistros;
+          break;
+        }
+      }
+    }
+
+    for($j=0;$j<sizeof($salidas);$j++){
+      for($i=0;$i<12;$i++){
+        $mes = date('m',strtotime($anio.'-'.($i+1)));
+        if($mes == $salidas[$j]->mes){
+          $registrosSalida[$i]=$salidas[$j]->countRegistros;
+          break;
+        }
+      }
+    }
+    $data = array("meses"=>$meses, "entradas"=>$registrosEntrada, "salidas"=>$registrosSalida);
+    //dd($data);
+    return json_encode($data);
+  }
+
+
+  public function registrosAnual(){
+    /*
+    SELECT YEAR(created_at) as anio FROM `registros`
+    GROUP BY anio;
+    */
+    $aniosEnBD = Registro::query()
+    ->select(\DB::raw(\DB::raw("YEAR(created_at) as anio")))
+    ->groupBy('anio')
+    ->get();
+
+    // Pasamos el obeto a un array
+    for($i=0;$i<sizeof($aniosEnBD);$i++){
+      $anios[$i]= $aniosEnBD[$i]->anio;
+    }
+
+    $fechaInicial = date('Y-m-d H:i:s',strtotime($anios[0].'-01-01'));
+    $fechaFinal   = date('Y-m-d H:i:s',strtotime($anios[sizeof($anios)-1].'-12-31 23:59:59'));
+
+    $entradas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("YEAR(created_at) as anio"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Ingreso')
+    ->groupBy('anio')
+    ->get();
+    $salidas = Registro::query()
+    ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("YEAR(created_at) as anio"))
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
+    ->where('accion','=','Salida')
+    ->groupBy('anio')
+    ->get();
+
+    // Llenamos los registros anuaes con 0
+    for($i=0;$i<sizeof($anios);$i++){
+        $registrosEntrada[$i]=0;
+        $registrosSalida[$i]=0;
+    }
+
+    for($j=0;$j<sizeof($entradas);$j++){
+      for($i=0;$i<sizeof($anios);$i++){
+        $anio = $anios[$i];
+        if($anio == $entradas[$j]->anio){
+          $registrosEntrada[$i]=$entradas[$j]->countRegistros;
+          break;
+        }
+      }
+    }
+
+    for($j=0;$j<sizeof($salidas);$j++){
+      for($i=0;$i<sizeof($anios);$i++){
+        $anio = $anios[$i];
+        if($anio == $salidas[$j]->anio){
+          $registrosSalida[$i]=$salidas[$j]->countRegistros;
+          break;
+        }
+      }
+    }
+    $data = array("anios"=>$anios, "entradas"=>$registrosEntrada, "salidas"=>$registrosSalida);
+    //dd($data);
+    return json_encode($data);
+  }
+
+public function diasDelMes(Request $request){
+  $mes = $request->input('selectMes');
+  $anio = $request->input('selectAnio');
+  $ultimoDia = $this->ultimoDiaDelMes($anio, $mes);
+
+  for($i=0;$i<$ultimoDia;$i++){
+    $dias[$i] = $i+1;
+  }
+  return $dias;
+}
 
 }

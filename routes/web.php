@@ -89,6 +89,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('vehiculos/listar', 'VehiculoController@listar')->name('vehiculos.listar')
             ->middleware('permission:vehiculos.index');
 
+    Route::get('vehiculos/here', 'VehiculoController@enEstablecimiento')->name('vehiculos.enEstablecimiento')
+            ->middleware('permission:vehiculos.index');
+
     Route::get('vehiculos/create', 'VehiculoController@create')->name('vehiculos.create')
             ->middleware('permission:vehiculos.create');
 
@@ -113,6 +116,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('users', 'UserController@index')->name('users.index')
             ->middleware('permission:users.index');
 
+    Route::get('users/listar', 'UserController@listarJson')->name('users.listar')
+            ->middleware('permission:users.index');
+
     Route::get('users/create', 'UserController@create')->name('users.create')
             ->middleware('permission:users.create');
 
@@ -132,11 +138,14 @@ Route::middleware(['auth'])->group(function(){
             ->middleware('permission:users.edit');
 
 
-    // REGISTRAR
+    // REGISTRAR y TERCEROS
     Route::post('registro/store', 'RegistroController@store')->name('registro.store')
             ->middleware('permission:registros.index');
 
     Route::get('registro', 'RegistroController@index')->name('registro.index')
+            ->middleware('permission:registros.index');
+
+    Route::get('registro/listar', 'RegistroController@listarJson')->name('registro.listar')
             ->middleware('permission:registros.index');
 
     Route::post('registro/buscar', 'RegistroController@find')->name('registro.find')
@@ -144,8 +153,6 @@ Route::middleware(['auth'])->group(function(){
 
     Route::post('registro/validar', 'RegistroController@validarTercero')->name('registro.validarTercero')
             ->middleware('permission:registros.tercero');
-            Route::post('registro/validar/{codigo}', 'RegistroController@validarTercero')->name('registro.validarTercero2')
-                    ->middleware('permission:registros.tercero');
 
     Route::post('terceros/generate', 'RegistroController@crearCodigoTercero')->name('registro.crearCodigoTercero')
             ->middleware('permission:registros.tercero');
@@ -159,4 +166,25 @@ Route::middleware(['auth'])->group(function(){
     /* Solo podran ver los datos, aquellos con permisos de listar los dueños */
     Route::get('autocompleteRunDueno', 'RegistroController@searchDueno')->name('registro.autocompleteRunDueno')
             ->middleware('permission:duenos.index');
+
+    Route::get('reportes', 'RegistroController@reportes')->name('registro.reporte')
+            ->middleware('permission:registros.reporte');
+
+    // Gráficos  registrosPorDias
+    Route::get('grafico/{anio}/{mes}', 'RegistroController@registrosPorDias')->name('registro.registrosPorDias')
+            ->middleware('permission:registros.reporte');
+
+    Route::get('grafico/{anio}/{mes}/{dia}', 'RegistroController@registrosPorHora')->name('registro.registrosPorHora')
+            ->middleware('permission:registros.reporte');
+
+    Route::get('grafico/{anio}', 'RegistroController@registrosMensual')->name('registro.registrosMensual')
+            ->middleware('permission:registros.reporte');
+
+    Route::get('grafico/', 'RegistroController@registrosAnual')->name('registro.registrosAnual')
+            ->middleware('permission:registros.reporte');
+
+    Route::post('diasDelMes/', 'RegistroController@diasDelMes')->name('registro.diasDelMes')
+            ->middleware('permission:registros.reporte');
+
+
 });

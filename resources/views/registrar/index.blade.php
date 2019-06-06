@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header pb-1">
 
                   <div class="row ">
                       {{ Form::open(['route' => 'registro.find','class' => 'col-md-6']) }}
@@ -45,9 +45,12 @@
                       <li class="list-group-item pt-0 pb-2">
                         <div class="row justify-content-center pt-3 pl-2">
                           @if($retiroPorTercero)
-                          <div class="col-md-10 mb-2">
-                            <div class="alert alert-info" role="alert">
+                          <div class="col-md-10 mb-0" id="alertaClaveTercero">
+                            <div class="alert alert-info py-2" role="alert">
                             <b>Esta bicicleta puede ser retirada por un tercero, verifique el código para retiro por terceros</b>
+                              <button type="button" class="close" id="bntAlertaClaveTercero">
+                                <span aria-hidden="true" class="text-primary">×</span>
+                              </button>
                             </div>
                           </div>
                           @endif
@@ -229,7 +232,9 @@ $(document).ready(function() {
     var refreshId = setInterval(function() {
         $("#hora").load("{{route('hora')}}")
     }, 1000);
-
+    $('#bntAlertaClaveTercero').click(function(){
+      $('#alertaClaveTercero').hide();
+    });
     // Función  para validar el código de retiro por terceros, sin recargar la página
     validarCodigo = function(){
       $(".check-icon").hide();

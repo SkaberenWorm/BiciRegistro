@@ -19,7 +19,6 @@ class CreateVehiculosTable extends Migration
             $table->string('modelo')->nullable();
             $table->string('color');
             $table->boolean('isInside')->default(true);
-            $table->string('ubicacion')->default('');
             $table->integer('marca_id')->unsigned()->index();
             $table->foreign('marca_id')->references('id')->on('marcas');
             $table->integer('dueno_id')->unsigned()->index();

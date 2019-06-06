@@ -16,9 +16,9 @@ class Registro extends Model
       'accion','vehiculo_id', 'usuario_id',
   ];
 
-  public function dueno(){
+  /*public function dueno(){
       return $this->belongsTo(Dueno::class);
-  }
+  }*/
   public function vehiculo(){
       return $this->belongsTo(Vehiculo::class);
   }

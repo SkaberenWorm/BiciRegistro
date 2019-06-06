@@ -214,4 +214,14 @@ class UserController extends Controller
 
       return back()->with('success','Habilitado correctamente');
     }
+
+
+    public function listarJson(Request $request){
+
+        $modelo =  User::join('role_user', 'role_user.user_id', '=', 'users.id')
+                  ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                  ->select("users.id","users.name as nombre","users.email","roles.name as rol");
+        return datatables()->eloquent($modelo)->toJson();
+
+    }
 }

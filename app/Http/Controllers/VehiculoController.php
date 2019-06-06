@@ -254,14 +254,14 @@ class VehiculoController extends Controller
     * Muestra la lista en Json (DataTable server side processing https://datatables.net/manual/server-side)
     */
     public function listar(){
-      $model = Vehiculo::query();
-        // return datatables()->eloquent(Usuario::query())->toJson();
+
+      $model = Vehiculo::query()->join('marcas','marca_id', '=', 'marcas.id')
+      ->join('duenos','duenos.id', '=', 'vehiculos.dueno_id')
+      ->select('vehiculos.id','vehiculos.codigo','vehiculos.modelo','vehiculos.color','marcas.id as marca_id', 'duenos.nombre as dueno', 'vehiculos.image as image', 'vehiculos.activo as activo');
+
         return datatables()->eloquent($model)
         ->addColumn('marca', function($vehiculo) {
             return $vehiculo->marca->description;
-        })
-        ->addColumn('dueno', function($vehiculo) {
-            return $vehiculo->dueno->nombre;
         })
         ->addColumn('imagen', function($vehiculo) {
             return '<img src="'.Storage::url($vehiculo->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
@@ -290,5 +290,11 @@ class VehiculoController extends Controller
         ->rawColumns(['imagen','accion'])
         ->toJson();
 
+    }
+
+    public function enEstablecimiento(){
+
+      $modelo =  Vehiculo::join('marcas','marca_id', '=', 'marcas.id')->select('vehiculos.id','vehiculos.codigo','vehiculos.modelo','vehiculos.color','marcas.id as marca_id', 'marcas.description as marca');
+      return datatables()->eloquent($modelo)->toJson();
     }
 }

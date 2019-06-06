@@ -14,13 +14,18 @@
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery-3.3.1.js')); ?>"></script>
-    <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery.dataTables.min.js')); ?>" defer></script>
+    <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery.dataTables.min.js')); ?>" ></script>
     <script type="text/javascript" language="javascript" defer src="<?php echo e(asset('js/dataTables.bootstrap4.min.js')); ?>"></script>
+
+
 
     <!-- Fonts -->
     <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
     <link href="<?php echo e(asset('css/select2.min.css')); ?>" defer rel="stylesheet">
     <link href="<?php echo e(asset('css/jquery-ui.css')); ?>" defer rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"  rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"  rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css"  rel="stylesheet">
 
 
     <!-- Styles -->
@@ -79,7 +84,11 @@
                             <a class="nav-link <?php echo e(strpos(request()->path(),'erceros')? 'active': ''); ?>" href="<?php echo e(route('registro.crearCodigoTercero')); ?>">Retiro por terceros</a>
                         </li>
                         <?php endif; ?>
-
+                        <?php if (\Shinobi::can('registros.reporte')): ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo e(strpos(request()->path(),'ortes')? 'active': ''); ?>" href="<?php echo e(route('registro.reporte')); ?>">Reportes</a>
+                        </li>
+                        <?php endif; ?>
 
                     </ul>
 
@@ -190,9 +199,23 @@
       .dropdown:hover>.dropdown-menu {
         display: block;
       }
+      .table-small td,
+      .table-small th{
+        padding:.5rem
+      }
+      .btn-default{
+        color: #212529;
+        background-color: #f8f9fa;
+        border-color: #e8e9ea;
+      }
+      .btn-default:hover{
+        color: #212529;
+        background-color: #ddd;
+        border-color: #e8e9ea;
+      }
     </style>
     <script type="text/javascript">
-      $('.message').animate({opacity : '100',},6000);
+      $('.message').animate({opacity: "100"},6000);
       $('.message').animate({right: "10px"},500);
       $('.message').animate({right: "-550px"},800);
       $('.message').hide(1);

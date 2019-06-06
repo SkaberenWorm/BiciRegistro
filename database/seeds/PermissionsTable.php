@@ -141,5 +141,12 @@ class PermissionsTable extends Seeder
             'description'   => 'Puede crear y validar códigos de bicicletas para retiro por terceros',
             'grupo'         => 'otros',
         ]);
+        // Reportes
+        Permission::create ([
+            'name'          => 'Reportes',
+            'slug'          => 'registros.reporte',
+            'description'   => 'Ver reportes y exportar los datos en Excel',
+            'grupo'         => 'otros',
+        ]);
     }
 }
