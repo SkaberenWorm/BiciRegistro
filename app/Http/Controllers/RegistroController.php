@@ -223,7 +223,6 @@ class RegistroController extends Controller
     ->select(\DB::raw(\DB::raw("YEAR(created_at) as anio")))
     ->groupBy('anio')
     ->get();
-    dd("Que esta pasando");
     return view('reportes.index',compact('anios'));
   }
 
@@ -306,6 +305,7 @@ class RegistroController extends Controller
     ->where('accion','=','Ingreso')
     ->groupBy('hora')
     ->get();
+
     $salidas = Registro::query()
     ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("HOUR(created_at) as hora"))
     ->whereBetween('created_at',[$horaInicial, $horaFinal])
@@ -318,7 +318,6 @@ class RegistroController extends Controller
         $registrosSalida[$i]=0;
       }
     for($j=0;$j<sizeof($entradas);$j++){
-      //echo 'Hora registrada['.$j.'] '.$entradas[$j]->hora.': '.$entradas[$j]->hora.' - '.$entradas[$j]->countRegistros."<br>";
       for($i=0;$i<sizeof($rangoHora);$i++){
         $hora = date('H',strtotime($anio.'-'.$mes.'-'.$dia.' '.$rangoHora[$i]));
         if($hora == $entradas[$j]->hora){
@@ -330,17 +329,14 @@ class RegistroController extends Controller
 
     for($j=0;$j<sizeof($salidas);$j++){
       $horasRegistradas= date('H',strtotime($salidas[$j]->created_at));
-
       for($i=0;$i<sizeof($rangoHora);$i++){
         $hora = date('H',strtotime($anio.'-'.$mes.'-'.$dia.' '.$rangoHora[$i]));
-        if($hora == $horasRegistradas){
+        if($hora == $salidas[$j]->hora){
           $registrosSalida[$i]=$salidas[$j]->countRegistros;
         }
       }
     }
     $data = array("ragoHoras" => $rangoHora,"entradas"=>$registrosEntrada, "salidas"=>$registrosSalida);
-    //dd($data);
-
     return json_encode($data);
 
   }

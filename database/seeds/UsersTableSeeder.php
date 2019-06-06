@@ -52,14 +52,16 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->roles()->sync(1);
 
+        /*
         for ($i = 0; $i < 10; $i++) {
-         $user = factory(BiciRegistro\User::class)->create();
-         $user->roles()->sync(2);
-       }
+           $user = factory(BiciRegistro\User::class)->create();
+           $user->roles()->sync(2);
+         }
 
-       for ($i = 0; $i < 10; $i++) {
-        $user = factory(BiciRegistro\User::class)->create();
-        $user->roles()->sync(3);
-      }
+         for ($i = 0; $i < 10; $i++) {
+          $user = factory(BiciRegistro\User::class)->create();
+          $user->roles()->sync(3);
+        }
+        */
     }
 }

@@ -54,13 +54,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-2">
+                            <div class="col-md-2">
                                 {{ Form::label('celular_dueno','Celular') }}
                             </div>
-                            <div class="col-2 col-sm-2">
-                                {{ Form::label('cel_dueno','+569',['class'=>'mt-2']) }}
+                            <div class="col-4 col-md-3 col-sm-4">
+                                {{ Form::label('celularLabel','+569',['class'=>'form-control px-1 pl-2']) }}
                             </div>
-                            <div class="col-10 col-sm-8">
+                            <div class="col-8 col-md-7 col-sm-8">
                                 {{ Form::number('celular_dueno', null, ['class' => 'form-control']) }}
                                 @if ($errors->has('celular_dueno'))
                                     <span class="invalid-feedback" role="alert">

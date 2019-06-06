@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
          $this->call(PermissionsTable::class);
          $this->call(MarcaTableSeeder::class);
          $this->call(TipoDuenoTableSeeder::class);
-         $this->call(DuenoTableSeeder::class);
-         $this->call(VehiculosTableSeeder::class);
+         //$this->call(DuenoTableSeeder::class);
+         //$this->call(VehiculosTableSeeder::class);
          $this->call(UsersTableSeeder::class);
          //$this->call(RegistroTableSeeder::class);
          //$this->call(Seeder::class);

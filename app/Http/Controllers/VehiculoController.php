@@ -48,10 +48,15 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-
       $existeDueno=false;
-      $dueno = Dueno::where('rut','=',$request->input('run_dueno'))
-                    ->get()->first();
+      $this->validate($request, [
+          'run_dueno' => 'required|cl_rut',
+          ]);
+
+        $rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
+        $dueno = Dueno::where('rut','=',$rut)
+                      ->get()->first();
+
         if(isset($dueno)){
           $existeDueno=true;
           $this->validate($request, [
