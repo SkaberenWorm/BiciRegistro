@@ -33,7 +33,7 @@
                               </tr>
                               <tr>
                                 <th scope="row">Celular</th>
-                                <td>+569 <?php echo e($dueno->celular); ?></td>
+                                <td>(+56) <?php echo e($dueno->celular); ?></td>
                               </tr>
                               <tr>
                                 <?php if($dueno->vehiculos->where('activo',true)->count() > 1): ?>

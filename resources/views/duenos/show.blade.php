@@ -35,7 +35,7 @@
                               </tr>
                               <tr>
                                 <th scope="row">Celular</th>
-                                <td>+569 {{ $dueno->celular }}</td>
+                                <td>(+56) {{ $dueno->celular }}</td>
                               </tr>
                               <tr>
                                 @if($dueno->vehiculos->where('activo',true)->count() > 1)

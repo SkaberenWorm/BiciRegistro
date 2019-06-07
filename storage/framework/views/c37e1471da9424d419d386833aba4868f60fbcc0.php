@@ -12,6 +12,7 @@
     <title>Biciregistro</title>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery-3.3.1.js')); ?>"></script>
     <script type="text/javascript" language="javascript"  src="<?php echo e(asset('js/jquery.dataTables.min.js')); ?>" ></script>
@@ -41,9 +42,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-              <a class="navbar-brand" href="#">
-                <!--img src="<?php echo e(asset('images/favicon.ico')); ?>" width="30" height="30" class="d-inline-block align-top" alt=""-->
-                Biciregistro
+              <a class="navbar-brand  py-0 my-0" href="<?php echo e(route('home')); ?>">
+                <img src="<?php echo e(asset('images/logoDuoc.jpg')); ?>" height="30" class="d-inline-block align-top mx-auto" alt="">
+                <p class="text-center py-0 my-0 text-secondary">BiciRegistro</p>
               </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<?php echo e(__('Toggle navigation')); ?>">
                     <span class="navbar-toggler-icon"></span>
@@ -188,7 +189,7 @@
         border-radius: 3px;
 
         color: #FFF !important;
-        top:55px;
+        top:74px;
         right: 0px;
         max-width: 550px;
         min-width: 300px;

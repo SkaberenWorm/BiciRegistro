@@ -13,9 +13,15 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text">Código bicicleta</span>
                           </div>
-                          <input type="text" id="buscarVehiculo" class="form-control mr-1" autocomplete="off"  name="codigo" data-toggle="tooltip" data-placement="bottom" title="Ingrese código de la bicicleta" required  autofocus>
+                          <?php if(isset($vehiculo)): ?>
+                            <input type="text" id="buscarVehiculo" class="form-control mr-1" autocomplete="off"  name="codigo" data-toggle="tooltip" data-placement="bottom" title="Ingrese código de la bicicleta" required >
+                            <?php echo e(Form::submit('Buscar', ['class' => 'btn btn-secondary', 'id'=>'btnBuscarVehiculo'])); ?>
 
-                          <?php echo e(Form::submit('Buscar', ['class' => 'btn btn-secondary', 'id'=>'btnBuscarVehiculo'])); ?>
+                          <?php else: ?>
+                            <input type="text" id="buscarVehiculo" class="form-control mr-1" autocomplete="off"  name="codigo" data-toggle="tooltip" data-placement="bottom" title="Ingrese código de la bicicleta" required  autofocus>
+                            <?php echo e(Form::submit('Buscar', ['class' => 'btn btn-secondary', 'id'=>'btnBuscarVehiculo'])); ?>
+
+                          <?php endif; ?>
 
                         </div>
                       </div>
@@ -23,7 +29,7 @@
 
 
                       <?php if(isset($vehiculo)): ?>
-                      <?php echo e(Form::open(['id'=>'formValidate','class' => 'col-md-6'])); ?>
+                      <?php echo e(Form::open(['id'=>'formValidate','onkeypress'=>'return anular(event)' ,'class' => 'col-md-6'])); ?>
 
                       <div class="mb-3 mt-2" >
                         <div class="input-group ">
@@ -31,8 +37,7 @@
                             <span class="input-group-text">Código tercero</span>
                           </div>
                           <input type="hidden" name="vehiculo_id" value="<?php echo e($vehiculo->id); ?>">
-                          <input type="text" autocomplete="off" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Validar código para retiro por terceros" required  >
-
+                          <input type="text" min="3" max="4" autocomplete="off" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Validar código para retiro por terceros" required  autofocus >
                           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#validarModal" onclick="validarCodigo()" name="button">Validar</button>
                         </div>
                       </div>
@@ -71,7 +76,7 @@
                               <input type="hidden" name="vehiculo_id" value="<?php echo e($vehiculo->id); ?>">
                               <?php echo e(Form::submit('REGISTRAR', ['class' => 'btn btn-success'])); ?>
 
-                              <button type="button" class="btn btn-outline-danger  ml-2" data-toggle="modal" data-target="#rechazarModal" title="Rechazar si no es el dueño">RECHAZAR</button>
+                              <button type="button" class="btn btn-outline-danger  ml-2" onclick="rechazadoEmail('<?php echo e($vehiculo->id); ?>','<?php echo e($vehiculo->dueno->correo); ?>')" data-toggle="modal" data-target="#rechazarModal" title="Rechazar si no es el dueño">RECHAZAR</button>
                             <?php echo e(Form::close()); ?>
 
                           </div>
@@ -136,7 +141,7 @@
                                   </tr>
                                   <tr>
                                     <th scope="row">Celular</th>
-                                    <td>+569 <?php echo e($vehiculo->dueno->celular); ?></td>
+                                    <td>(+56) <?php echo e($vehiculo->dueno->celular); ?></td>
                                   </tr>
 
                                 </tbody>
@@ -189,11 +194,12 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <label> Se está rechazando la salida de está bicicleta</label><br>
+        <label> ¿Desea enviar un aviso al correo <b class="correoDueno"></b>? </label><br>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Envíar correo</button>
+        <button type="button" class="btn btn-primary" disabled>Envíar correo</button>
       </div>
     </div>
   </div>
@@ -234,7 +240,16 @@
 
 <!-- /Modal Validacions-->
 <script type="text/javascript">
+function anular(e) {
+          tecla = (document.all) ? e.keyCode : e.which;
+          return (tecla != 13);
+     }
 $(document).ready(function() {
+
+  rechazadoEmail = function(vehiculo_id, correoDueno){
+    $('.correoDueno').html(correoDueno);
+  }
+
     $("#hora").load("<?php echo e(route('hora')); ?>");
     var refreshId = setInterval(function() {
         $("#hora").load("<?php echo e(route('hora')); ?>")

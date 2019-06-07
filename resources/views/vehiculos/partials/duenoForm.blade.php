@@ -58,7 +58,7 @@
                                 {{ Form::label('celular_dueno','Celular') }}
                             </div>
                             <div class="col-4 col-md-3 col-sm-4">
-                                {{ Form::label('celularLabel','+569',['class'=>'form-control px-1 pl-2']) }}
+                                {{ Form::label('celularLabel','(+56)',['class'=>'form-control px-1 pl-2']) }}
                             </div>
                             <div class="col-8 col-md-7 col-sm-8">
                                 {{ Form::number('celular_dueno', null, ['class' => 'form-control']) }}

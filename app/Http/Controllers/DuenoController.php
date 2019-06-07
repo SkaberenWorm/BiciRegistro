@@ -90,7 +90,12 @@ class DuenoController extends Controller
           'tipoDueno_id' => 'required',
           'image' => 'image|mimes:jpeg,png,jpg'
           ]);
-
+      // Se valida por separado, porque no es un campo obligatorio
+      if(!empty($request->input('celular'))){
+        $this->validate($request, [
+            'celular' => 'regex:/[92]{1}[987654321]\d{7}$/|max:9',
+          ]);
+      }
       $dueno->nombre = $request->input('nombre');
       $dueno->correo = $request->input('correo');
       $dueno->celular = $request->input('celular');

@@ -76,9 +76,15 @@ class VehiculoController extends Controller
               'nombre_dueno' => 'required',
               'correo_dueno' => 'required|unique:duenos,correo',
               'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
-              'celular_dueno' => 'digits_between:0,9',
               'tipoDueno' => 'required',
               ]);
+
+              // Se valida por separado, porque no es un campo obligatorio
+              if(!empty($request->input('celular_dueno'))){
+                $this->validate($request, [
+                    'celular_dueno' => 'regex:/[92]{1}[987654321]\d{7}$/|max:9',
+                  ]);
+              }
 
               $dueno = new Dueno();
         }
@@ -290,16 +296,29 @@ class VehiculoController extends Controller
             }
             return $botones;
           })
-
-
-        ->rawColumns(['imagen','accion'])
+          ->addColumn('showDetalle', function($vehiculo) {
+              return '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $vehiculo->id).'" target="_blank">Detalle bicicleta</a>';
+          })
+        ->rawColumns(['imagen','accion','showDetalle'])
         ->toJson();
 
     }
 
     public function enEstablecimiento(){
-
-      $modelo =  Vehiculo::join('marcas','marca_id', '=', 'marcas.id')->select('vehiculos.id','vehiculos.codigo','vehiculos.modelo','vehiculos.color','marcas.id as marca_id', 'marcas.description as marca');
-      return datatables()->eloquent($modelo)->toJson();
+      /*
+      SELECT codigo, TIMESTAMPDIFF(MINUTE , updated_at, now() ) AS minitos FROM vehiculos
+      */
+      $modelo =  Vehiculo::join('marcas','marca_id', '=', 'marcas.id')
+      ->select('vehiculos.id','vehiculos.isInside','vehiculos.codigo','vehiculos.modelo','vehiculos.color',
+      'marcas.id as marca_id', 'marcas.description as marca',
+      \DB::raw("if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0) > 0, concat(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0), if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0) > 1, ' días',' día')), if(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))) > 0, concat(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))), ' hrs'), concat(MINUTE(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))),' min') )) AS tiempo"),
+      \DB::raw("TIMESTAMPDIFF(hour , vehiculos.updated_at, now()) AS horas"))
+      ->where('vehiculos.isInside','=','1');
+      return datatables()->eloquent($modelo)
+      ->addColumn('showDetalle', function($vehiculo) {
+          return '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $vehiculo->id).'" target="_blank">Detalle bicicleta</a>';
+      })
+      ->rawColumns(['showDetalle'])
+      ->toJson();
     }
 }

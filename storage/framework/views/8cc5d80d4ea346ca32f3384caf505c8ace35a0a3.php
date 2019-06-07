@@ -29,7 +29,7 @@
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Celular</th>
-                            <th >Bicicletas</th>
+                            <th data-orderable="false">Bicicletas</th>
                             <th data-orderable="false"></th>
 
                             </tr>

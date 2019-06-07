@@ -160,17 +160,19 @@ Route::middleware(['auth'])->group(function(){
     Route::get('terceros/generate', 'RegistroController@terceroIndex')->name('registro.crearCodigoTercero')
             ->middleware('permission:registros.tercero');
 
-    Route::post('terceros', 'RegistroController@findDueno')->name('registro.findDueno')
+    Route::post('terceros/', 'RegistroController@findDueno')->name('registro.findDueno')
             ->middleware('permission:registros.tercero');
 
     /* Solo podran ver los datos, aquellos con permisos de listar los dueños */
     Route::get('autocompleteRunDueno', 'RegistroController@searchDueno')->name('registro.autocompleteRunDueno')
             ->middleware('permission:duenos.index');
 
+    // REPORTES
+
     Route::get('reportes', 'RegistroController@reportes')->name('registro.reporte')
             ->middleware('permission:registros.reporte');
 
-    // Gráficos  registrosPorDias
+    // GRÁFICOS
     Route::get('grafico/{anio}/{mes}', 'RegistroController@registrosPorDias')->name('registro.registrosPorDias')
             ->middleware('permission:registros.reporte');
 
@@ -182,9 +184,5 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('grafico/', 'RegistroController@registrosAnual')->name('registro.registrosAnual')
             ->middleware('permission:registros.reporte');
-
-    Route::post('diasDelMes/', 'RegistroController@diasDelMes')->name('registro.diasDelMes')
-            ->middleware('permission:registros.reporte');
-
 
 });

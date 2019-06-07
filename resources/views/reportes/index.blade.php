@@ -93,22 +93,26 @@
                       <tr>
                         <th>N°</th>
                         <th>Bicicleta</th>
-                        <th>Marca / Modelo</th>
+                        <!--th>Marca / Modelo</th-->
+                        <th>Run dueño</th>
                         <th>Usuario</th>
                         <th>Correo usuario</th>
                         <th>Acción</th>
                         <th>Fecha / Hora</th>
+                        <th data-orderable="false"></th>
                       </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>N°</th>
-                      <th>Código bicicleta</th>
-                      <th>bicicleta</th>
+                      <th>Bicicleta</th>
+                      <!--th>Marca / Modelo</th-->
+                      <th>Run dueño</th>
                       <th>Usuario</th>
                       <th>Correo usuario</th>
                       <th>Acción</th>
                       <th>Fecha / Hora</th>
+                      <th data-orderable="false" style="width: 5% !important;"></th>
                     </tr>
                   </tfoot>
               </table>
@@ -128,6 +132,7 @@
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Color</th>
+                        <th data-orderable="false"></th>
                       </tr>
                   </thead>
                   <tfoot>
@@ -137,6 +142,7 @@
                       <th>Marca</th>
                       <th>Modelo</th>
                       <th>Color</th>
+                      <th data-orderable="false"></th>
                     </tr>
                   </tfoot>
               </table>
@@ -151,20 +157,22 @@
               <table id="tableBicicletaInstitucion" class="table table-hover table-small  table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" width="100%">
                   <thead>
                       <tr>
-                        <th>N°</th>
                         <th>Código</th>
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Color</th>
+                        <th>Tiempo</th>
+                        <th data-orderable="false"></th>
                       </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>N°</th>
                       <th>Código</th>
                       <th>Marca</th>
                       <th>Modelo</th>
-                      <th>Color</th>
+                      <th>Minutos</th>
+                      <th>Tiempo</th>
+                      <th data-orderable="false"></th>
                     </tr>
                   </tfoot>
               </table>
@@ -232,79 +240,50 @@
     </div>
   </div>
 </div>
+<style media="screen">
+body .ui-tooltip {
+border-width:0;
+}
 
+.ui-tooltip,.arrow:after {
+background:black;
+border:2px solid white;
+}
+
+.ui-tooltip {
+padding:10px;
+color:white;
+border-radius:5px;
+font-family:Verdana, sans-serif;
+font-size:12px;
+text-transform:none;
+
+-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+filter:alpha(opacity=70);
+opacity:0.8;
+}
+</style>
+<!--link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( document ).tooltip({
+        events: {
+        input: 'click, blur',
+        checkbox: 'mouseover click, mouseout',
+        date: 'click, blur'
+      }
+    });
+  } );
+  </script>
 <script type="text/javascript" class="init">
 
-function cargarSelect(anio,mes,dia){
-  // CARGAMOS LOS DÍAS DEL MES DE HOY
-  var date = new Date();
-  var diasSemana  = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
-  var meses       = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-  var dia = dia;
-
-  $("#selectMes").empty();
-  $("#selectDia").empty();
-
-  if(mes!=null){
-    var date = new Date(anio,mes);
-    if(dia!=null){
-      var date = new Date(anio,mes,dia);
-    }
-  }else{
-    var date = new Date();
-  }
-
-  if(anio==null){
-    $("#selectAnio").append('<option selected value='+date.getFullYear()+'>'+date.getFullYear()+'</option>');
-  }
-
-  // getMonth() = Mes -1 / ejemplo Abril = 04  getMonth()= 3
-  for(var i=1; i<=12; i++){
-    if(i == ((new Date().getMonth())+1) && mes==null){
-        $("#selectMes").append('<option selected value='+i+'>'+meses[i-1]+'</option>');
-    }else{
-      if(mes!=null && mes == i){
-        $("#selectMes").append('<option selected value='+i+'>'+meses[i-1]+'</option>');
-      }else{
-        $("#selectMes").append('<option value='+i+'>'+meses[i-1]+'</option>');
-      }
-    }
-  }
-
-  // Le restamos al mes porque getMonth() le resta 1, asi compensamos la fecha real
-  if(mes!=null){
-    var date = new Date(anio,mes-1);
-    if(dia!=null){
-      var date = new Date(anio,mes-1,dia);
-    }
-  }else{
-    var date = new Date();
-  }
-
-  var primerDia   = (new Date(date.getFullYear(), date.getMonth(), 1)).getDate();
-  var ultimoDia   = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate();
-  var mesFecha = date.getMonth();
-  var anioFecha = date.getFullYear();
-  var diaFecha = date.getDate();
-
-  for(var i=primerDia; i<=ultimoDia; i++){
-    date = new Date(anioFecha,mesFecha,i);
-    if((new Date()).getDate() == i && dia==null){
-      $("#selectDia").append('<option selected value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
-    }else{
-      if(dia!=null && dia==i){
-        $("#selectDia").append('<option selected value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
-      }else{
-        $("#selectDia").append('<option value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
-      }
-    }
-  }
-}
 
 $(document).ready(function() {
   var anio = null;
   var mes = null;
   var dia = null;
+
 
   // Cargamos los select para el filtro
   // Si estan null quedará con la fecha actual
@@ -326,7 +305,7 @@ $(document).ready(function() {
     dia = $('select[id=selectDia]').val();
 
     cargarSelect(anio,mes,dia);
-    showHideGroupFilter();
+    clickSiEstaActivo();
   });
 
   $('#btnFiltroHoy').click(function(){
@@ -334,7 +313,7 @@ $(document).ready(function() {
     anio = $('select[id=selectAnio]').val();
     mes = $('select[id=selectMes]').val();
     dia = $('select[id=selectDia]').val();
-    showHideGroupFilter();
+    clickSiEstaActivo();
     //alert(anio+'/'+mes+'/'+dia);
   });
 
@@ -372,13 +351,14 @@ $(document).ready(function() {
     'columns':[
           {'data':'id'},
           {'data':'codigoVehiculo', 'name': 'vehiculos.codigo'},
-          {'data':'vehiculo', 'name': 'marcas.description',  'name': 'vehiculos.modelo'},
+          //{'data':'vehiculo', 'name': 'vehiculo'},
+          {'data':'dueno', 'name': 'duenos.rut'},
           {'data':'usuario' , 'name': 'users.name'},
           {'data':'correoUsuario', 'name': 'users.email'},
           {'data':'accion'},
           {'data':'created_at'},
+          {'data':'showDetalle'},
     ],
-
     "order": [[ 0, "desc" ]],
     "scrollCollapse": true,
     "language": {
@@ -418,12 +398,23 @@ $(document).ready(function() {
     ],
     ajax: "{{route('vehiculos.enEstablecimiento')}}",
     'columns':[
-          {'data':'id'},
           {'data':'codigo',},
           {'data':'marca', 'name': 'marcas.description'},
           {'data':'modelo'},
           {'data':'color'},
+          {'data':'tiempo'},
+          {'data':'showDetalle'},
     ],
+    'fnRowCallback': function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+      //alert(aData['dueno']);
+      if ( aData['horas'] >= 10 )
+      {
+        $('td', nRow).css('background-color', 'RGBA(255, 255, 0, 0.3)');
+        if(aData['horas'] > 24){
+          $('td', nRow).css('background-color', 'RGBA(255, 255, 0, 0.3)');
+        }
+      }
+    },
     //"scrollY": "500px",
     "scrollCollapse": true,
     "language": {
@@ -466,6 +457,7 @@ $(document).ready(function() {
           {'data':'marca', 'name': 'marcas.description'},
           {'data':'modelo'},
           {'data':'color'},
+          {'data':'showDetalle'},
     ],
     //"scrollY": "500px",
     "scrollCollapse": true,
@@ -609,8 +601,77 @@ $(document).ready(function() {
     cambiarEstadoSelect(false,false,false);
     $('#btnFiltroHoy').css('display','none');
   });
+
+
+
+
 });
 
+function cargarSelect(anio,mes,dia){
+  // CARGAMOS LOS DÍAS DEL MES DE HOY
+  var date = new Date();
+  var diasSemana  = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+  var meses       = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+  var dia = dia;
+
+  $("#selectMes").empty();
+  $("#selectDia").empty();
+
+  if(mes!=null){
+    var date = new Date(anio,mes);
+    if(dia!=null){
+      var date = new Date(anio,mes,dia);
+    }
+  }else{
+    var date = new Date();
+  }
+
+  if(anio==null){
+    $("#selectAnio").append('<option selected value='+date.getFullYear()+'>'+date.getFullYear()+'</option>');
+  }
+
+  // getMonth() = Mes -1 / ejemplo Abril = 04  getMonth()= 3
+  for(var i=1; i<=12; i++){
+    if(i == ((new Date().getMonth())+1) && mes==null){
+        $("#selectMes").append('<option selected value='+i+'>'+meses[i-1]+'</option>');
+    }else{
+      if(mes!=null && mes == i){
+        $("#selectMes").append('<option selected value='+i+'>'+meses[i-1]+'</option>');
+      }else{
+        $("#selectMes").append('<option value='+i+'>'+meses[i-1]+'</option>');
+      }
+    }
+  }
+
+  // Le restamos al mes porque getMonth() le resta 1, asi compensamos la fecha real
+  if(mes!=null){
+    var date = new Date(anio,mes-1);
+    if(dia!=null){
+      var date = new Date(anio,mes-1,dia);
+    }
+  }else{
+    var date = new Date();
+  }
+
+  var primerDia   = (new Date(date.getFullYear(), date.getMonth(), 1)).getDate();
+  var ultimoDia   = (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate();
+  var mesFecha = date.getMonth();
+  var anioFecha = date.getFullYear();
+  var diaFecha = date.getDate();
+
+  for(var i=primerDia; i<=ultimoDia; i++){
+    date = new Date(anioFecha,mesFecha,i);
+    if((new Date()).getDate() == i && dia==null){
+      $("#selectDia").append('<option selected value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
+    }else{
+      if(dia!=null && dia==i){
+        $("#selectDia").append('<option selected value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
+      }else{
+        $("#selectDia").append('<option value='+i+'>'+diasSemana[date.getDay()]+' '+i+'</option>');
+      }
+    }
+  }
+}
 
 function cargarGraficoHora(anio,mes,dia){
   var url = '{{url("")}}'+'/grafico/'+anio+'/'+mes+'/'+dia;
@@ -640,7 +701,7 @@ function cargarGraficoHora(anio,mes,dia){
       enabled: false
     },
     subtitle: {
-      text: 'Registro por hora [ '+(new Date(anio,mes-1,dia)).toLocaleDateString("es-CL",{weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})+' ]'
+      text: 'Registro por hora <br> '+(new Date(anio,mes-1,dia)).toLocaleDateString("es-CL",{weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
     },
     xAxis: {
       tickWidth: 0,
@@ -988,7 +1049,7 @@ function cambiarEstadoSelect(anio,mes,dia){
   }
 }
 
-function showHideGroupFilter(){
+function clickSiEstaActivo(){
   if ($('#nav-hora-tab').hasClass('active')){
       $('#nav-hora-tab').click();
   }
@@ -1020,5 +1081,7 @@ function showHideGroupFilter(){
 
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
 
 @endsection

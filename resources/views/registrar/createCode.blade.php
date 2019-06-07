@@ -8,15 +8,14 @@
                 <div class="card-header py-0">
 
                   <div class="row ">
-                      {{ Form::open(['route' => 'registro.findDueno','class' => 'col-sm-6 col-md-6 mt-2']) }}
+                      {{ Form::open(['route' => 'registro.findDueno','method'  => 'post', 'class' => 'col-sm-6 col-md-6 mt-2']) }}
                       <div class="mb-3 mt-2">
                         <div class="input-group ">
                           <div class="input-group-prepend">
                             <span class="input-group-text">RUN</span>
                           </div>
-                          <input type="text" id="buscarDueno" class="form-control mr-1" name="run" data-toggle="tooltip" data-placement="bottom" title="Ingrese run del ciclista" required  autofocus>
-
-                          {{ Form::submit('Buscar', ['class' => 'btn btn-secondary', 'id'=>'btnBuscarDueno']) }}
+                          <input type="text" id="buscarDueno" class="form-control mr-1" name="run" data-toggle="tooltip" data-placement="bottom" title="Ingrese run del ciclista"  required autofocus autocomplete="off">
+                          {{ Form::submit('Buscar', ['class' => 'btn btn-secondary']) }}
                         </div>
                       </div>
                       {{ Form::close() }}
@@ -28,7 +27,7 @@
 
                         {{ Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode']) }}
                         <input type="hidden" name="vehiculoId" class="vehiculoId" value="{{$dueno->vehiculos[0]->id}}">
-                        <div class="col-sm-4 col-md-3 mt-2 col-lg-2 px-0">
+                        <div class="col-sm-4 col-md-3 mt-3 col-lg-2 px-0">
                           <div class="input-group mx-auto">
                             <button style="z-index:1"type="button" onclick="generarCodigoTercero({{$dueno->vehiculos[0]->id}})" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
                           </div>
@@ -36,7 +35,7 @@
                         {{ Form::close() }}
                       @else
                       <div class="text-right mt-3 px-3 pt-2 col-sm-6 col-md-6">
-                      <h5 class="mb-0 pb-0">  <label class="text-secondary"> Código de retiro: <b class="codigoTercero text-danger"> </b></label></h5>
+                      <h5 class="mb-0 pb-0">  <label class="text-secondary"> Código de retiro: <b class="codigoTercero text-danger">  </b></label></h5>
                       </div>
 
                       @endif
@@ -72,7 +71,7 @@
                                 </tr>
                                 <tr>
                                   <th scope="row">Celular</th>
-                                  <td>+569 {{ $dueno->celular }}</td>
+                                  <td>(+56) {{ $dueno->celular }}</td>
                                 </tr>
 
                               </tbody>
@@ -138,8 +137,16 @@
                                           {{$vehiculo->color}}
                                         </td>
                                       </tr>
-
-
+                                      @if(isset($vehiculo->terceros->last()->codigo_tercero)
+                                      && (new \DateTime($vehiculo->terceros->last()->created_at))->format('Y-m-d') == date('Y-m-d'))
+                                      <tr>
+                                        <th>Código de retiro </th>
+                                        <td><b class="text-danger">
+                                          {{$vehiculo->terceros->last()->codigo_tercero}}
+                                        </b>
+                                      </td>
+                                      </tr>
+                                      @endif
 
                                     </tbody>
                                   </table>
@@ -178,7 +185,14 @@
                                 </tr>
                                 <tr>
                                   <th>Código de retiro </th>
-                                  <td><b class="codigoTercero text-danger"> </b> </td>
+                                  <td><b class="codigoTercero text-danger">
+                                    @if(isset($dueno->vehiculos[0]->terceros->last()->codigo_tercero)
+                                    && (new \DateTime($dueno->vehiculos[0]->terceros->last()->created_at))->format('Y-m-d') == date('Y-m-d'))
+                                    {{$dueno->vehiculos[0]->terceros->last()->codigo_tercero}}
+                                    @else
+                                    [----]
+                                    @endif
+                                  </b> </td>
                                 </tr>
 
                               </tbody>
@@ -229,7 +243,7 @@
           <div class="modal-body">
             Se ha generado el código correctamente! <br>
             El código <b class="codigoTercero">  </b> solo será válido hasta las 23:59 <br><br>
-            ¿Desea envíar un e-mail a la cuenta
+            ¿Desea envíar un correo a la cuenta
             @if(isset($dueno))
             <em><b>{{ $dueno->correo }}</b></em>,
             @endif
@@ -239,7 +253,7 @@
             <input type="hidden" id="vehiculo_id" name="vehiculo_id" value="">
             <input type="hidden" id="codigo_tercero" name="codigo_tercero" value="">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Enviar e-mail</button>
+            <button type="button" class="btn btn-primary" disabled>Enviar correo</button>
           </div>
         </div>
       </div>
@@ -249,7 +263,7 @@
     <script defer type="text/javascript">
     $(document).ready(function() {
 
-    $( "#buscarDueno" ).autocomplete({
+    $("#buscarDueno").autocomplete({
         source: "{{url('autocompleteRunDueno')}}",
         minLength: 3
       });

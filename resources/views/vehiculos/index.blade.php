@@ -17,7 +17,6 @@
                   <table id="tablasAdministracion" class="table table-hover table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" width="100%">
                       <thead>
                           <tr>
-
                           <th>N°</th>
                           <th data-orderable="false" style="width: 10px;">Imagen</th>
                           <th>Código</th>
@@ -27,7 +26,7 @@
                           <th data-orderable="false"></th>
                           </tr>
                       </thead>
-
+                      
                   </table>
               </div>
           </div>

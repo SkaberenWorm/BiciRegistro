@@ -84,7 +84,7 @@
                                       </tr>
                                       <tr>
                                         <th scope="row">Celular</th>
-                                        <td>+569 {{ $vehiculo->dueno->celular }}</td>
+                                        <td>(+56) {{ $vehiculo->dueno->celular }}</td>
                                       </tr>
 
                                     </tbody>

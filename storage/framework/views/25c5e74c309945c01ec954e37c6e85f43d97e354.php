@@ -67,7 +67,7 @@
 
     </div>
     <div class="col-sm-3">
-        <?php echo e(Form::label('celularLabel','+569',['class'=>'form-control'])); ?>
+        <?php echo e(Form::label('celularLabel','(+56)',['class'=>'form-control'])); ?>
 
     </div>
     <div class="col-sm-7">

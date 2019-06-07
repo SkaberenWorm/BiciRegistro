@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Freshwork\ChileanBundle\Rut;
+use Illuminate\Support\Facades\Validator;
 
 class RegistroController extends Controller
 {
@@ -31,9 +32,13 @@ class RegistroController extends Controller
     public function find(Request $request)
     {
       setlocale(LC_ALL, 'es_CL');
-        $this->validate($request, [
+        /*$this->validate($request, [
           'codigo' => 'required',
-        ]);
+        ]);*/
+        // Genero esta validación, porque este controlador no me esta tomando validate
+        if(empty($request->input('codigo'))){
+          return view('registrar.index',['danger'=>'Ingrese un código']);
+        }
         $retiroPorTercero=false;
         $vehiculo = Vehiculo::where('codigo', $request->input('codigo'))->first();
         if(!isset($vehiculo)){
@@ -52,7 +57,8 @@ class RegistroController extends Controller
         }else{
           $accion="Ingreso";
         }
-        if($this->hasCodeTercero($vehiculo)){
+        // Solo mostrará el mensaje "Puede ser retirado por un tercero", si la bicicleta esta dentro de la institución
+        if($this->hasCodeTercero($vehiculo) && $vehiculo->isInside == 1){
           $retiroPorTercero=true;
         }
 
@@ -75,7 +81,17 @@ class RegistroController extends Controller
 
     public function findDueno(Request $request)
     {
-      $run = Rut::parse($request->input('run'))->format(Rut::FORMAT_WITH_DASH);
+      /*$validacion = $this->validate($request, [
+          'run' => 'required|cl_rut',
+        ]);*/
+
+      try {
+        $run = Rut::parse($request->input('run'))->format(Rut::FORMAT_WITH_DASH);
+      } catch (\Exception $e) {
+          return view('registrar.createCode',['danger'=>'Error en el formato del Run']);
+      }
+
+
         $dueno = Dueno::where('rut', $run)->first();
 
         if(!isset($dueno)){
@@ -83,14 +99,18 @@ class RegistroController extends Controller
           return view('registrar.createCode', compact('registrarDueno'));
         }else{
           if($dueno->vehiculos->where('activo',true)->count() >= 1){
+            //dd(date($dueno->vehiculos[0]->terceros->last()->created_at));
+            //->where('created_at','like',date("Y-m-d").'%')
+            
 
+            //$dueno->vehiculos[0]->terceros->last()->created_at;
             return view('registrar.createCode', compact('dueno'));
           }else{
             return view('registrar.createCode',['danger'=>'El usuario no tiene bicicletas registradas']);
           }
 
         }
-
+        return back()->with('danger','Problemas al encontrar el Run');
     }
 
     /**
@@ -158,18 +178,12 @@ class RegistroController extends Controller
 
       $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
 
-      if(!isset($vehiculoEnRegistro)){
-        $accion="Ingreso";
-        //dd("No hay movimiento");
-      }else{
-        if($vehiculo->isInside){
+      if($vehiculo->isInside){
           $accion = "Salida";
-            $vehiculo->isInside = false;
-        }else{
+          $vehiculo->isInside = false;
+      }else{
           $accion="Ingreso";
-            $vehiculo->isInside = true;
-        }
-        //dd("Hay movimiento");
+          $vehiculo->isInside = true;
       }
       $vehiculo->update();
       Registro::create([
@@ -233,8 +247,20 @@ class RegistroController extends Controller
       $modelo =  Registro::join('vehiculos','vehiculos.id', '=', 'vehiculo_id')
                 ->join('users','usuario_id','=','users.id')
                 ->join('marcas','vehiculos.marca_id','=','marcas.id')
-                ->select(\DB::raw("CONCAT(marcas.description,' ' ,vehiculos.modelo) AS vehiculo"), "registros.id", "registros.accion","registros.created_at","vehiculos.codigo as codigoVehiculo","users.name as usuario", "users.email as correoUsuario");
-      return datatables()->eloquent($modelo)->toJson();
+                ->join('duenos','duenos.id','=','vehiculos.dueno_id')
+                ->select(\DB::raw("CONCAT(marcas.description,' ' ,vehiculos.modelo) AS vehiculo"), "registros.id",
+                "registros.accion","registros.created_at","vehiculos.codigo as codigoVehiculo","users.name as usuario",
+                "users.email as correoUsuario","duenos.rut as dueno", "registros.vehiculo_id as vehiculo_id");
+      return datatables()->eloquent($modelo)
+      ->addColumn('showDetalle', function($registro) {
+        //'<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $registro->vehiculo_id).'" target="_blank" data-toggle="tooltip" data-placement="left" title="Ver detalle de la bicicleta y su dueño">Ver detalle</a>';
+          return '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $registro->vehiculo_id).'" target="_blank" ">Detalle bicicleta</a>';
+      })
+      ->filterColumn('vehiculo', function($query, $keyword) {
+                $query->whereRaw("CONCAT(marcas.description,' ',vehiculos.modelo) LIKE '%".$keyword."%'");
+      })
+      ->rawColumns(['showDetalle'])
+      ->toJson();
 
   }
 
@@ -393,10 +419,6 @@ class RegistroController extends Controller
 
 
   public function registrosAnual(){
-    /*
-    SELECT YEAR(created_at) as anio FROM `registros`
-    GROUP BY anio;
-    */
     $aniosEnBD = Registro::query()
     ->select(\DB::raw(\DB::raw("YEAR(created_at) as anio")))
     ->groupBy('anio')
@@ -453,15 +475,5 @@ class RegistroController extends Controller
     return json_encode($data);
   }
 
-public function diasDelMes(Request $request){
-  $mes = $request->input('selectMes');
-  $anio = $request->input('selectAnio');
-  $ultimoDia = $this->ultimoDiaDelMes($anio, $mes);
-
-  for($i=0;$i<$ultimoDia;$i++){
-    $dias[$i] = $i+1;
-  }
-  return $dias;
-}
 
 }

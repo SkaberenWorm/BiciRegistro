@@ -83,7 +83,7 @@
                                       </tr>
                                       <tr>
                                         <th scope="row">Celular</th>
-                                        <td>+569 <?php echo e($vehiculo->dueno->celular); ?></td>
+                                        <td>(+56) <?php echo e($vehiculo->dueno->celular); ?></td>
                                       </tr>
 
                                     </tbody>

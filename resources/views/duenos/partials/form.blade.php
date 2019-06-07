@@ -58,7 +58,7 @@
         {{ Form::label('celular','Celular') }}
     </div>
     <div class="col-sm-3">
-        {{ Form::label('celularLabel','+569',['class'=>'form-control']) }}
+        {{ Form::label('celularLabel','(+56)',['class'=>'form-control']) }}
     </div>
     <div class="col-sm-7">
         {{ Form::number('celular', null, ['class' => 'form-control']) }}
