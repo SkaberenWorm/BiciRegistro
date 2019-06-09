@@ -4,7 +4,7 @@
 
                             </div>
                             <div class="col-sm-10">
-                            <?php echo e(Form::text('codigo', null , ['class' => 'form-control','autocomplete' => 'off'])); ?>
+                            <?php echo e(Form::text('codigo', null , ['class' => 'form-control','autofocus','autocomplete' => 'off'])); ?>
 
                                 <?php if($errors->has('codigo')): ?>
                                     <span class="invalid-feedback" role="alert">

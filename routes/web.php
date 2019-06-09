@@ -130,12 +130,16 @@ Route::middleware(['auth'])->group(function(){
 
     Route::post('users/disable', 'UserController@disable')->name('users.disable')
             ->middleware('permission:users.status');
+
     Route::post('users/enable', 'UserController@enable')->name('users.enable')
             ->middleware('permission:users.status');
 
 
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
             ->middleware('permission:users.edit');
+
+    Route::get('miPerfil', 'UserController@miPerfil')->name('users.miPerfil');
+    Route::post('/cambiarPassword', 'UserController@cambiarPassword')->name('users.cambiarPassword');
 
 
     // REGISTRAR y TERCEROS

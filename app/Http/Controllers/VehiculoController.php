@@ -49,13 +49,16 @@ class VehiculoController extends Controller
     public function store(Request $request)
     {
       $existeDueno=false;
-      $this->validate($request, [
-          'run_dueno' => 'required|cl_rut',
-          ]);
+      if(!empty($request->input('run_dueno'))){
+        $this->validate($request, [
+            'run_dueno' => 'required|cl_rut',
+            ]);
 
-        $rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
-        $dueno = Dueno::where('rut','=',$rut)
-                      ->get()->first();
+          $rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
+          $dueno = Dueno::where('rut','=',$rut)
+                        ->get()->first();
+      }
+
 
         if(isset($dueno)){
           $existeDueno=true;
@@ -67,26 +70,36 @@ class VehiculoController extends Controller
               'run_dueno' => 'required|cl_rut',
               ]);
         }else{
-          $this->validate($request, [
-              'codigo' => 'required|unique:vehiculos',
-              'marca_id' => 'required',
-              'color' => 'required|string|max:255',
-              'image' => 'required|image|mimes:jpeg,png,jpg',
-              'run_dueno' => 'required|cl_rut',
-              'nombre_dueno' => 'required',
-              'correo_dueno' => 'required|unique:duenos,correo',
-              'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
-              'tipoDueno' => 'required',
+          // Agregamos la validación del celular si este ingresa parte del celular
+          if(!empty($request->input('celular_dueno'))){
+            $this->validate($request, [
+                'celular_dueno' => 'regex:/[92]{1}[987654321]\d{7}$/|max:9',
+                'codigo' => 'required|unique:vehiculos',
+                'marca_id' => 'required',
+                'color' => 'required|string|max:255',
+                'image' => 'required|image|mimes:jpeg,png,jpg',
+                'run_dueno' => 'required|cl_rut',
+                'nombre_dueno' => 'required',
+                'correo_dueno' => 'required|unique:duenos,correo',
+                'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
+                'tipoDueno' => 'required',
               ]);
+          }else{
+            $this->validate($request, [
+                'codigo' => 'required|unique:vehiculos',
+                'marca_id' => 'required',
+                'color' => 'required|string|max:255',
+                'image' => 'required|image|mimes:jpeg,png,jpg',
+                'run_dueno' => 'required|cl_rut',
+                'nombre_dueno' => 'required',
+                'correo_dueno' => 'required|unique:duenos,correo',
+                'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
+                'tipoDueno' => 'required',
+                ]);
 
-              // Se valida por separado, porque no es un campo obligatorio
-              if(!empty($request->input('celular_dueno'))){
-                $this->validate($request, [
-                    'celular_dueno' => 'regex:/[92]{1}[987654321]\d{7}$/|max:9',
-                  ]);
-              }
+                $dueno = new Dueno();
+          }
 
-              $dueno = new Dueno();
         }
 
         $vehiculo = new Vehiculo();
@@ -309,14 +322,16 @@ class VehiculoController extends Controller
       SELECT codigo, TIMESTAMPDIFF(MINUTE , updated_at, now() ) AS minitos FROM vehiculos
       */
       $modelo =  Vehiculo::join('marcas','marca_id', '=', 'marcas.id')
+      ->join('duenos','dueno_id', '=', 'duenos.id')
       ->select('vehiculos.id','vehiculos.isInside','vehiculos.codigo','vehiculos.modelo','vehiculos.color',
       'marcas.id as marca_id', 'marcas.description as marca',
-      \DB::raw("if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0) > 0, concat(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0), if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/60),0) > 1, ' días',' día')), if(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))) > 0, concat(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))), ' hrs'), concat(MINUTE(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))),' min') )) AS tiempo"),
-      \DB::raw("TIMESTAMPDIFF(hour , vehiculos.updated_at, now()) AS horas"))
+      \DB::raw("if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/24),0) >= 1, concat(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/24),0), if(TRUNCATE((TIMESTAMPDIFF(hour , vehiculos.updated_at, now())/24),0) >= 2, ' días',' día')), if(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))) > 0, concat(HOUR(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))), ' hrs'), concat(MINUTE(SEC_TO_TIME(TIMESTAMPDIFF(second , vehiculos.updated_at, now()))),' min') )) AS tiempo"),
+      \DB::raw("TIMESTAMPDIFF(hour , vehiculos.updated_at, now()) AS horas"),
+      'duenos.rut as rutDueno','duenos.nombre as dueno')
       ->where('vehiculos.isInside','=','1');
       return datatables()->eloquent($modelo)
       ->addColumn('showDetalle', function($vehiculo) {
-          return '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $vehiculo->id).'" target="_blank">Detalle bicicleta</a>';
+          return '<a class="btn btn-light btn-sm mx-1" href="'.route('vehiculos.show', $vehiculo->id).'" target="_blank">ver detalle</a>';
       })
       ->rawColumns(['showDetalle'])
       ->toJson();

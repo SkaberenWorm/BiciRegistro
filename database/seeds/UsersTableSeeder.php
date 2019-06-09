@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'name'        => 'Guardia',
             'slug'        => 'guardia',
         ]);
-        $role->permissions()->sync([6,7,8,14,15,16,18,19,20,21]);
+        $role->permissions()->sync([6,7,8,14,15,16,18,19,20]);
 
         $role = Role::create ([
             'name'        => 'Carga masiva',

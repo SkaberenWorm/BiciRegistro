@@ -61,7 +61,7 @@
                                 {{ Form::label('celularLabel','(+56)',['class'=>'form-control px-1 pl-2']) }}
                             </div>
                             <div class="col-8 col-md-7 col-sm-8">
-                                {{ Form::number('celular_dueno', null, ['class' => 'form-control']) }}
+                                {{ Form::number('celular_dueno', null, ['class' => 'form-control','placeholder' => '9XXXXXXXX']) }}
                                 @if ($errors->has('celular_dueno'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('celular_dueno') }}</strong>

@@ -7,6 +7,8 @@ use BiciRegistro\RoleUser;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Image;
+use Hash;
+use \Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -215,6 +217,34 @@ class UserController extends Controller
       return back()->with('success','Habilitado correctamente');
     }
 
+    public function miPerfil(){
+      $user = Auth::user();
+      return view('users.perfil', compact('user'));
+    }
+
+    public function cambiarPassword(Request $request){
+      if (!(Hash::check($request->get('passwordActual'), Auth::user()->password))) {
+            // The passwords matches
+            return redirect()->back()->with("danger","La contraseña actual es incorrecta");
+        }
+        if(strcmp($request->get('passwordActual'), $request->get('passwordNueva')) == 0){
+            //Current password and new password are same
+            return redirect()->back()->with("danger","Ingrese una contraseña diferente");
+        }
+        $validatedData = $request->validate([
+            'passwordActual' => 'required',
+            'passwordNueva' => 'required|string|min:4',
+        ]);
+        if(strcmp($request->get('new-password-confirm'), $request->get('passwordNueva')) != 0){
+            return redirect()->back()->with("danger","Las contraseñas no coinciden");
+        }
+
+        //Change Password
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('passwordNueva'));
+        $user->save();
+        return redirect()->back()->with("success","Contraseña guardada correctamete!");
+    }
 
     public function listarJson(Request $request){
 

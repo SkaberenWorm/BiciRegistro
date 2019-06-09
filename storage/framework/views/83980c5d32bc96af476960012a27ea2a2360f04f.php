@@ -160,6 +160,8 @@
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Color</th>
+                        <th>Rut dueño</th>
+                        <th>Dueño</th>
                         <th>Tiempo</th>
                         <th data-orderable="false"></th>
                       </tr>
@@ -170,6 +172,8 @@
                       <th>Marca</th>
                       <th>Modelo</th>
                       <th>Minutos</th>
+                      <th>Rut dueño</th>
+                      <th>Dueño</th>
                       <th>Tiempo</th>
                       <th data-orderable="false"></th>
                     </tr>
@@ -282,6 +286,11 @@ $(document).ready(function() {
   var anio = null;
   var mes = null;
   var dia = null;
+  var tableRegistro = null;
+  var tableBicicletaInstitucion = null;
+  var tableBicicleta = null;
+  var tableDueno = null;
+  var tableUser = null;
 
 
   // Cargamos los select para el filtro
@@ -337,238 +346,263 @@ $(document).ready(function() {
   /*
   * Reportes en tablas
   */
-  $('#tableHistorial').DataTable({
-    //  "scrollY": "500px",
-    "columnDefs": [
-      { "searchable": true, "targets": 1 },
-      { "searchable": true, "targets": 2 },
-      { "searchable": true, "targets": 3 }
-    ],
-    "processing": true,
-    'serverSide': true,
-    ajax: "<?php echo e(route('registro.listar')); ?>",
-    'columns':[
-          {'data':'id'},
-          {'data':'codigoVehiculo', 'name': 'vehiculos.codigo'},
-          //{'data':'vehiculo', 'name': 'vehiculo'},
-          {'data':'dueno', 'name': 'duenos.rut'},
-          {'data':'usuario' , 'name': 'users.name'},
-          {'data':'correoUsuario', 'name': 'users.email'},
-          {'data':'accion'},
-          {'data':'created_at'},
-          {'data':'showDetalle'},
-    ],
-    "order": [[ 0, "desc" ]],
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      },
-      buttons: {
-              copyTitle: 'Copiado en portapapeles',
-              copySuccess: {
-                  _: '%d lineas copiadas',
-                  1: '1 linea copiada'
-              }
-          },
-    },
-    "dom": 'lBfrtip',
-    buttons: [
-      { extend: 'copy', text: 'Copiar tabla' },
-      { extend: 'excel', text: 'Excel', title: 'Historial de registros' }
-    ],
+  $('#historial').click(function(){
+    if(tableRegistro == null){
+      tableRegistro = $('#tableHistorial').DataTable({
+       //  "scrollY": "500px",
+       "columnDefs": [
+         { "searchable": true, "targets": 1 },
+         { "searchable": true, "targets": 2 },
+         { "searchable": true, "targets": 3 }
+       ],
+       "processing": true,
+       'serverSide': true,
+       ajax: "<?php echo e(route('registro.listar')); ?>",
+       'columns':[
+             {'data':'id'},
+             {'data':'codigoVehiculo', 'name': 'vehiculos.codigo'},
+             //{'data':'vehiculo', 'name': 'vehiculo'},
+             {'data':'dueno', 'name': 'duenos.rut'},
+             {'data':'usuario' , 'name': 'users.name'},
+             {'data':'correoUsuario', 'name': 'users.email'},
+             {'data':'accion'},
+             {'data':'created_at'},
+             {'data':'showDetalle'},
+       ],
+       "order": [[ 0, "desc" ]],
+       "scrollCollapse": true,
+       "language": {
+        "sLengthMenu": "Ver _MENU_ registros",
+         "search": "Buscar",
+         "zeroRecords": "No se encontraron registros",
+         "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+         "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
+         "paginate": {
+           "first": "Primero",
+           "last":"Últimolabel",
+           "next":"Siguiente",
+           "previous":"Anterior",
+         },
+         buttons: {
+                 copyTitle: 'Copiado en portapapeles',
+                 copySuccess: {
+                     _: '%d lineas copiadas',
+                     1: '1 linea copiada'
+                 }
+             },
+       },
+       "dom": 'lBfrtip',
+       buttons: [
+         { extend: 'copy', text: 'Copiar tabla' },
+         { extend: 'excel', text: 'Excel', title: 'Historial de registros' }
+       ],
 
-    "lengthMenu": [[10,100, 1000, 2500, 5000], [10,100, 1000, 2500, 5000]],
+       "lengthMenu": [[10,100, 1000, 2500, 5000], [10,100, 1000, 2500, 5000]],
 
+     });
+    }
   });
-  $('#tableBicicletaInstitucion').DataTable({
-    "processing": true,
-    'serverSide': true,
-    "columnDefs": [
-      { "searchable": true, "targets": 2 }
-    ],
-    ajax: "<?php echo e(route('vehiculos.enEstablecimiento')); ?>",
-    'columns':[
-          {'data':'codigo',},
-          {'data':'marca', 'name': 'marcas.description'},
-          {'data':'modelo'},
-          {'data':'color'},
-          {'data':'tiempo'},
-          {'data':'showDetalle'},
-    ],
-    'fnRowCallback': function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-      //alert(aData['dueno']);
-      if ( aData['horas'] >= 10 )
-      {
-        $('td', nRow).css('background-color', 'RGBA(255, 255, 0, 0.3)');
-        if(aData['horas'] > 24){
-          $('td', nRow).css('background-color', 'RGBA(255, 255, 0, 0.3)');
-        }
-      }
-    },
-    //"scrollY": "500px",
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      },
-      buttons: {
-              copyTitle: 'Copiado en portapapeles',
-              copySuccess: {
-                  _: '%d lineas copiadas',
-                  1: '1 linea copiada'
-              }
+  $('#bicicletasInstitucion').click(function(){
+    if(tableBicicletaInstitucion == null){
+      tableBicicletaInstitucion = $('#tableBicicletaInstitucion').DataTable({
+        "processing": true,
+        'serverSide': true,
+        "columnDefs": [
+          { "searchable": false, "targets": 6 }
+        ],
+        ajax: "<?php echo e(route('vehiculos.enEstablecimiento')); ?>",
+        'columns':[
+              {'data':'codigo',},
+              {'data':'marca', 'name': 'marcas.description'},
+              {'data':'modelo'},
+              {'data':'color'},
+              {'data':'rutDueno','name': 'duenos.rut'},
+              {'data':'dueno' ,'name': 'duenos.nombre'},
+              {'data':'tiempo'},
+              {'data':'showDetalle'},
+        ],
+        'fnRowCallback': function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+          //alert(aData['dueno']);
+          if ( aData['horas'] >= 10 )
+          {
+            $('td', nRow).css('background-color', 'RGBA(255, 255, 0, 0.3)');
+            if(aData['horas'] >= 24){
+              $('td', nRow).css('background-color', 'RGBA(255, 0, 0, 0.3)');
+            }
+          }
+        },
+        //"scrollY": "500px",
+        "scrollCollapse": true,
+        "language": {
+         "sLengthMenu": "Ver _MENU_ registros",
+          "search": "Buscar",
+          "zeroRecords": "No se encontraron registros",
+          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
+          "paginate": {
+            "first": "Primero",
+            "last":"Últimolabel",
+            "next":"Siguiente",
+            "previous":"Anterior",
           },
-    },
-    "dom": 'lBfrtip',
-    buttons: [
-      { extend: 'copy', text: 'Copiar tabla' },
-      { extend: 'excel', text: 'Excel', title: 'Bicicletas en la institución' }
-    ],
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+          buttons: {
+                  copyTitle: 'Copiado en portapapeles',
+                  copySuccess: {
+                      _: '%d lineas copiadas',
+                      1: '1 linea copiada'
+                  }
+              },
+        },
+        "dom": 'lBfrtip',
+        buttons: [
+          { extend: 'copy', text: 'Copiar tabla' },
+          { extend: 'excel', text: 'Excel', title: 'Bicicletas en la institución' }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+      });
+    }
   });
-  $('#tableBicicleta').DataTable({
-    "processing": true,
-    'serverSide': true,
-    "columnDefs": [
-      { "searchable": true, "targets": 2 }
-    ],
-    ajax: "<?php echo e(route('vehiculos.listar')); ?>",
-    'columns':[
-          {'data':'id'},
-          {'data':'codigo'},
-          {'data':'marca', 'name': 'marcas.description'},
-          {'data':'modelo'},
-          {'data':'color'},
-          {'data':'showDetalle'},
-    ],
-    //"scrollY": "500px",
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      },
-      buttons: {
-              copyTitle: 'Copiado en portapapeles',
-              copySuccess: {
-                  _: '%d lineas copiadas',
-                  1: '1 linea copiada'
-              }
+  $('#bicicletas').click(function(){
+    if(tableBicicleta == null){
+      tableBicicleta = $('#tableBicicleta').DataTable({
+        "processing": true,
+        'serverSide': true,
+        "columnDefs": [
+          { "searchable": true, "targets": 2 }
+        ],
+        ajax: "<?php echo e(route('vehiculos.listar')); ?>",
+        'columns':[
+              {'data':'id'},
+              {'data':'codigo'},
+              {'data':'marca', 'name': 'marcas.description'},
+              {'data':'modelo'},
+              {'data':'color'},
+              {'data':'showDetalle'},
+        ],
+        //"scrollY": "500px",
+        "scrollCollapse": true,
+        "language": {
+         "sLengthMenu": "Ver _MENU_ registros",
+          "search": "Buscar",
+          "zeroRecords": "No se encontraron registros",
+          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
+          "paginate": {
+            "first": "Primero",
+            "last":"Últimolabel",
+            "next":"Siguiente",
+            "previous":"Anterior",
           },
-    },
-    "dom": 'lBfrtip',
-    buttons: [
-      { extend: 'copy', text: 'Copiar tabla' },
-      { extend: 'excel', text: 'Excel', title: 'Bicicletas' }
-    ],
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+          buttons: {
+                  copyTitle: 'Copiado en portapapeles',
+                  copySuccess: {
+                      _: '%d lineas copiadas',
+                      1: '1 linea copiada'
+                  }
+              },
+        },
+        "dom": 'lBfrtip',
+        buttons: [
+          { extend: 'copy', text: 'Copiar tabla' },
+          { extend: 'excel', text: 'Excel', title: 'Bicicletas' }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+      });
+    }
   });
-  $('#tableDueno').DataTable({
-    "processing": true,
-    'serverSide': true,
-    ajax: "<?php echo e(route('duenos.listar')); ?>",
-    'columns':[
-          {'data':'id'},
-          {'data':'rut'},
-          {'data':'nombre'},
-          {'data':'correo'},
-          {'data':'celular'},
-          {'data':'bicicletas'},
-    ],
-    //"scrollY": "500px",
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      },
-      buttons: {
-              copyTitle: 'Copiado en portapapeles',
-              copySuccess: {
-                  _: '%d lineas copiadas',
-                  1: '1 linea copiada'
-              }
+  $('#duenos').click(function(){
+    if(tableDueno == null){
+      tableDueno = $('#tableDueno').DataTable({
+        "processing": true,
+        'serverSide': true,
+        ajax: "<?php echo e(route('duenos.listar')); ?>",
+        'columns':[
+              {'data':'id'},
+              {'data':'rut'},
+              {'data':'nombre'},
+              {'data':'correo'},
+              {'data':'celular'},
+              {'data':'bicicletas'},
+        ],
+        //"scrollY": "500px",
+        "scrollCollapse": true,
+        "language": {
+         "sLengthMenu": "Ver _MENU_ registros",
+          "search": "Buscar",
+          "zeroRecords": "No se encontraron registros",
+          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
+          "paginate": {
+            "first": "Primero",
+            "last":"Últimolabel",
+            "next":"Siguiente",
+            "previous":"Anterior",
           },
-    },
-    "dom": 'lBfrtip',
-    buttons: [
-      { extend: 'copy', text: 'Copiar tabla' },
-      { extend: 'excel', text: 'Excel', title: 'Dueños' }
-    ],
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+          buttons: {
+                  copyTitle: 'Copiado en portapapeles',
+                  copySuccess: {
+                      _: '%d lineas copiadas',
+                      1: '1 linea copiada'
+                  }
+              },
+        },
+        "dom": 'lBfrtip',
+        buttons: [
+          { extend: 'copy', text: 'Copiar tabla' },
+          { extend: 'excel', text: 'Excel', title: 'Dueños' }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
 
+      });
+    }
   });
-  $('#tableUser').DataTable({
-    "processing": true,
-    'serverSide': true,
-    ajax: "<?php echo e(route('users.listar')); ?>",
-    'columns':[
-          {'data':'id'},
-          {'data':'nombre', 'name': 'users.name'},
-          {'data':'email'},
-          {'data':'rol', 'name': 'roles.name'},
-    ],
-    //"scrollY": "500px",
-    "scrollCollapse": true,
-    "language": {
-     "sLengthMenu": "Ver _MENU_ registros",
-      "search": "Buscar",
-      "zeroRecords": "No se encontraron registros",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
-      "paginate": {
-        "first": "Primero",
-        "last":"Últimolabel",
-        "next":"Siguiente",
-        "previous":"Anterior",
-      },
-      buttons: {
-              copyTitle: 'Copiado en portapapeles',
-              copySuccess: {
-                  _: '%d lineas copiadas',
-                  1: '1 linea copiada'
-              }
+  $('#usuarios').click(function(){
+    if(tableUser == null){
+      tableUser = $('#tableUser').DataTable({
+        "processing": true,
+        'serverSide': true,
+        ajax: "<?php echo e(route('users.listar')); ?>",
+        'columns':[
+              {'data':'id'},
+              {'data':'nombre', 'name': 'users.name'},
+              {'data':'email'},
+              {'data':'rol', 'name': 'roles.name'},
+        ],
+        //"scrollY": "500px",
+        "scrollCollapse": true,
+        "language": {
+         "sLengthMenu": "Ver _MENU_ registros",
+          "search": "Buscar",
+          "zeroRecords": "No se encontraron registros",
+          "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          "sInfoFiltered": " (filtrado de un total de _MAX_ resultados)",
+          "paginate": {
+            "first": "Primero",
+            "last":"Últimolabel",
+            "next":"Siguiente",
+            "previous":"Anterior",
           },
-    },
-    "dom": 'lBfrtip',
-    buttons: [
-      { extend: 'copy', text: 'Copiar tabla' },
-      { extend: 'excel', text: 'Excel', title: 'Usuarios' }
-    ],
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
+          buttons: {
+                  copyTitle: 'Copiado en portapapeles',
+                  copySuccess: {
+                      _: '%d lineas copiadas',
+                      1: '1 linea copiada'
+                  }
+              },
+        },
+        "dom": 'lBfrtip',
+        buttons: [
+          { extend: 'copy', text: 'Copiar tabla' },
+          { extend: 'excel', text: 'Excel', title: 'Usuarios' }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]]
 
+      });
+    }
   });
+
+
+
   /*
   * /Reportes en tablas
   */
@@ -600,9 +634,6 @@ $(document).ready(function() {
     cambiarEstadoSelect(false,false,false);
     $('#btnFiltroHoy').css('display','none');
   });
-
-
-
 
 });
 

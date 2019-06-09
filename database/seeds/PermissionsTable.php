@@ -143,7 +143,7 @@ class PermissionsTable extends Seeder
         ]);
         // Reportes
         Permission::create ([
-            'name'          => 'Reportes',
+            'name'          => 'Visualizar reportes',
             'slug'          => 'registros.reporte',
             'description'   => 'Ver reportes y exportar los datos en Excel',
             'grupo'         => 'otros',

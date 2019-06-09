@@ -38,7 +38,7 @@
                           </div>
                           <input type="hidden" name="vehiculo_id" value="<?php echo e($vehiculo->id); ?>">
                           <input type="text" min="3" max="4" autocomplete="off" class="form-control mr-1" name="codigo" data-toggle="tooltip" data-placement="bottom" title="Validar código para retiro por terceros" required  autofocus >
-                          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#validarModal" onclick="validarCodigo()" name="button">Validar</button>
+                          <button type="button" id="btnValidar" class="btn btn-secondary" data-toggle="modal" data-target="#validarModal" onclick="validarCodigo()" name="button">Validar</button>
                         </div>
                       </div>
                       <?php echo e(Form::close()); ?>
@@ -111,6 +111,17 @@
 
                                     </td>
                                   </tr>
+                                  <?php if(isset($vehiculo->terceros->last()->codigo_tercero)
+                                  && (new \DateTime($vehiculo->terceros->last()->created_at))->format('Y-m-d') == date('Y-m-d')): ?>
+                                  <tr>
+                                    <th>Código de retiro </th>
+                                    <td><b class="text-danger">
+                                      <?php echo e($vehiculo->terceros->last()->codigo_tercero); ?>
+
+                                    </b>
+                                  </td>
+                                  </tr>
+                                  <?php endif; ?>
 
                                 </tbody>
                               </table>
@@ -143,6 +154,7 @@
                                     <th scope="row">Celular</th>
                                     <td>(+56) <?php echo e($vehiculo->dueno->celular); ?></td>
                                   </tr>
+
 
                                 </tbody>
                               </table>
@@ -242,6 +254,9 @@
 <script type="text/javascript">
 function anular(e) {
           tecla = (document.all) ? e.keyCode : e.which;
+          if(tecla == 13){
+            $('#btnValidar').click();
+          }
           return (tecla != 13);
      }
 $(document).ready(function() {

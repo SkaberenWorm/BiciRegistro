@@ -41,7 +41,7 @@
 <body style="overflow-x:hidden;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+            <div class="container-fluid">
               <a class="navbar-brand  py-0 my-0" href="<?php echo e(route('home')); ?>">
                 <img src="<?php echo e(asset('images/logoDuoc.jpg')); ?>" height="30" class="d-inline-block align-top mx-auto" alt="">
                 <p class="text-center py-0 my-0 text-secondary">BiciRegistro</p>
@@ -101,7 +101,35 @@
                                 <a class="nav-link" href="<?php echo e(route('login')); ?>">Ingresar</a>
                             </li>
                         <?php else: ?>
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
+                      </a>
+
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+
+                        <a class="dropdown-item" href="<?php echo e(route('users.miPerfil')); ?>">
+                            <?php echo e(__('Configurar perfil')); ?>
+
+                        </a>
+
+
+                          <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
+                             onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                              <?php echo e(__('Cerrar sesión')); ?>
+
+                          </a>
+
+
+                          <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                              <?php echo csrf_field(); ?>
+                          </form>
+                      </div>
+
+                  </li>
+                            <!--li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
                                 </a>
@@ -117,7 +145,7 @@
                                         <?php echo csrf_field(); ?>
                                     </form>
                                 </div>
-                            </li>
+                            </li-->
                         <?php endif; ?>
                     </ul>
                 </div>

@@ -71,7 +71,7 @@
 
                             </div>
                             <div class="col-8 col-md-7 col-sm-8">
-                                <?php echo e(Form::number('celular_dueno', null, ['class' => 'form-control'])); ?>
+                                <?php echo e(Form::number('celular_dueno', null, ['class' => 'form-control','placeholder' => '9XXXXXXXX'])); ?>
 
                                 <?php if($errors->has('celular_dueno')): ?>
                                     <span class="invalid-feedback" role="alert">

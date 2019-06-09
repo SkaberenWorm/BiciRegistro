@@ -3,7 +3,7 @@
                             {{ Form::label('codigo','Código') }}
                             </div>
                             <div class="col-sm-10">
-                            {{ Form::text('codigo', null , ['class' => 'form-control','autocomplete' => 'off']) }}
+                            {{ Form::text('codigo', null , ['class' => 'form-control','autofocus','autocomplete' => 'off']) }}
                                 @if ($errors->has('codigo'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('codigo') }}</strong>
