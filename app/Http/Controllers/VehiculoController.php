@@ -53,11 +53,11 @@ class VehiculoController extends Controller
         $this->validate($request, [
             'run_dueno' => 'required|cl_rut',
             ]);
-
-          $rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
-          $dueno = Dueno::where('rut','=',$rut)
-                        ->get()->first();
+        $rut = Rut::parse($request->input('run_dueno'))->format(Rut::FORMAT_WITH_DASH);
+        $dueno = Dueno::where('rut','=',$rut)
+                          ->get()->first();
       }
+
 
 
         if(isset($dueno)){
@@ -83,6 +83,7 @@ class VehiculoController extends Controller
                 'correo_dueno' => 'required|unique:duenos,correo',
                 'image_dueno' => 'required|image|mimes:jpeg,png,jpg',
                 'tipoDueno' => 'required',
+
               ]);
           }else{
             $this->validate($request, [
@@ -97,9 +98,9 @@ class VehiculoController extends Controller
                 'tipoDueno' => 'required',
                 ]);
 
-                $dueno = new Dueno();
-          }
 
+          }
+          $dueno = new Dueno();
         }
 
         $vehiculo = new Vehiculo();
@@ -259,7 +260,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Desactiva la bicicleta
+     * Activa la bicicleta
      *
      * @return \Illuminate\Http\Response
      */
@@ -318,9 +319,7 @@ class VehiculoController extends Controller
     }
 
     public function enEstablecimiento(){
-      /*
-      SELECT codigo, TIMESTAMPDIFF(MINUTE , updated_at, now() ) AS minitos FROM vehiculos
-      */
+
       $modelo =  Vehiculo::join('marcas','marca_id', '=', 'marcas.id')
       ->join('duenos','dueno_id', '=', 'duenos.id')
       ->select('vehiculos.id','vehiculos.isInside','vehiculos.codigo','vehiculos.modelo','vehiculos.color',

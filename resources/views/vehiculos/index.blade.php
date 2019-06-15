@@ -110,7 +110,9 @@ $(document).ready(function() {
     "processing": true,
     'serverSide': true,
     ajax: "{{route('vehiculos.listar')}}",
-
+    "columnDefs": [
+        { className: "text-right", "targets": [ 6 ] }
+    ],
     'columns':[
           {'data':'id'},
           {'data':'imagen'},

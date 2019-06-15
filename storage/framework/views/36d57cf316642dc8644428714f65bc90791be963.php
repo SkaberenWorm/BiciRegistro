@@ -10,6 +10,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link  defer href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -63,24 +64,37 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .btn-primary{
+              color: white !important;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            <?php if(Route::has('login')): ?>
-                <div class="top-right links">
-                    <?php if(auth()->guard()->check()): ?>
-                        <a href="<?php echo e(url('/home')); ?>">Home</a>
-                    <?php else: ?>
-                        <a href="<?php echo e(route('login')); ?>">Ingresar</a>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
-
+          <?php if(Route::has('login')): ?>
+              <div class="top-right links">
+                  <?php if(auth()->guard()->check()): ?>
+                      <a href="<?php echo e(url('/home')); ?>">Home</a>
+                  <?php else: ?>
+                      <a href="<?php echo e(route('login')); ?>">Ingresar</a>
+                  <?php endif; ?>
+              </div>
+          <?php endif; ?>
             <div class="content">
                 <div class="title m-b-md">
                     Registro de bicicletas
+                    <div class="">
+
+                      <?php if(Route::has('login')): ?>
+                              <?php if(auth()->guard()->check()): ?>
+                                  <a href="<?php echo e(url('/home')); ?>" class="btn btn-primary btn-lg"><b>Home</b></a>
+                              <?php else: ?>
+                                  <a href="<?php echo e(route('login')); ?>" class="btn btn-primary btn-lg"><b>Ingresar</b></a>
+                              <?php endif; ?>
+                      <?php endif; ?>
+                    </div>
                 </div>
+
 
                 <!--div class="links">
                     <a href="https://github.com/Isma-camaleon/BicicletasDuocUC">GitHub</a>

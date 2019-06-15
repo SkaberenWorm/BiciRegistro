@@ -22,7 +22,7 @@
                                 <?php echo e(Form::text('nombre_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control'])); ?>
 
                                 <?php if($errors->has('nombre_dueno')): ?>
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback nombre_dueno" role="alert">
                                         <strong><?php echo e($errors->first('nombre_dueno')); ?></strong>
                                     </span>
                                  <?php endif; ?>
@@ -38,7 +38,7 @@
                                 <?php echo e(Form::text('correo_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control'])); ?>
 
                                 <?php if($errors->has('correo_dueno')): ?>
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback correo_dueno" role="alert">
                                         <strong><?php echo e($errors->first('correo_dueno')); ?></strong>
                                     </span>
                                  <?php endif; ?>
@@ -54,7 +54,7 @@
                             <?php echo e(Form::select('tipoDueno', $tipoDuenos->pluck('description','id'), null, ['class' => 'form-control', 'placeholder' =>'Seleccione una opción'])); ?>
 
                                 <?php if($errors->has('marca_id')): ?>
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback tipoDueno" role="alert">
                                         <strong><?php echo e($errors->first('tipoDueno')); ?></strong>
                                     </span>
                                  <?php endif; ?>
@@ -74,7 +74,7 @@
                                 <?php echo e(Form::number('celular_dueno', null, ['class' => 'form-control','placeholder' => '9XXXXXXXX'])); ?>
 
                                 <?php if($errors->has('celular_dueno')): ?>
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback celular_dueno" role="alert">
                                         <strong><?php echo e($errors->first('celular_dueno')); ?></strong>
                                     </span>
                                  <?php endif; ?>
@@ -89,7 +89,7 @@
                             <div class="col-sm-10">
                                 <?php echo e(Form::file('image_dueno', null, null)); ?> <br>
                                 <?php if($errors->has('image_dueno')): ?>
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback image_dueno" role="alert">
                                         <strong><?php echo e($errors->first('image_dueno')); ?></strong>
                                     </span>
                                  <?php endif; ?>

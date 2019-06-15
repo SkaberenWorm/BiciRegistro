@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-<div class="container-fluid ">
+<div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
           <div class="card">
@@ -114,7 +114,9 @@ $(document).ready(function() {
     "processing": true,
     'serverSide': true,
     ajax: "<?php echo e(route('vehiculos.listar')); ?>",
-
+    "columnDefs": [
+        { className: "text-right", "targets": [ 6 ] }
+    ],
     'columns':[
           {'data':'id'},
           {'data':'imagen'},

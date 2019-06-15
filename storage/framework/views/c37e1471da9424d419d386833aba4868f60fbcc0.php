@@ -35,13 +35,19 @@
     <!-- Fonts -->
     <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
     <link href="<?php echo e(asset('css/font.css')); ?>" defer rel="stylesheet">
-
+    <style media="screen">
+    @media (min-width: 1500px){
+      .container {
+        max-width: 1440px;
+      }
+    }
+    </style>
 
 </head>
 <body style="overflow-x:hidden;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container-fluid">
+            <div class="container">
               <a class="navbar-brand  py-0 my-0" href="<?php echo e(route('home')); ?>">
                 <img src="<?php echo e(asset('images/logoDuoc.jpg')); ?>" height="30" class="d-inline-block align-top mx-auto" alt="">
                 <p class="text-center py-0 my-0 text-secondary">BiciRegistro</p>

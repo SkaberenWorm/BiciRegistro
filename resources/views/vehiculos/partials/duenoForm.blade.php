@@ -18,7 +18,7 @@
                             <div class="col-sm-10">
                                 {{ Form::text('nombre_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('nombre_dueno'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback nombre_dueno" role="alert">
                                         <strong>{{ $errors->first('nombre_dueno') }}</strong>
                                     </span>
                                  @endif
@@ -32,7 +32,7 @@
                             <div class="col-sm-10">
                                 {{ Form::text('correo_dueno', null, ['autocomplete' => 'off', 'class' => 'form-control']) }}
                                 @if ($errors->has('correo_dueno'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback correo_dueno" role="alert">
                                         <strong>{{ $errors->first('correo_dueno') }}</strong>
                                     </span>
                                  @endif
@@ -46,7 +46,7 @@
                             <div class="col-sm-10">
                             {{ Form::select('tipoDueno', $tipoDuenos->pluck('description','id'), null, ['class' => 'form-control', 'placeholder' =>'Seleccione una opción']) }}
                                 @if ($errors->has('marca_id'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback tipoDueno" role="alert">
                                         <strong>{{ $errors->first('tipoDueno') }}</strong>
                                     </span>
                                  @endif
@@ -63,7 +63,7 @@
                             <div class="col-8 col-md-7 col-sm-8">
                                 {{ Form::number('celular_dueno', null, ['class' => 'form-control','placeholder' => '9XXXXXXXX']) }}
                                 @if ($errors->has('celular_dueno'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback celular_dueno" role="alert">
                                         <strong>{{ $errors->first('celular_dueno') }}</strong>
                                     </span>
                                  @endif
@@ -77,7 +77,7 @@
                             <div class="col-sm-10">
                                 {{ Form::file('image_dueno', null, null) }} <br>
                                 @if ($errors->has('image_dueno'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback image_dueno" role="alert">
                                         <strong>{{ $errors->first('image_dueno') }}</strong>
                                     </span>
                                  @endif

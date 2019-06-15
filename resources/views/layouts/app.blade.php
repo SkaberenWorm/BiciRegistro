@@ -35,7 +35,13 @@
     <!-- Fonts -->
     <!--link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"-->
     <link href="{{ asset('css/font.css') }}" defer rel="stylesheet">
-
+    <style media="screen">
+    @media (min-width: 1500px){
+      .container {
+        max-width: 1440px;
+      }
+    }
+    </style>
 
 </head>
 <body style="overflow-x:hidden;">

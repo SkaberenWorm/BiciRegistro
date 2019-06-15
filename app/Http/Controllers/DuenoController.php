@@ -46,7 +46,6 @@ class DuenoController extends Controller
             return $botones;
           })
 
-
         ->rawColumns(['imagen','accion','bicicletas'])
         ->toJson();
 
@@ -85,7 +84,7 @@ class DuenoController extends Controller
     public function update(Request $request, Dueno $dueno)
     {
       $this->validate($request, [
-          'nombre' => 'required|string|max:255',
+          'nombre' => 'required|string|max:100',
           'correo' => 'required|email|unique:duenos,correo,'.$dueno->id,
           'tipoDueno_id' => 'required',
           'image' => 'image|mimes:jpeg,png,jpg'

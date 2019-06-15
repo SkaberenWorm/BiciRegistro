@@ -21,27 +21,52 @@
                       <?php echo e(Form::close()); ?>
 
                       <?php if(isset($dueno)): ?>
-                      <?php if($dueno->vehiculos->where('activo',true)->count() <= 1): ?>
-                      <div class="col-md-3 col-sm-2 col-lg-4">
+                        <?php if($dueno->vehiculos->where('activo',true)->count() <= 1): ?>
+                          <?php if(!empty($dueno->vehiculos[0]->terceros->last())): ?>
+                            <?php if($dueno->vehiculos[0]->terceros->last()->activo == 0): ?>
+                              <div class="col-md-3 col-sm-2 col-lg-4">
+                              </div>
 
-                      </div>
+                                <?php echo e(Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode'])); ?>
 
-                        <?php echo e(Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode'])); ?>
+                                <input type="hidden" name="vehiculoId" class="vehiculoId" value="<?php echo e($dueno->vehiculos[0]->id); ?>">
+                                <div class="col-sm-4 col-md-3 mt-3 col-lg-2 px-0">
+                                  <div class="input-group mx-auto">
+                                    <button style="z-index:1"type="button" onclick="generarCodigoTercero(<?php echo e($dueno->vehiculos[0]->id); ?>)" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                                  </div>
+                                </div>
+                                <?php echo e(Form::close()); ?>
 
-                        <input type="hidden" name="vehiculoId" class="vehiculoId" value="<?php echo e($dueno->vehiculos[0]->id); ?>">
-                        <div class="col-sm-4 col-md-3 mt-3 col-lg-2 px-0">
-                          <div class="input-group mx-auto">
-                            <button style="z-index:1"type="button" onclick="generarCodigoTercero(<?php echo e($dueno->vehiculos[0]->id); ?>)" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                              <?php else: ?>
+                              <div class="col-md-3 col-sm-2 col-lg-4">
+                              </div>
+                              <div class="col-sm-4 col-md-3 mt-3 col-lg-2 px-0">
+                                <div class="input-group ">
+                                  <button type="button"  class="btn btn-success float-right" disabled><b>Generar código</b></button>
+                                </div>
+                              </div>
+                              <?php endif; ?>
+                          <?php else: ?>
+                          <div class="col-md-3 col-sm-2 col-lg-4">
                           </div>
+
+                            <?php echo e(Form::open(['route' => 'registro.crearCodigoTercero','id' => 'formCreateCode'])); ?>
+
+                            <input type="hidden" name="vehiculoId" class="vehiculoId" value="<?php echo e($dueno->vehiculos[0]->id); ?>">
+                            <div class="col-sm-4 col-md-3 mt-3 col-lg-2 px-0">
+                              <div class="input-group mx-auto">
+                                <button style="z-index:1"type="button" onclick="generarCodigoTercero(<?php echo e($dueno->vehiculos[0]->id); ?>)" class="btn btn-success" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                              </div>
+                            </div>
+                            <?php echo e(Form::close()); ?>
+
+                          <?php endif; ?>
+                        <?php else: ?>
+                        <div class="text-right mt-3 px-3 pt-2 col-sm-6 col-md-6">
+                        <h5 class="mb-0 pb-0">  <label class="text-secondary"> Código de retiro: <b class="codigoTercero text-danger">  </b></label></h5>
                         </div>
-                        <?php echo e(Form::close()); ?>
 
-                      <?php else: ?>
-                      <div class="text-right mt-3 px-3 pt-2 col-sm-6 col-md-6">
-                      <h5 class="mb-0 pb-0">  <label class="text-secondary"> Código de retiro: <b class="codigoTercero text-danger">  </b></label></h5>
-                      </div>
-
-                      <?php endif; ?>
+                        <?php endif; ?>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -105,7 +130,17 @@
                                 </h5>
                                   <div class="col-sm-3  px-0">
                                     <div class="input-group mt-3">
+                                      <?php if(!empty($vehiculo->terceros->last())): ?>
+                                      <?php if($vehiculo->terceros->last()->activo == 0): ?>
+                                      <!-- Puede crear un código para terceros -->
                                       <button type="button" class="btn btn-success btn-sm" onclick="generarCodigoTercero(<?php echo e($vehiculo->id); ?>)" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                                      <?php else: ?>
+                                      <button type="button" class="btn btn-success btn-sm" disabled><b>Generar código</b></button>
+                                      <?php endif; ?>
+                                      <?php else: ?>
+                                      <button type="button" class="btn btn-success btn-sm" onclick="generarCodigoTercero(<?php echo e($vehiculo->id); ?>)" id="generarCodigo" name="generarCodigo" data-toggle="modal" data-target="#generarCodigoModal"><b>Generar código</b></button>
+                                      <?php endif; ?>
+
                                     </div>
                                   </div>
                                 </div>
@@ -143,8 +178,9 @@
 
                                         </td>
                                       </tr>
-                                      <?php if(isset($vehiculo->terceros->last()->codigo_tercero)
-                                      && (new \DateTime($vehiculo->terceros->last()->created_at))->format('Y-m-d') == date('Y-m-d')): ?>
+
+                                      <?php if(isset($vehiculo->terceros->last()->codigo_tercero) && !empty($vehiculo->terceros->last())): ?>
+                                      <?php if($vehiculo->terceros->last()->acivo == 0): ?>
                                       <tr>
                                         <th>Código de retiro </th>
                                         <td><b class="text-danger">
@@ -154,7 +190,7 @@
                                       </td>
                                       </tr>
                                       <?php endif; ?>
-
+                                      <?php endif; ?>
                                     </tbody>
                                   </table>
                                 </div>
@@ -195,8 +231,8 @@
                                 <tr>
                                   <th>Código de retiro </th>
                                   <td><b class="codigoTercero text-danger">
-                                    <?php if(isset($dueno->vehiculos[0]->terceros->last()->codigo_tercero)
-                                    && (new \DateTime($dueno->vehiculos[0]->terceros->last()->created_at))->format('Y-m-d') == date('Y-m-d')): ?>
+
+                                    <?php if(isset($dueno->vehiculos[0]->terceros->last()->codigo_tercero) && !empty($dueno->vehiculos[0]->terceros->last())): ?>
                                     <?php echo e($dueno->vehiculos[0]->terceros->last()->codigo_tercero); ?>
 
                                     <?php else: ?>
@@ -252,7 +288,7 @@
           </div>
           <div class="modal-body">
             Se ha generado el código correctamente! <br>
-            El código <b class="codigoTercero">  </b> solo será válido hasta las 23:59 <br><br>
+            El código <b class="codigoTercero">  </b> solo será valido hasta su uso. <br><br>
             ¿Desea envíar un correo a la cuenta
             <?php if(isset($dueno)): ?>
             <em><b><?php echo e($dueno->correo); ?></b></em>,

@@ -800,6 +800,10 @@ function cargarGraficoDiario(anio,mes){
     var totalDias = datos.totalDias;
     var entradas = datos.entradas;
     var salidas = datos.salidas;
+    var dias = [];
+    for(var i=1; i<=totalDias;i++){
+      dias[i-1] = i;
+    }
 
     var myChart = Highcharts.chart('container-diario',
     {
@@ -825,8 +829,7 @@ function cargarGraficoDiario(anio,mes){
     xAxis: {
       tickWidth: 0,
       type: 'day',
-      min:1,
-      categories: [],
+      categories: dias,
       title:{
       text: 'Días'
     },
@@ -855,8 +858,7 @@ function cargarGraficoDiario(anio,mes){
      series: {
        label: {
            connectorAllowed: false
-       },
-     pointStart: 0
+       }
      }
    },
    series: [

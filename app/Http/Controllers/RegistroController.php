@@ -32,10 +32,6 @@ class RegistroController extends Controller
     public function find(Request $request)
     {
       setlocale(LC_ALL, 'es_CL');
-        /*$this->validate($request, [
-          'codigo' => 'required',
-        ]);*/
-        // Genero esta validación, porque este controlador no me esta tomando validate
         if(empty($request->input('codigo'))){
           return view('registrar.index',['danger'=>'Ingrese un código']);
         }
@@ -50,7 +46,7 @@ class RegistroController extends Controller
           }
         }
 
-        $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
+        //$vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
 
         if($vehiculo->isInside){
           $accion="Salida";
@@ -68,8 +64,7 @@ class RegistroController extends Controller
 
     public function hasCodeTercero(Vehiculo $vehiculo){
         $tercero = Tercero::where('vehiculo_id','=',$vehiculo->id)
-        ->where('created_at','like',date("Y-m-d").'%')
-        ->orderBy('id','desc')
+        ->where('activo','=',1)
         ->first();
         if(isset($tercero->codigo_tercero)){
           return true;
@@ -99,11 +94,6 @@ class RegistroController extends Controller
           return view('registrar.createCode', compact('registrarDueno'));
         }else{
           if($dueno->vehiculos->where('activo',true)->count() >= 1){
-            //dd(date($dueno->vehiculos[0]->terceros->last()->created_at));
-            //->where('created_at','like',date("Y-m-d").'%')
-            
-
-            //$dueno->vehiculos[0]->terceros->last()->created_at;
             return view('registrar.createCode', compact('dueno'));
           }else{
             return view('registrar.createCode',['danger'=>'El usuario no tiene bicicletas registradas']);
@@ -125,11 +115,12 @@ class RegistroController extends Controller
 
           $tercero = Tercero::where('codigo_tercero','=',$request->input('codigo'))
                       ->where('vehiculo_id','=',$request->input('vehiculo_id'))
-                      ->where('created_at','like',date("Y-m-d").'%')
-                      ->orderBy('id','desc')
+                      ->where('activo','=',1)
                       ->first();
 
           if(isset($tercero)){
+            $tercero->activo = 0;
+            $tercero->update();
             return "permitted";
           }
         }
@@ -148,8 +139,16 @@ class RegistroController extends Controller
     // Genera el código para retiro por terceros y lo guarda en la BD
     public function crearCodigoTercero(Request $request){
       if($request->ajax()){
+
         $codigoRetiroTercero = rand(1000,9999);
         $vehiculo_id = $request->input('vehiculoId');
+        $vehiculo = Vehiculo::find($vehiculo_id);
+        if(isset($vehiculo)){
+          if($this->hasCodeTercero($vehiculo)){
+            // Como la petición es ajax, no mostrara un mensaje si lo mando
+            return back();
+          }
+        }
 
         Tercero::create([
           "vehiculo_id" => $vehiculo_id,
@@ -162,7 +161,11 @@ class RegistroController extends Controller
       return back()->with('danger','Error al cargar el código para retiro por terceros');
     }
 
-
+    public function obtenerCodigoTerceroActual(Vehiculo $vehiculo){
+      $codigoTercero = $vehiculo->terceros;
+      $codigoTercero = $codigoTercero->select('codigo_tercero')->where('activo','=',1)->first();
+      dd($codigoTercero);
+    }
 
     /**
      * Guarda el registro de entrada o salida de la bicicleta
@@ -176,7 +179,7 @@ class RegistroController extends Controller
       setlocale(LC_ALL, 'es_CL');
       $vehiculo = Vehiculo::find($request->input('vehiculo_id'));
 
-      $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
+    //  $vehiculoEnRegistro = $this->obtenerMovimientoVehiculo($vehiculo);
 
       if($vehiculo->isInside){
           $accion = "Salida";
@@ -242,8 +245,6 @@ class RegistroController extends Controller
 
   public function listarJson(Request $request){
 
-      $model = Registro::query();//->orderBy('registros.id', 'desc');
-      // return datatables()->eloquent(Usuario::query())->toJson();
       $modelo =  Registro::join('vehiculos','vehiculos.id', '=', 'vehiculo_id')
                 ->join('users','usuario_id','=','users.id')
                 ->join('marcas','vehiculos.marca_id','=','marcas.id')
@@ -278,11 +279,6 @@ class RegistroController extends Controller
 
     $fechaInicial = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$primerDia));
     $fechaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$ultimoDia));
-    /*
-    SELECT COUNT(*), DAY(created_at) FROM `registros`
-    where created_at BETWEEN '2019-06-01' and '2019-06-20'
-    GROUP BY DAY(created_at);
-    */
 
     $entradas = Registro::query()
     ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("DAY(created_at) as dia"))
@@ -297,16 +293,16 @@ class RegistroController extends Controller
     ->groupBy('dia')
     ->get();
 
-    for($i=0;$i<=$ultimoDia;$i++){
+    for($i=0;$i<$ultimoDia;$i++){
         $registrosEntrada[$i]=0;
         $registrosSalida[$i]=0;
     }
 
     foreach ($entradas as $registro) {
-      $registrosEntrada[($registro->dia)]=$registro->countRegistros;
+      $registrosEntrada[(($registro->dia)-1)]=$registro->countRegistros;
     }
     foreach ($salidas as $registro) {
-      $registrosSalida[($registro->dia)]=$registro->countRegistros;
+      $registrosSalida[(($registro->dia)-1)]=$registro->countRegistros;
     }
 
 
@@ -316,25 +312,21 @@ class RegistroController extends Controller
   }
 
   public function registrosPorHora($anio, $mes, $dia){
-    $horaInicial = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 00:00:00'));
-    $horaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 23:59:59'));
+    $fechaInicial = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 00:00:00'));
+    $fechaFinal   = date('Y-m-d H:i:s',strtotime($anio.'-'.$mes.'-'.$dia.' 23:59:59'));
     $rangoHora = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00',
                   '16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00'];
-    /*
-    SELECT COUNT(*), HOUR(created_at) FROM `registros`
-    where created_at BETWEEN '2019-06-01 00:00:00' and '2019-06-20 23:59:59'
-    GROUP BY HOUR(created_at);
-    */
+
     $entradas = Registro::query()
     ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("HOUR(created_at) as hora"))
-    ->whereBetween('created_at',[$horaInicial, $horaFinal])
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
     ->where('accion','=','Ingreso')
     ->groupBy('hora')
     ->get();
 
     $salidas = Registro::query()
     ->select(\DB::raw("COUNT(*) as countRegistros"), \DB::raw("HOUR(created_at) as hora"))
-    ->whereBetween('created_at',[$horaInicial, $horaFinal])
+    ->whereBetween('created_at',[$fechaInicial, $fechaFinal])
     ->where('accion','=','Salida')
     ->groupBy('hora')
     ->get();

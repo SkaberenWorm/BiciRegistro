@@ -48,7 +48,9 @@ $(document).ready(function() {
     "processing": true,
     'serverSide': true,
     ajax: "{{route('duenos.listar')}}",
-
+    "columnDefs": [
+        { className: "text-right", "targets": [ 7 ] }
+    ],
     'columns':[
           {'data':'id'},
           {'data':'imagen'},

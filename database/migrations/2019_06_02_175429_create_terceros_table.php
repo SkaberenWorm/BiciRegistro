@@ -18,6 +18,7 @@ class CreateTercerosTable extends Migration
             $table->integer('vehiculo_id')->unsigned()->index();
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
             $table->integer('codigo_tercero');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

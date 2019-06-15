@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<div class="container-fluid">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card" >
@@ -32,8 +32,13 @@
                                     <div class="col-7 text-right">
                                       <div class="form-check">
                                         <label class="" for="duenoExistente">
-                                        <input type="checkbox" id="duenoExistente" class="form-check-input" >
+                                        <input type="checkbox" id="duenoExistente" name="duenoExistente" class="form-check-input" >
                                         Existente</label>
+                                        <?php if($errors->has('duenoExistente')): ?>
+                                            <span class="invalid-feedback duenoExistente" role="alert">
+                                                <strong><?php echo e($errors->first('duenoExistente')); ?></strong>
+                                            </span>
+                                         <?php endif; ?>
                                       </div>
                                     </div>
                                   </div>
@@ -78,12 +83,24 @@
            $('input[name="celular_dueno"]').prop('disabled', true);
            $('select[name="tipoDueno"]').prop('disabled', true);
            $('input[name="image_dueno"]').prop('disabled', true);
+
+           $('.nombre_dueno').css('display','none');
+           $('.correo_dueno').css('display','none');
+           $('.celular_dueno').css('display','none');
+           $('.tipoDueno').css('display','none');
+           $('.image_dueno').css('display','none');
          }else{
            $('input[name="nombre_dueno"]').prop('disabled', false);
            $('input[name="correo_dueno"]').prop('disabled', false);
            $('input[name="celular_dueno"]').prop('disabled', false);
            $('select[name="tipoDueno"]').prop('disabled', false);
            $('input[name="image_dueno"]').prop('disabled', false);
+
+           $('.nombre_dueno').css('display','none');
+           $('.correo_dueno').css('display','none');
+           $('.celular_dueno').css('display','none');
+           $('.tipoDueno').css('display','none');
+           $('.image_dueno').css('display','none');
          }
        });
     </script>

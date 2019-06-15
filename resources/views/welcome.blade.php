@@ -10,6 +10,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link  defer href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -63,24 +64,37 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .btn-primary{
+              color: white !important;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Ingresar</a>
-                    @endauth
-                </div>
-            @endif
-
+          @if (Route::has('login'))
+              <div class="top-right links">
+                  @auth
+                      <a href="{{ url('/home') }}">Home</a>
+                  @else
+                      <a href="{{ route('login') }}">Ingresar</a>
+                  @endauth
+              </div>
+          @endif
             <div class="content">
                 <div class="title m-b-md">
                     Registro de bicicletas
+                    <div class="">
+
+                      @if (Route::has('login'))
+                              @auth
+                                  <a href="{{ url('/home') }}" class="btn btn-primary btn-lg"><b>Home</b></a>
+                              @else
+                                  <a href="{{ route('login') }}" class="btn btn-primary btn-lg"><b>Ingresar</b></a>
+                              @endauth
+                      @endif
+                    </div>
                 </div>
+
 
                 <!--div class="links">
                     <a href="https://github.com/Isma-camaleon/BicicletasDuocUC">GitHub</a>
