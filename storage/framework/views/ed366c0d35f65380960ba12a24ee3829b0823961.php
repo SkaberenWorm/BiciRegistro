@@ -17,11 +17,10 @@
                           <div class="my-3">
                             <h5 class="mb-3"><b><?php echo e($user->name); ?></b></h5>
                             <strong class="text-primary my-2"><?php echo e($user->email); ?></strong> <br>
-                            <div class="my-2">
+                            <div class="my-2 text-primary">
                               <?php $__currentLoopData = $user->roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <a class="" href="<?php echo e(route('roles.show', $role->id)); ?>" >
                                 <?php echo e($role->name); ?>  <em>(<?php echo e($role->description? : "sin descripción"); ?>)</em>
-                              </a><br>
+                              <br>
                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
 

@@ -19,11 +19,10 @@
                           <div class="my-3">
                             <h5 class="mb-3"><b>{{ $user->name }}</b></h5>
                             <strong class="text-primary my-2">{{ $user->email }}</strong> <br>
-                            <div class="my-2">
+                            <div class="my-2 text-primary">
                               @foreach($user->roles as $role)
-                                <a class="" href="{{route('roles.show', $role->id)}}" >
                                 {{$role->name}}  <em>({{ $role->description? : "sin descripción" }})</em>
-                              </a><br>
+                              <br>
                               @endforeach
                             </div>
 

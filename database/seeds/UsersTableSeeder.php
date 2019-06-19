@@ -40,20 +40,14 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user= User::create([
-            'name'      => 'Ismael Cuevas',
-            'email'     => 'ismael.c.26a@gmail.com',
-            'password'  => '$2y$10$bIckWkOCH2LimfpfCr/W0OqzEORozHhb9MbIsdNQV6I/vMJTuvjNK',
-        ]);
-        $user->roles()->sync(1);
-        $user= User::create([
-            'name'      => 'Richard Atton',
-            'email'     => 'r.atton@alumnos.duoc.cl',
-            'password'  => '$2y$10$xzeqj9IG.7HcePrSzVUuBOhJIP1ETEFpVn3fBS.fCI9UDnKbswuj2',
+            'name'      => 'Administrador',
+            'email'     => 'admin@duoc.cl',
+            'password'  => '$2y$10$n.ILjgJlox.bNiyjN1xuBubOAumZvtIZjRUfCiRj74ET.1RosWYu6',
         ]);
         $user->roles()->sync(1);
 
 
-        for ($i = 0; $i < 10; $i++) {
+        /*for ($i = 0; $i < 10; $i++) {
            $user = factory(BiciRegistro\User::class)->create();
            $user->roles()->sync(2);
          }
@@ -61,7 +55,7 @@ class UsersTableSeeder extends Seeder
          for ($i = 0; $i < 10; $i++) {
           $user = factory(BiciRegistro\User::class)->create();
           $user->roles()->sync(3);
-        }
-        
+        }*/
+
     }
 }

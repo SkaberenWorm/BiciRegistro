@@ -88,7 +88,7 @@
             </button>
           </div>
           <div class="modal-body">
-            ¿Está seguro(a) que desea deshabilitar este rol?
+            ¿Está seguro(a) que desea eliminar este rol?
 
                   <h5 class="mt-3 mb-1" id="roleNameModalDisable"></h5>
                   <em><label id="roleDesciptionModalDisable"></label></em>
