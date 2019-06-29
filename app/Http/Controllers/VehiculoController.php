@@ -289,7 +289,7 @@ class VehiculoController extends Controller
             return $vehiculo->marca->description;
         })
         ->addColumn('imagen', function($vehiculo) {
-            return '<img src="'.Storage::url($vehiculo->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
+            return '<img src="'.url('/').Storage::url($vehiculo->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
         })
 
         ->addColumn('accion', function($vehiculo) {

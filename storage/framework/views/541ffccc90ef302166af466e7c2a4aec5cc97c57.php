@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                        <img src="<?php echo e(Storage::url($dueno->image)); ?>" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
+                        <img src="<?php echo e(url('/')); ?><?php echo e(Storage::url($dueno->image)); ?>" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
                         </div>
                         <div class="col-md-9">
                           <table class="table responsive-md">

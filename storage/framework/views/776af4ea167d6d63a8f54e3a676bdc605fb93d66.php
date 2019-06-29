@@ -165,26 +165,6 @@ $(document).ready(function() {
 </script>
 
 
-<!--script type="text/javascript" class="init">
-
-$(document).ready(function() {
-  $('#example').DataTable({
-    "serverSide": true,
-    "ajax": "<?php echo e(url('api/vehiculos')); ?>",
-    "columns": [
-      {data:'id'},
-      {data:'image'},
-      {data:'codigo'},
-      {data:'modelo'},
-      {data:'modelo'},
-      {data:'color'},
-      {data:'dueno_id'},
-    ]
-  });
-} );
-
-</script-->
-
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

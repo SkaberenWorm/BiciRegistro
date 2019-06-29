@@ -28,7 +28,7 @@ class DuenoController extends Controller
         // return datatables()->eloquent(Usuario::query())->toJson();
         return datatables()->eloquent($model)
         ->addColumn('imagen', function($dueno) {
-            return '<img src="'.Storage::url($dueno->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
+            return '<img src="'.url('/').Storage::url($dueno->image).'" class="img-fluid rounded " style="max-height: 35px" alt="">';
         })
         ->addColumn('bicicletas', function($dueno) {
             return '<center>'.$dueno->vehiculos->count().'</center>';

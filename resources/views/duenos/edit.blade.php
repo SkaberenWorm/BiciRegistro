@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
+                            <img src="{{url('/')}}{{ Storage::url($dueno->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
                         </div>
                         <div class="col-md-8">
                             {{ Form::model($dueno, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'duenos.update', $dueno, 'file'=>true]]) }}

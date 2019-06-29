@@ -161,24 +161,4 @@ $(document).ready(function() {
 </script>
 
 
-<!--script type="text/javascript" class="init">
-
-$(document).ready(function() {
-  $('#example').DataTable({
-    "serverSide": true,
-    "ajax": "{{url('api/vehiculos')}}",
-    "columns": [
-      {data:'id'},
-      {data:'image'},
-      {data:'codigo'},
-      {data:'modelo'},
-      {data:'modelo'},
-      {data:'color'},
-      {data:'dueno_id'},
-    ]
-  });
-} );
-
-</script-->
-
 @endsection

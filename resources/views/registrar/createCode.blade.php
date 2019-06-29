@@ -73,7 +73,7 @@
                       <div class="col-sm-6">
                         <div class="card m-3">
                           <div class="card-body">
-                            <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
+                            <img src="{{url('/')}}{{ Storage::url($dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
                             <table class="table responsive-md table-sm mb-0 pb-0">
                               <tbody>
                                 <tr>
@@ -113,7 +113,7 @@
                             <div class="card-header py-0" id="heading{{$vehiculo->id}}">
                               <div class="row justify-content-center" data-toggle="collapse" data-target="#collapseOne{{$vehiculo->id}}" aria-expanded="true" aria-controls="collapseOne{{$vehiculo->id}}">
                                 <div class="col-sm-3 mt-1 px-0">
-                                  <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded" style="max-height:50px;" alt="">
+                                  <img src="{{url('/')}}{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded" style="max-height:50px;" alt="">
                                 </div>
                                 <h5 class="mb-0 col-sm-6  px-0">
                                   <a class="btn btn-link text-primary" style="text-decoration:none" data-toggle="collapse" data-target="#collapseOne{{$vehiculo->id}}" aria-expanded="true" aria-controls="collapseOne{{$vehiculo->id}}">
@@ -146,7 +146,7 @@
                             <div id="collapseOne{{$vehiculo->id}}" class="collapse" aria-labelledby="heading{{$vehiculo->id}}" data-parent="#accordion">
                               <div class="row card-body">
                                 <div class="col-sm-5">
-                                  <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;" alt="">
+                                  <img src="{{url('/')}}{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;" alt="">
 
                                 </div>
                                 <div class="col-sm-7">
@@ -197,7 +197,7 @@
                       <div class="col-sm-6">
                         <div class="card m-3 pb-4">
                           <div class="card-body">
-                            <img src="{{ Storage::url($dueno->vehiculos[0]->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
+                            <img src="{{url('/')}}{{ Storage::url($dueno->vehiculos[0]->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
                             <table class="table responsive-md table-sm mb-0 pb-0">
                               <tbody>
                                 <tr>

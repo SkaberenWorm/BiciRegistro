@@ -11,6 +11,6 @@ class DuenoTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(BiciRegistro\Dueno::class, 200)->create();
+        factory(BiciRegistro\Dueno::class, 100)->create();
     }
 }

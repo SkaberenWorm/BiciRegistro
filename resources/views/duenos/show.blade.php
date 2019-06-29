@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                        <img src="{{ Storage::url($dueno->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
+                        <img src="{{url('/')}}{{ Storage::url($dueno->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen dueño">
                         </div>
                         <div class="col-md-9">
                           <table class="table responsive-md">

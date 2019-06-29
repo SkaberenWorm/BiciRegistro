@@ -46,6 +46,13 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->roles()->sync(1);
 
+        $user= User::create([
+            'name'      => 'Guardia',
+            'email'     => 'guardia@duoc.cl',
+            'password'  => '$2y$10$n.ILjgJlox.bNiyjN1xuBubOAumZvtIZjRUfCiRj74ET.1RosWYu6',
+        ]);
+        $user->roles()->sync(2);
+
 
         /*for ($i = 0; $i < 10; $i++) {
            $user = factory(BiciRegistro\User::class)->create();

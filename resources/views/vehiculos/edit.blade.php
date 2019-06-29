@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
+                            <img src="{{url('/')}}{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
                         </div>
                         <div class="col-md-8">
                             {{ Form::model($vehiculo, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'vehiculos.update', $vehiculo, 'file'=>true]]) }}

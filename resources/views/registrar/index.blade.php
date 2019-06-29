@@ -89,7 +89,7 @@
                           <div class="card">
                             <div class="card-body mb-2">
                               <table class="table responsive-md table-sm mb-4">
-                                <img src="{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;" alt="">
+                                <img src="{{url('/')}}{{ Storage::url($vehiculo->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;" alt="">
                                 <tbody>
                                   <tr>
                                     <th scope="row" style="width:30%;">Código</th>
@@ -118,7 +118,7 @@
                         <div class="col-sm-6">
                           <div class="card">
                             <div class="card-body">
-                              <img src="{{ Storage::url($vehiculo->dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
+                              <img src="{{url('/')}}{{ Storage::url($vehiculo->dueno->image) }}" class="img-fluid rounded mx-auto d-block mb-3" style="max-height:200px;">
                               <table class="table responsive-md table-sm mb-0 pb-0">
                                 <tbody>
                                   <tr>

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="<?php echo e(Storage::url($user->image)); ?>" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
+                            <img src="<?php echo e(url('/')); ?><?php echo e(Storage::url($user->image)); ?>" class="img-fluid rounded img-thumbnail" alt=".   Imagen usuario">
                         </div>
                         <div class="col-md-8">
                             <?php echo e(Form::model($user, ['enctype' => 'multipart/form-data','method'  => 'put', 'route' => [ 'users.update', $user, 'file'=>true]])); ?>

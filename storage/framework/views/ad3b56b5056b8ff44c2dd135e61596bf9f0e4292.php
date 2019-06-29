@@ -13,7 +13,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4 pb-0 mb-0">
-                                <img src="<?php echo e(Storage::url($vehiculo->image)); ?>"class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
+                                <img src="<?php echo e(url('/')); ?><?php echo e(Storage::url($vehiculo->image)); ?>"class="img-fluid rounded img-thumbnail" alt=".   Imagen bicicleta">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -52,7 +52,7 @@
                     <div class="card m-3">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="<?php echo e(Storage::url($vehiculo->dueno->image)); ?>" class="img-fluid rounded img-thumbnail" alt="">
+                                <img src="<?php echo e(url('/')); ?><?php echo e(Storage::url($vehiculo->dueno->image)); ?>" class="img-fluid rounded img-thumbnail" alt="">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
